@@ -1,0 +1,151 @@
+/* ================= [1] المتغيرات الموحدة ================= */
+:root {
+  --mw-bodyB: #f9fafb;
+  --mw-bodyC: #1f2937;
+  --mw-contentB: #ffffff;
+  --mw-contentL: #e5e7eb;
+  --mw-headC: #111827;
+  --mw-linkB: #000000;
+  --mw-linkC: #3b82f6;
+  --mw-white: #ffffff;
+  --mw-notifB: #f9fafb;
+  --mw-notifC: #6b7280;
+  --mw-contentBa: #f4f8ff;
+}
+
+/* ================= [2] إعدادات عامة ================= */
+html, body {
+  margin: 0; padding: 0; overflow: hidden;
+  direction: rtl; text-align: right;
+}
+body {
+  color: var(--mw-bodyC); background: var(--mw-bodyB);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ================= [3] حاوية التطبيق ================= */
+.modweeb-fullpage {
+  position: fixed; inset: 0; background: var(--mw-bodyB);
+  z-index: 9999; display: flex; flex-direction: column;
+  min-height: 100vh; height: 100vh;
+}
+
+/* ================= [4] الهيدر ================= */
+header {
+  background: var(--mw-contentB); border-bottom: 1px solid var(--mw-contentL);
+  color: var(--mw-bodyC);
+}
+header a { color: var(--mw-headC); text-decoration: none; }
+
+/* ================= [5] شريط المسار (مصغر) ================= */
+.breadcrumb-nav {
+  margin-bottom: 1rem; padding: 0 0.25rem; text-align: right;
+}
+.breadcrumb-list {
+  display: flex; align-items: center; justify-content: flex-start;
+  gap: 0.3rem; flex-wrap: nowrap; /* سطر واحد */
+  overflow-x: auto;
+}
+.breadcrumb-item {
+  display: inline-flex; align-items: center; gap: 0.2rem;
+  font-size: 0.7rem; font-weight: 400; color: #9ca3af;
+  text-decoration: none; transition: color 0.3s ease;
+}
+.breadcrumb-item:hover { color: var(--mw-linkC); }
+.breadcrumb-item.active { color: #6b7280; font-weight: 500; }
+.breadcrumb-icon { transition: color 0.3s ease; }
+.breadcrumb-sep {
+  color: #d1d5db; font-size: 0.8rem; line-height: 1; user-select: none;
+}
+
+/* ================= [6] مساحة المحتوى ================= */
+.content-wrapper {
+  flex: 1; overflow-y: auto; padding: 1.5rem 1.5rem 80px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ================= [7] بطاقة الأداة ================= */
+.tool-card {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--mw-contentB); border: 1px solid #e5e7eb;
+  border-radius: 0.75rem; padding: 1rem 1.5rem;
+  max-width: 900px; margin: 0 auto;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 0 0 1px rgba(0,0,0,0.01);
+  cursor: pointer; text-decoration: none; color: inherit;
+  transition: all 0.2s ease; text-align: right;
+}
+.tool-card:hover {
+  border-color: var(--mw-linkC);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.tool-card-content { flex: 1; }
+.tool-card-title { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.2rem; color: var(--mw-headC); line-height: 1.3; }
+.tool-card-desc { font-size: 0.85rem; color: var(--mw-notifC); margin: 0; line-height: 1.5; }
+.tool-card-arrow { color: #9ca3af; flex-shrink: 0; margin-right: 1rem; transition: transform 0.2s ease; }
+.tool-card:hover .tool-card-arrow { transform: translateX(-4px); color: var(--mw-linkC); }
+
+/* ================= [8] الفوتر ================= */
+footer {
+  position: fixed; bottom: 0; left: 0; right: 0; width: 100%;
+  background: var(--mw-contentB); border-top: 1px solid var(--mw-contentL);
+}
+footer a { color: var(--mw-bodyC); font-size: 9px; }
+footer a:hover { color: var(--mw-headC); }
+footer span { font-size: 9px; }
+.footer-flex {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: space-between; gap: 2px; padding: 4px 1.25rem;
+  max-width: 64rem; margin: 0 auto;
+}
+@media (min-width: 640px) { .footer-flex { flex-direction: row; } }
+
+/* ================= [9] أيقونات الأدوات ================= */
+.tool-icon path, .tool-icon line, .tool-icon circle, .tool-icon rect, .tool-icon polyline {
+  stroke: currentColor; stroke-width: 1.8; fill: none;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ================= [10] تنسيقات الأداة (مختصرة) ================= */
+.minifier-tool {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--mw-bodyC); line-height: 1.5; font-size: 0.875rem;
+  min-height: 650px; display: flex; flex-direction: column;
+  border: 1px solid var(--mw-contentL); border-radius: 0.3rem;
+  overflow: hidden; background: var(--mw-contentB);
+  max-width: 1000px; margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  direction: rtl; text-align: right;
+}
+.minifier-status { font-size: 8px; color: var(--mw-notifC); padding: 2px 12px; background: var(--mw-notifB); text-align: center; display: none; position: sticky; z-index: 1000; width: 100%; box-sizing: border-box; top: 0; border-bottom: 1px solid var(--mw-contentL); }
+.minifier-header { padding: 0.4rem 1.5rem; border-bottom: 1px solid var(--mw-contentL); background: var(--mw-contentB); display: flex; justify-content: space-between; align-items: center; }
+.minifier-header-title { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 0.9rem; color: var(--mw-bodyC); }
+.minifier-header-actions { display: flex; gap: 0.4rem; align-items: center; }
+.minifier-btn { font-family: inherit; padding: 0.2rem 0.5rem; border: 1px solid var(--mw-contentL); color: var(--mw-bodyC); border-radius: 0.375rem; cursor: pointer; font-size: 0.65rem; font-weight: 500; transition: 0.1s; display: inline-flex; align-items: center; gap: 0.3rem; white-space: nowrap; background: var(--mw-contentB); }
+.minifier-btn:hover { background: var(--mw-contentBa); border-color: var(--mw-linkC); color: var(--mw-linkC); }
+.minifier-btn.primary { background: var(--mw-linkC) !important; border-color: var(--mw-linkC) !important; color: var(--mw-white) !important; }
+.minifier-btn.primary:hover { opacity: 0.9; }
+.minifier-btn.icon-only { width: 27px !important; height: 27px !important; border-radius: 50% !important; padding: 0 !important; justify-content: center !important; gap: 0 !important; font-size: 0 !important; background: var(--mw-contentBa) !important; color: var(--mw-notifC) !important; border: 1px solid var(--mw-contentL) !important; }
+.minifier-btn.icon-only svg { width: 18px; height: 18px; }
+.minifier-tabs { display: flex; width: 100%; box-sizing: border-box; border-bottom: 1px solid var(--mw-contentL); }
+.minifier-tab-btn { flex: 1; padding: 0.5rem; border: none; background: transparent; border-bottom: 1px solid transparent; cursor: pointer; font-weight: 500; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.25rem; color: var(--mw-notifC); transition: 0.1s; }
+.minifier-tab-btn.active { color: var(--mw-linkC); border-bottom-color: var(--mw-linkC); }
+.minifier-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.minifier-editor { flex: 1; display: flex; flex-direction: column; padding: 0.75rem; gap: 0.75rem; }
+.minifier-textarea { font-family: 'Courier New', monospace; width: 100%; flex: 1; min-height: 180px; padding: 16px; border: 0.5px solid #d1d5db; border-radius: 0.5rem; background: var(--mw-contentB); color: var(--mw-bodyC); font-size: 0.75rem; line-height: 1.7; resize: vertical; direction: rtl; text-align: right; box-sizing: border-box; }
+.minifier-textarea:focus { outline: none; border-color: var(--mw-linkC); box-shadow: 0 0 0 2px rgba(37,99,235,0.15); }
+.minify-stats { display: flex; gap: 1rem; font-size: 0.75rem; color: var(--mw-notifC); flex-wrap: wrap; align-items: center; }
+.minify-stats span { background: var(--mw-contentBa); padding: 0.2rem 0.6rem; border-radius: 1rem; border: 1px solid var(--mw-contentL); }
+.minifier-options { display: flex; gap: 1rem; align-items: center; font-size: 0.75rem; color: var(--mw-bodyC); padding: 0.25rem 0; flex-wrap: wrap; }
+.minifier-options label { display: flex; align-items: center; gap: 0.25rem; cursor: pointer; }
+.minifier-tool ::-webkit-scrollbar { width: 6px; height: 6px; }
+.minifier-tool ::-webkit-scrollbar-track { background: var(--mw-contentB); }
+.minifier-tool ::-webkit-scrollbar-thumb { background: var(--mw-contentL); border-radius: 3px; }
+.minifier-tool ::-webkit-scrollbar-thumb:hover { background: var(--mw-notifC); }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin 0.8s linear infinite; }
+@media (max-width: 600px) {
+  .minifier-tool { margin: 0; min-height: auto; max-height: none; }
+  .minifier-header { padding: 0.5rem 0.75rem; }
+  .minifier-header-actions { flex-wrap: wrap; }
+  .tool-card { padding: 0.75rem 1rem; }
+}
