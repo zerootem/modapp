@@ -1,4 +1,4 @@
-/* ================= [1] المتغيرات الموحدة ================= */
+/* ================= [1] المتغيرات الموحدة (الافتراضي: ضوء) ================= */
 :root {
   --mw-bodyB: #f9fafb;
   --mw-bodyC: #1f2937;
@@ -13,7 +13,7 @@
   --mw-contentBa: #f4f8ff;
 }
 
-/* ================= [2] إعدادات عامة ================= */
+/* ================= [2] إعدادات عامة واتجاه عربي ================= */
 html, body {
   margin: 0; padding: 0; overflow: hidden;
   direction: rtl; text-align: right;
@@ -37,13 +37,13 @@ header {
 }
 header a { color: var(--mw-headC); text-decoration: none; }
 
-/* ================= [5] شريط المسار (مصغر) ================= */
+/* ================= [5] شريط المسار ================= */
 .breadcrumb-nav {
   margin-bottom: 1rem; padding: 0 0.25rem; text-align: right;
 }
 .breadcrumb-list {
   display: flex; align-items: center; justify-content: flex-start;
-  gap: 0.3rem; flex-wrap: nowrap; /* سطر واحد */
+  gap: 0.3rem; flex-wrap: nowrap;
   overflow-x: auto;
 }
 .breadcrumb-item {
@@ -84,7 +84,67 @@ header a { color: var(--mw-headC); text-decoration: none; }
 .tool-card-arrow { color: #9ca3af; flex-shrink: 0; margin-right: 1rem; transition: transform 0.2s ease; }
 .tool-card:hover .tool-card-arrow { transform: translateX(-4px); color: var(--mw-linkC); }
 
-/* ================= [8] الفوتر ================= */
+/* ================= [8] زر تبديل الثيم ================= */
+.theme-toggle-btn {
+  background: var(--mw-contentB);
+  border: 1px solid var(--mw-contentL);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  color: var(--mw-bodyC);
+}
+.theme-toggle-btn:hover {
+  background: var(--mw-contentBa);
+  border-color: var(--mw-linkC);
+}
+.theme-toggle-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* القائمة المنسدلة */
+.theme-menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: var(--mw-contentB);
+  border: 1px solid var(--mw-contentL);
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  padding: 0.4rem;
+  min-width: 160px;
+  z-index: 100;
+}
+.theme-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background: transparent;
+  color: var(--mw-bodyC);
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.theme-menu-item:hover {
+  background: var(--mw-contentBa);
+}
+.theme-menu-item.active {
+  background: var(--mw-contentBa);
+  color: var(--mw-linkC);
+  font-weight: 600;
+}
+
+/* ================= [9] الفوتر ================= */
 footer {
   position: fixed; bottom: 0; left: 0; right: 0; width: 100%;
   background: var(--mw-contentB); border-top: 1px solid var(--mw-contentL);
@@ -99,13 +159,13 @@ footer span { font-size: 9px; }
 }
 @media (min-width: 640px) { .footer-flex { flex-direction: row; } }
 
-/* ================= [9] أيقونات الأدوات ================= */
+/* ================= [10] أيقونات الأدوات ================= */
 .tool-icon path, .tool-icon line, .tool-icon circle, .tool-icon rect, .tool-icon polyline {
   stroke: currentColor; stroke-width: 1.8; fill: none;
   stroke-linecap: round; stroke-linejoin: round;
 }
 
-/* ================= [10] تنسيقات الأداة (مختصرة) ================= */
+/* ================= [11] تنسيقات أداة ضغط الأكواد (مختصرة) ================= */
 .minifier-tool {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--mw-bodyC); line-height: 1.5; font-size: 0.875rem;
