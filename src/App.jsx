@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Breadcrumb from './components/Breadcrumb';
 import ToolsPage from './pages/ToolsPage';
 import ToolDetail from './pages/ToolDetail';
+import ImageToSvgPage from './pages/ImageToSvgPage';
 import './App.css';
 
 function App() {
@@ -20,9 +21,10 @@ function App() {
               <Route path="/" element={<Navigate to="/tools" replace />} />
               <Route path="/tools" element={<ToolsPage />} />
               <Route path="/tools/code-minifier" element={<ToolDetail />} />
+              <Route path="/tools/image-to-svg" element={<ImageToSvgPage />} />
             </Routes>
+            <Footer />
           </div>
-          <Footer />
         </div>
       </HashRouter>
     </ThemeProvider>

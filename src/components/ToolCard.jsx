@@ -10,9 +10,7 @@ function ToolCard() {
           أداة متقدمة لضغط وتنسيق أكواد CSS و JavaScript و HTML مع خيارات متعددة وتحسين الأداء.
         </p>
       </div>
-      <svg className="tool-card-arrow" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="9 18 15 12 9 6"/>
-      </svg>
+      {/* تمت إزالة أيقونة السهم بالكامل */}
     </Link>
   );
 }

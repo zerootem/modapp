@@ -19,6 +19,10 @@ export function ThemeProvider({ children }) {
       root.style.setProperty('--mw-notifB', '#1f2937');
       root.style.setProperty('--mw-notifC', '#e5e5e5');
       root.style.setProperty('--mw-contentBa', '#3a3a4a');
+      // ألوان مسار التنقل في الوضع الداكن (فاتحة للقراءة)
+      root.style.setProperty('--mw-breadcrumb', '#b0b7c3');
+      root.style.setProperty('--mw-breadcrumb-active', '#e0e0e0');
+      root.style.setProperty('--mw-breadcrumb-sep', '#8a8f98');
     } else {
       root.style.setProperty('--mw-bodyB', '#f9fafb');
       root.style.setProperty('--mw-bodyC', '#1f2937');
@@ -29,6 +33,10 @@ export function ThemeProvider({ children }) {
       root.style.setProperty('--mw-notifB', '#f9fafb');
       root.style.setProperty('--mw-notifC', '#6b7280');
       root.style.setProperty('--mw-contentBa', '#f4f8ff');
+      // ألوان مسار التنقل في الوضع الفاتح
+      root.style.setProperty('--mw-breadcrumb', '#6b7280');
+      root.style.setProperty('--mw-breadcrumb-active', '#4b5563');
+      root.style.setProperty('--mw-breadcrumb-sep', '#9ca3af');
     }
   }, []);
 
