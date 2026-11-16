@@ -2,12 +2,29 @@
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ModWeeb Tools</title>
-    <script type="module" crossorigin src="/modapp/assets/index-BwS8aM4c.js"></script>
-    <link rel="stylesheet" crossorigin href="/modapp/assets/index-BS__jJDK.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#e11462" />
+    <meta name="description" content="مركز ModApp للأدوات التوليدية: أدوات ويب عملية لضغط الأكواد وتحويل الصور وإنشاء صور المقالات." />
+    <title>ModApp — مركز الأدوات التوليدية</title>
+    <style>#modweebBootPreloader{z-index:2147483000;color:#1f2937;opacity:1;visibility:visible;background:#f9fafb;place-items:center;font:500 14px/1.5 Segoe UI,Tahoma,Arial,sans-serif;transition:opacity .22s,visibility .22s;display:grid;position:fixed;inset:0}#modweebBootPreloader.is-hidden{opacity:0;visibility:hidden;pointer-events:none}.modweeb-boot-card{text-align:center;justify-items:center;gap:.7rem;padding:1.25rem;display:grid}.modweeb-boot-mark{place-items:center;width:66px;height:66px;display:grid;position:relative}.modweeb-boot-ring{width:100%;height:100%;animation:1s linear infinite modweeb-boot-spin;position:absolute;inset:0}.modweeb-boot-ring circle{fill:none;stroke:#d1d5db;stroke-width:3px}.modweeb-boot-ring path{fill:none;stroke:#e11462;stroke-width:4px;stroke-linecap:round;stroke-dasharray:38 150}.modweeb-boot-logo{background:linear-gradient(135deg,#e11462,#6fcadc 48%,#3db88f 72%,#e9a920);border-radius:11px;width:34px;height:34px;box-shadow:0 5px 18px #2563eb25}@keyframes modweeb-boot-spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.modweeb-boot-ring{animation-duration:3s}#modweebBootPreloader{transition-duration:.01ms}}@media (prefers-color-scheme:dark){#modweebBootPreloader{color:#f3f4f6;background:#111827}.modweeb-boot-ring circle{stroke:#374151}}</style>
+    <script>
+      window.__modweebHidePreloader=function(){var e=document.getElementById('modweebBootPreloader');if(!e||e.classList.contains('is-hidden'))return;clearTimeout(window.__modweebPreloaderFallback);e.classList.add('is-hidden');setTimeout(function(){e.remove()},280)};
+      window.__modweebPreloaderFallback=setTimeout(function(){window.__modweebHidePreloader()},10000);
+    </script>
+    <script type="module" crossorigin src="/modapp/assets/index-zr6LBVP0.js"></script>
+    <link rel="stylesheet" crossorigin href="/modapp/assets/index-CjbZxn15.css">
   </head>
   <body>
+    <div id="modweebBootPreloader" role="status" aria-live="polite" aria-label="جارٍ تحميل مركز الأدوات">
+      <div class="modweeb-boot-card">
+        <div class="modweeb-boot-mark" aria-hidden="true">
+          <svg class="modweeb-boot-ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28"/><path d="M32 4a28 28 0 0 1 28 28"/></svg>
+          <span class="modweeb-boot-logo"></span>
+        </div>
+        <span>جارٍ تهيئة مركز الأدوات…</span>
+      </div>
+    </div>
     <div id="root"></div>
   </body>
 </html>

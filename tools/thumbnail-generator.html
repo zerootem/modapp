@@ -1,0 +1,2259 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="description" content="أنشئ صورة مصغرة لمقالك، وولّد خلفية أو شخصية أو رمزاً بالذكاء الاصطناعي، مع مساعد لتنسيق الألوان والخطوط والوسوم.">
+  <title>مولد الصور المصغرة بالذكاء الاصطناعي | ModApp</title>
+  <style>
+    .mw-boot-preloader{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;background:#f8fafc;color:#0f172a;opacity:1;visibility:visible;transition:opacity .24s ease,visibility .24s ease;font:500 14px/1.5 Cairo,Tajawal,Arial,sans-serif}
+    .mw-boot-preloader.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
+    .mw-boot-card{display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:1.25rem;text-align:center}
+    .mw-boot-mark{width:70px;height:70px;position:relative;display:grid;place-items:center}
+    .mw-boot-ring{position:absolute;inset:0;width:100%;height:100%;animation:mw-boot-spin 1.1s linear infinite}
+    .mw-boot-ring circle{fill:none;stroke:#d5dbe6;stroke-width:3}
+    .mw-boot-ring path{fill:none;stroke:#e11462;stroke-width:4;stroke-linecap:round;stroke-dasharray:40 150}
+    .mw-boot-logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#e11462,#6fcadc 45%,#3db88f 70%,#e9a920);box-shadow:0 6px 18px #2563eb26}
+    @keyframes mw-boot-spin{to{transform:rotate(360deg)}}
+    @media(prefers-reduced-motion:reduce){.mw-boot-ring{animation-duration:3s}.mw-boot-preloader{transition-duration:.01ms}}
+    @media(prefers-color-scheme:dark){.mw-boot-preloader{background:#111827;color:#f3f4f6}.mw-boot-ring circle{stroke:#374151}}
+  </style>
+  <script>
+    window.__hideThumbnailBoot=function(){var e=document.getElementById('mwBootPreloader');if(!e||e.classList.contains('is-hidden'))return;clearTimeout(window.__thumbnailBootFallback);e.classList.add('is-hidden');setTimeout(function(){e.remove()},300)};
+    window.__thumbnailBootFallback=setTimeout(function(){window.__hideThumbnailBoot()},10000);
+  </script>
+</head>
+<body>
+  <div class="mw-boot-preloader" id="mwBootPreloader" role="status" aria-live="polite" aria-label="جارٍ تحميل مولد الصور">
+    <div class="mw-boot-card">
+      <div class="mw-boot-mark" aria-hidden="true"><svg class="mw-boot-ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28"/><path d="M32 4a28 28 0 0 1 28 28"/></svg><span class="mw-boot-logo"></span></div>
+      <span>جارٍ تهيئة مولد الصور…</span>
+    </div>
+  </div>
+<!-- ============================================================
+     مولد الصور المصغرة V3 - نسخة modweeb (محدّثة)
+     ============================================================ -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&family=Almarai:wght@400;700;800&family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+/* ============================================================
+   المتغيرات الأساسية
+   ============================================================ */
+:root {
+  --bodyC: #0f172a;
+  --contentB: #ffffff;
+  --contentL: #e2e8f0;
+  --contentBa: #f8fafc;
+  --linkC: #2563eb;
+  --fotC: #475569;
+  --white: #ffffff;
+  --border-radius: 0.5rem;
+  --btn-radius: 0.375rem;
+  --icon-btn-size: 28px;
+  --notifC: #888;
+  --notifB: #f7f7f7;
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --transition: 0.2s ease;
+  --headC: #0f172a;
+  --bodyB: #f8fafc;
+}
+
+/* ============================================================
+   إطار الأداة
+   ============================================================ */
+.mw-thumb-generator {
+  display: flex;
+  flex-direction: column;
+  max-width: 820px;
+  width: 100%;
+  max-height: 90vh;
+  margin: 20px auto;
+  background: var(--contentB);
+  color: var(--bodyC);
+  border: 1px solid var(--contentL);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-family: sans-serif;
+  text-align: right;
+  box-sizing: border-box;
+}
+.mw-thumb-generator *,
+.mw-thumb-generator *::before,
+.mw-thumb-generator *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================
+   شريط الإشعارات
+   ============================================================ */
+.mw-status {
+  font-size: 9px;
+  color: var(--notifC);
+  padding: 2px 12px;
+  background: var(--notifB);
+  text-align: center;
+  display: none;
+  position: sticky;
+  z-index: 1000;
+  width: 100%;
+  top: 0;
+  border-bottom: 1px solid var(--contentL);
+}
+.mw-status.error { color: #ef4444; }
+
+/* ============================================================
+   الهيدر
+   ============================================================ */
+.mw-header {
+  padding: 0.3rem 1rem;
+  border-bottom: 1px solid var(--contentL);
+  background: var(--bodyB);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.mw-header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--bodyC);
+}
+.mw-header-actions {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+.mw-btn {
+  font-family: sans-serif;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid var(--contentL);
+  color: var(--bodyC);
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.6rem;
+  font-weight: 500;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  white-space: nowrap;
+  background: var(--contentB);
+}
+.mw-btn:hover {
+  background: var(--contentBa);
+  border-color: var(--linkC);
+  color: var(--linkC);
+}
+.mw-btn.primary {
+  background: var(--linkC) !important;
+  border-color: var(--linkC) !important;
+  color: var(--white) !important;
+}
+.mw-btn.primary:hover { opacity: 0.9; }
+.mw-btn.icon-only {
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  font-size: 0 !important;
+  background: var(--linkC) !important;
+  color: var(--white) !important;
+  border: 1px solid var(--contentL) !important;
+}
+.mw-btn.icon-only svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  fill: none;
+}
+.mw-btn.danger {
+  background: #ef4444 !important;
+  border-color: #ef4444 !important;
+  color: var(--white) !important;
+}
+
+/* ============================================================
+   المعاينة المثبتة
+   ============================================================ */
+.mw-preview-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--contentB);
+  padding: 0.3rem 0.5rem;
+  border-bottom: 1px solid var(--contentL);
+  transition: all 0.3s ease;
+}
+.mw-preview-sticky.collapsed { padding: 0.15rem 0.5rem; }
+.mw-preview-sticky .mw-preview-toolbar {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--contentBa);
+  border-radius: var(--btn-radius);
+  border: 1px solid var(--contentL);
+  margin-bottom: 4px;
+}
+.mw-preview-sticky .mw-preview-frame {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid var(--contentL);
+  background: var(--contentB);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  position: relative;
+}
+.mw-preview-sticky.collapsed .mw-preview-frame {
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  opacity: 0;
+}
+.mw-preview-sticky .mw-preview-frame canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ============================================================
+   المحتوى القابل للتمرير
+   ============================================================ */
+.mw-scroll-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  scrollbar-width: thin;
+  min-height: 0;
+}
+.mw-scroll-content::-webkit-scrollbar { width: 5px; }
+.mw-scroll-content::-webkit-scrollbar-track {
+  background: var(--contentBa);
+  border-radius: 3px;
+}
+.mw-scroll-content::-webkit-scrollbar-thumb {
+  background: var(--contentL);
+  border-radius: 3px;
+}
+
+/* ============================================================
+   صناديق الأقسام (قابلة للطي والسحب)
+   ============================================================ */
+.mw-section {
+  background: var(--contentBa);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--contentL);
+  padding: 8px 10px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.mw-section.dragging { opacity: 0.5; box-shadow: var(--shadow-md); }
+.mw-section.drop-target {
+  border-color: var(--linkC);
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+}
+.mw-section.collapsed .mw-section-body { display: none; }
+.mw-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--contentL); /* الخط الفاصل بين العنوان والعناصر */
+  cursor: pointer;
+  user-select: none;
+}
+.mw-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--bodyC);
+  flex: 1;
+}
+.mw-collapse-btn {
+  background: transparent;
+  border: 1px solid var(--contentL);
+  color: var(--notifC);
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* زر دائري */
+  transition: background 0.2s, color 0.2s;
+}
+.mw-collapse-btn:hover {
+  background: var(--contentBa);
+  color: var(--linkC);
+}
+.mw-collapse-btn svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  transition: transform 0.2s;
+}
+.mw-section.collapsed .mw-collapse-btn svg { transform: rotate(-90deg); }
+.mw-drag-handle {
+  cursor: grab;
+  color: var(--notifC);
+  padding: 0 2px;
+  font-size: 12px;
+  user-select: none;
+}
+.mw-drag-handle:hover { color: var(--linkC); }
+.mw-section.dragging .mw-drag-handle { cursor: grabbing; }
+.mw-reset-btn {
+  background: transparent;
+  border: 1px solid var(--contentL);
+  color: var(--notifC);
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
+  margin-left: 6px;
+}
+.mw-reset-btn:hover {
+  background: var(--contentBa);
+  color: var(--linkC);
+}
+.mw-reset-btn svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+.mw-grid-2 {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  gap: 6px;
+}
+.mw-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px;
+}
+@media (max-width: 600px) {
+  .mw-grid-2, .mw-grid-3 { grid-template-columns: 2fr 2fr; }
+}
+.mw-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.mw-field label {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--bodyC);
+}
+.mw-field .mw-input,
+.mw-field .mw-select {
+  width: 100%;
+  padding: 2px 4px;
+  border: 1px solid var(--contentL);
+  border-radius: var(--btn-radius);
+  font-size: 9px;
+  background: var(--contentB);
+  font-family: sans-serif;
+  color: var(--bodyC);
+  height: 22px;
+}
+.mw-field .mw-input:focus,
+.mw-field .mw-select:focus {
+  outline: none;
+  border-color: var(--linkC);
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
+}
+.mw-field .mw-input[type="file"] {
+  padding: 1px;
+  font-size: 8px;
+  height: auto;
+}
+.mw-field .mw-input[type="color"] {
+  padding: 1px;
+  height: 24px;
+  cursor: pointer;
+  min-width: 28px;
+}
+.mw-field .color-preview {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid var(--contentL);
+  flex-shrink: 0;
+}
+.mw-field .color-wrap {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.mw-field .color-wrap .mw-input[type="color"] {
+  flex: 1;
+  min-width: 24px;
+}
+
+/* ============================================================
+   أزرار التحريك
+   ============================================================ */
+.mw-pos-group {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  margin-top: 3px;
+}
+.mw-pos-btn {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border-radius: 8px;
+  background: var(--contentBa);
+  border: 1px solid var(--contentL);
+  color: var(--bodyC);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+.mw-pos-btn:hover {
+  background: var(--linkC);
+  color: var(--white);
+  border-color: var(--linkC);
+}
+.mw-pos-btn svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* ============================================================
+   التاجات - تنسيق محسّن
+   ============================================================ */
+.mw-tags-container { margin: 2px 0; }
+.mw-tag-input-row {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.mw-tag-input-row .mw-input {
+  flex: 1;
+  height: 28px;
+  font-size: 10px;
+  padding: 2px 8px;
+  border: 1px solid var(--contentL);
+  border-radius: var(--btn-radius);
+  background: var(--contentB);
+  color: var(--bodyC);
+  font-family: sans-serif;
+}
+.mw-tag-input-row .mw-input:focus {
+  outline: none;
+  border-color: var(--linkC);
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
+}
+.mw-add-tag-btn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: var(--linkC);
+  color: var(--white);
+  border: none;
+  border-radius: var(--btn-radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+.mw-add-tag-btn:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+.mw-add-tag-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--white);
+  stroke-width: 2.5;
+  fill: none;
+}
+.mw-tags-list {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+.mw-tag {
+  background: var(--contentBa);
+  color: var(--bodyC);
+  border: 1px solid var(--contentL);
+  padding: 3px 8px 3px 5px;
+  border-radius: 12px;
+  font-size: 9px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition);
+}
+.mw-tag:hover {
+  border-color: var(--linkC);
+  background: var(--contentB);
+}
+.mw-remove-tag {
+  background: var(--contentL);
+  border: none;
+  color: var(--bodyC);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: var(--transition);
+}
+.mw-remove-tag:hover {
+  background: #ef4444;
+  color: var(--white);
+}
+.mw-remove-tag svg {
+  width: 7px;
+  height: 7px;
+  stroke: currentColor;
+  stroke-width: 3;
+  fill: none;
+}
+
+/* ============================================================
+   عناصر أخرى
+   ============================================================ */
+.mw-divider {
+  border: none;
+  border-top: 1px solid var(--contentL);
+  margin: 2px 0 4px 0;
+}
+.mw-flex {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.mw-flex-wrap { flex-wrap: wrap; }
+.mw-alert {
+  font-size: 9px;
+  color: var(--bodyC);
+  line-height: 1.3;
+}
+.mw-alert code {
+  background: var(--contentBa);
+  padding: 0 3px;
+  border-radius: 2px;
+  font-size: 8px;
+  border: 1px solid var(--contentL);
+}
+.mw-icon-picker {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.mw-icon-option {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--contentL);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--contentB);
+  transition: var(--transition);
+}
+.mw-icon-option:hover,
+.mw-icon-option.active {
+  border-color: var(--linkC);
+  background: var(--contentBa);
+}
+.mw-icon-option svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* ============================================================
+   القائمة المنسدلة للتحميل
+   ============================================================ */
+.mw-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.mw-dropdown-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: calc(100% + 3px);
+  background: var(--contentB);
+  min-width: 80px;
+  border: 1px solid var(--contentL);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  z-index: 30;
+  padding: 0.15rem 0;
+}
+.mw-dropdown-content.active { display: block; }
+.mw-dropdown-content .mw-btn {
+  border: none;
+  border-radius: 0;
+  padding: 0.15rem 0.6rem;
+  width: 100%;
+  justify-content: flex-start;
+  background: transparent;
+  font-size: 0.6rem;
+}
+.mw-dropdown-content .mw-btn:hover {
+  background: var(--contentBa);
+  color: var(--linkC);
+}
+
+/* ============================================================
+   نافذة التأكيد
+   ============================================================ */
+.mw-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+.mw-modal.active { display: flex; }
+.mw-modal-content {
+  background: var(--contentB);
+  border: 1px solid var(--contentL);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  min-width: 260px;
+  max-width: 90%;
+  box-shadow: var(--shadow-md);
+  font-family: sans-serif;
+  color: var(--bodyC);
+}
+.mw-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.mw-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.mw-modal-body .mw-btn {
+  width: 100%;
+  justify-content: center;
+}
+.mw-modal-actions {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+.mw-modal-actions .mw-btn {
+  flex: 1;
+  justify-content: center;
+}
+
+
+/* تحسين كثافة القالب المرفق لتكون النصوص والحقول واضحة على الهاتف */
+body { margin:0; min-height:100vh; background:var(--bodyB,#f8fafc); color:var(--bodyC,#0f172a); font-family:Cairo,Tajawal,Arial,sans-serif; }
+.mw-thumb-generator { font-size:14px; line-height:1.5; font-family:Cairo,Tajawal,Arial,sans-serif; }
+.mw-thumb-generator .mw-btn { font-family:inherit; font-size:.78rem; line-height:1.35; min-height:32px; padding:.38rem .62rem; }
+.mw-thumb-generator .mw-btn.icon-only { min-width:34px; min-height:34px; padding:.42rem; }
+.mw-back-center { display:inline-flex; align-items:center; justify-content:center; gap:.3rem; white-space:nowrap; text-decoration:none; font-size:.75rem!important; }
+.mw-ai-section .mw-section-body { display:block; }
+.mw-ai-copy { margin:0 0 .7rem; padding:.55rem .7rem; border:1px solid var(--contentL); border-radius:.55rem; color:var(--notifC); font-size:.72rem; line-height:1.65; background:var(--contentBa); }
+.mw-ai-copy a { color:var(--linkC); }
+.mw-ai-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem; }
+.mw-ai-field { min-width:0; display:flex; flex-direction:column; gap:.3rem; }
+.mw-ai-field label { font-size:.76rem; font-weight:700; }
+.mw-ai-field select,.mw-ai-field textarea { width:100%; min-width:0; border:1px solid var(--contentL); border-radius:.5rem; background:var(--contentB); color:var(--bodyC); font:inherit; font-size:.8rem; padding:.5rem .6rem; }
+.mw-ai-field textarea { min-height:76px; resize:vertical; grid-column:1/-1; }
+.mw-ai-field-prompt { grid-column:1/-1; }
+.mw-ai-actions,.mw-ai-result-actions { display:flex; flex-wrap:wrap; align-items:center; gap:.45rem; margin-top:.65rem; }
+.mw-ai-actions .mw-btn.primary { background:var(--linkC); color:#fff; border-color:var(--linkC); }
+.mw-ai-actions .mw-btn:disabled,.mw-ai-result-actions .mw-btn:disabled { opacity:.55; cursor:wait; }
+#mwAiStatus { min-height:1.3em; margin:.4rem 0 0; color:var(--notifC); font-size:.75rem; }
+#mwAiStatus[data-state="error"] { color:#dc2626; }
+.mw-ai-result { margin-top:.75rem; padding:.65rem; border:1px solid var(--contentL); border-radius:.6rem; background:var(--contentBa); }
+.mw-ai-result[hidden] { display:none!important; }
+.mw-ai-result img { display:block; width:100%; max-height:260px; object-fit:contain; border-radius:.45rem; background:#e5e7eb; }
+@media (max-width:620px) {
+  .mw-thumb-generator { width:100%; margin:0 auto; max-height:none; min-height:100vh; border-radius:0; border-inline:0; }
+  .mw-header { padding:.35rem .55rem; gap:.4rem; }
+  .mw-header-actions { gap:.2rem; }
+  .mw-back-center { font-size:.68rem!important; padding:.32rem .4rem!important; }
+  .mw-ai-form { gap:.5rem; }
+}
+@media (prefers-color-scheme:dark) {
+  :root { --bodyC:#e5e7eb; --contentB:#1f2937; --contentL:#374151; --contentBa:#111827; --bodyB:#111827; --headC:#f9fafb; --white:#111827; --notifB:#1f2937; --notifC:#9ca3af; --linkC:#60a5fa; }
+}
+
+</style>
+
+<!-- ============================================================
+     هيكل الأداة
+     ============================================================ -->
+<div class="mw-thumb-generator" id="mwTool">
+
+  <!-- شريط الإشعارات -->
+  <div id="mwStatus" class="mw-status"></div>
+
+  <!-- الهيدر -->
+  <div class="mw-header">
+    <div class="mw-header-title">
+      <span>مولد الصور المصغرة</span>
+      <span style="font-size:0.55rem;background:var(--contentBa);padding:0.05rem 0.4rem;border-radius:1rem;border:1px solid var(--contentL);color:var(--notifC);">V3</span>
+    </div>
+    <div class="mw-header-actions">
+      <a class="mw-btn mw-back-center" href="../#/tools" aria-label="العودة إلى مركز الأدوات" title="العودة إلى مركز الأدوات">← المركز</a>
+      <button class="mw-btn icon-only" id="mwResetHeaderBtn"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+      <div class="mw-dropdown">
+        <button class="mw-btn icon-only" id="mwDownloadToggleBtn"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+        <div class="mw-dropdown-content" id="mwDownloadDropdown">
+          <button class="mw-btn" data-format="webp" data-quality="0.92">WebP</button>
+          <button class="mw-btn" data-format="png" data-quality="1.0">PNG</button>
+          <button class="mw-btn" data-format="jpeg" data-quality="0.92">JPEG</button>
+        </div>
+      </div>
+      <button class="mw-btn icon-only" id="mwCopyImageBtn"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      <button class="mw-btn icon-only" id="mwSaveSettingsBtn"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
+    </div>
+  </div>
+
+  <!-- المعاينة المثبتة -->
+  <div class="mw-preview-sticky" id="mwPreviewSticky">
+    <div class="mw-preview-toolbar">
+      <span class="mw-alert">معاينة مباشرة <code>الحجم: <span id="mwPreviewSizeText">16:9</span></code></span>
+      <div class="mw-flex">
+        <button class="mw-btn icon-only" id="mwTogglePreviewBtn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+      </div>
+    </div>
+    <div class="mw-preview-frame" id="mwPreviewFrame">
+      <canvas id="mwThumbCanvas" class="canvas-dom" width="1280" height="720"></canvas>
+    </div>
+  </div>
+
+  <!-- المحتوى القابل للتمرير مع أقسام قابلة للسحب -->
+  <div class="mw-scroll-content" id="mwSectionsContainer">
+    <div class="mw-section mw-ai-section collapsed" data-section-id="aiGeneration" draggable="true">
+      <div class="mw-section-header">
+        <span class="mw-drag-handle" title="اسحب لإعادة الترتيب">⠿</span>
+        <div class="mw-section-title">توليد الصور ومساعد التصميم بالذكاء الاصطناعي</div>
+        <button class="mw-collapse-btn" type="button" aria-label="فتح أو طي قسم توليد الذكاء الاصطناعي"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+      </div>
+      <div class="mw-section-body">
+        <p class="mw-ai-copy">تستخدم الأداة مسار Pollinations Classic المجاني حالياً بلا مفتاح؛ وقد تتغير حدود الخدمة. عند الطلب يُرسل الوصف، أو العنوان والوصف لمساعد التصميم؛ وقد تُخزّن الخدمة المخرجات مؤقتاً (حتى نحو 30 يوماً وفق السياسة) وتسجل بيانات تقنية. تحفظ الأداة إعدادات التصميم والصور محلياً في متصفحك. لا ترسل معلومات حساسة. <a href="https://pollinations.ai/privacy" target="_blank" rel="noopener noreferrer">سياسة الخصوصية</a>.</p>
+        <div class="mw-ai-form">
+          <div class="mw-ai-field">
+            <label for="mwAiImageKind">نوع الصورة</label>
+            <select id="mwAiImageKind"><option value="background">خلفية للمقال</option><option value="character">شخصية / صورة رئيسية</option><option value="icon">رمز / أيقونة</option></select>
+          </div>
+          <div class="mw-ai-field">
+            <label for="mwAiImageRatio">أبعاد الصورة</label>
+            <select id="mwAiImageRatio"><option value="16:9">16:9 — خلفية</option><option value="1:1">1:1 — شخصية أو رمز</option><option value="4:3">4:3</option></select>
+          </div>
+          <div class="mw-ai-field mw-ai-field-prompt">
+            <label for="mwAiPrompt">صف الصورة التي تريدها</label>
+            <textarea id="mwAiPrompt" maxlength="700" placeholder="مثال: خلفية تقنية زرقاء هادئة مع مساحة فارغة لعنوان عربي…"></textarea>
+          </div>
+        </div>
+        <div class="mw-ai-actions">
+          <button id="mwAiGenerateBtn" type="button" class="mw-btn primary">توليد صورة</button>
+          <button id="mwAiCancelBtn" type="button" class="mw-btn" hidden>إلغاء الطلب</button>
+          <button id="mwDesignAssistBtn" type="button" class="mw-btn">مساعد التصميم الذكي</button>
+        </div>
+        <p class="mw-ai-copy" style="margin-top:.45rem;margin-bottom:0">مساعد التصميم يعتمد على عنوان المقال ووصفه الحاليين، ويقترح ألواناً وخطاً ووسوماً آمنة. عند تطبيق الوسوم قد يستبدل الوسوم الموجودة.</p>
+        <div id="mwAiStatus" role="status" aria-live="polite"></div>
+        <div id="mwAiResult" class="mw-ai-result" hidden>
+          <img id="mwAiResultImage" alt="معاينة الصورة المولدة">
+          <div class="mw-ai-result-actions">
+            <button id="mwAiDownloadBtn" type="button" class="mw-btn">تنزيل الصورة</button>
+            <button type="button" class="mw-btn" data-ai-apply="background">استخدام كخلفية</button>
+            <button type="button" class="mw-btn" data-ai-apply="character">إضافة كشخصية</button>
+            <button type="button" class="mw-btn" data-ai-apply="icon">استخدام كرمز زاوية</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- القسم 1: الخلفية والنسبة + اختيار نوع الخط -->
+    <div class="mw-section" data-section-id="background" draggable="true">
+      <div class="mw-section-header">
+        <span class="mw-drag-handle" title="اسحب لإعادة الترتيب">⠿</span>
+        <div class="mw-section-title">الخلفية والنسبة والخط</div>
+        <button class="mw-reset-btn" data-section-id="background"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+        <button class="mw-collapse-btn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+      </div>
+      <div class="mw-section-body">
+        <div class="mw-grid-2">
+          <div class="mw-field"><label>خلفية (صورة)</label><input id="mwBgFile" class="mw-input" type="file" accept="image/*"></div>
+          <div class="mw-field"><label>لون الخلفية</label><div class="color-wrap"><input id="mwBgColor" class="mw-input" type="color" value="#f8fafc"><div id="mwBgColorPreview" class="color-preview" style="background:#f8fafc"></div></div></div>
+          <div class="mw-field"><label>النسبة (Ratio)</label><select id="mwRatio" class="mw-select"><option value="1.7777777777777777">16:9</option><option value="1.3333333333333333">4:3</option><option value="1.9047619047619047">1.91:1</option><option value="0.8333333333333334">3:4</option></select></div>
+          <div class="mw-field"><label>المحاذاة</label><select id="mwAlignment" class="mw-select"><option value="right">يسار</option><option value="center">وسط</option><option value="left">يمين</option></select></div>
+          <div class="mw-field"><label>هامش الحواف (%)</label><input id="mwMarginScale" class="mw-input" type="number" value="250" min="30" max="500" step="10"></div>
+          <div class="mw-field"><label>نوع الخط</label><select id="mwFontFamily" class="mw-select">
+            <option value="'Cairo', sans-serif">Cairo (عربي)</option>
+            <option value="'Tajawal', sans-serif">Tajawal (عربي)</option>
+            <option value="'Almarai', sans-serif">Almarai (عربي)</option>
+            <option value="'Inter', sans-serif">Inter (إنجليزي)</option>
+            <option value="'Poppins', sans-serif">Poppins (إنجليزي)</option>
+            <option value="'Roboto', sans-serif">Roboto (إنجليزي)</option>
+          </select></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- القسم 2: ألوان النصوص -->
+    <div class="mw-section" data-section-id="textColors" draggable="true">
+      <div class="mw-section-header">
+        <span class="mw-drag-handle" title="اسحب لإعادة الترتيب">⠿</span>
+        <div class="mw-section-title">ألوان النصوص</div>
+        <button class="mw-reset-btn" data-section-id="textColors"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+        <button class="mw-collapse-btn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+      </div>
+      <div class="mw-section-body">
+        <div class="mw-grid-2">
+          <div class="mw-field"><label>لون العنوان</label><input id="mwTitleColor" class="mw-input" type="color" value="#0f172a"></div>
+          <div class="mw-field"><label>لون الوصف</label><input id="mwDescColor" class="mw-input" type="color" value="#667085"></div>
+          <div class="mw-field"><label>لون التاجات (نص)</label><input id="mwTagTextColor" class="mw-input" type="color" value="#0f172a"></div>
+          <div class="mw-field"><label>لون الناشر/التاريخ</label><input id="mwOrgColor" class="mw-input" type="color" value="#0f172a"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- القسم 3: التاجات -->
+    <div class="mw-section" data-section-id="tags" draggable="true">
+      <div class="mw-section-header">
+        <span class="mw-drag-handle" title="اسحب لإعادة الترتيب">⠿</span>
+        <div class="mw-section-title">الفئات / التاجات</div>
+        <button class="mw-reset-btn" data-section-id="tags"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+        <button class="mw-collapse-btn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+      </div>
+      <div class="mw-section-body">
+        <div class="mw-tags-container">
+          <div class="mw-tag-input-row">
+            <input type="text" id="mwTagInput" class="mw-input" placeholder="أضف فئة جديدة...">
+            <button id="mwAddTagBtn" class="mw-add-tag-btn"><svg viewBox="0 0 24 24"><path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"/><path d="M8 12H16"/><path d="M12 16V8"/></svg></button>
+          </div>
+          <div id="mwTagsList" class="mw-tags-list"></div>
+        </div>
+        <hr class="mw-divider">
+        <div class="mw-section-title" style="font-size:0.6rem;border-bottom:none;margin-bottom:1px;">تحكم في أيقونة التاجات</div>
+        <div class="mw-grid-2">
+          <div class="mw-field"><label>إزاحة X</label><input id="mwTagIconOffsetX" class="mw-input" type="number" value="0" step="2" min="-100" max="100"></div>
+          <div class="mw-field"><label>إزاحة Y</label><input id="mwTagIconOffsetY" class="mw-input" type="number" value="0" step="2" min="-50" max="50"></div>
+          <div class="mw-field"><label>المسافة</label><input id="mwTagIconSpacing" class="mw-input" type="number" value="12" step="2" min="0" max="60"></div>
+          <div class="mw-field"><label>لون الأيقونة</label><input id="mwTagIconColor" class="mw-input" type="color" value="#888888"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- القسم 4: العنوان -->
+    <div class="mw-section" data-section-id="title" draggable="true">
+      <div class="mw-section-header">
+        <span class="mw-drag-handle" title="اسحب لإعادة الترتيب">⠿</span>
+        <div class="mw-section-title">العنوان</div>
+        <button class="mw-reset-btn" data-section-id="title"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+        <button class="mw-collapse-btn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+      </div>
+      <div class="mw-section-body">
+        <div class="mw-grid-2">
+          <div class="mw-field"><label>نص العنوان</label><input id="mwTitle" class="mw-input" type="text" placeholder="اكتب العنوان هنا" value="عنوان المثال الكبير عنوان المثال عنوان المثال الكبير عنوان المثال الكبير"></div>
+          <div class="mw-field"><label>حجم الخط (px)</label><input id="mwTitleSize" class="mw-input" type="number" value="58" min="20" max="100"></div>
+          <div class="mw-field"><label>الموقع Y</label><input id="mwTitleY" class="mw-input" type="number" value="340" min="50" max="500"></div>
+          <div class="mw-field"><label>المسافة</label><input id="mwTitleSpacing" class="mw-input" type="number" value="25" min="10" max="50"></div>
+          <div class="mw-field"><label>عرض السطر الأول (%)</label><input id="mwTitleFirstLineWidth" class="mw-input" type="number" value="65" min="30" max="100" step="1"></div>
+          <div class="mw-field"><label>المسافة الفاصلة</label><input id="mwTitleLineSpacing" class="mw-input" type="number" value="1.3" min="1" max="2" step="0.1"></div>
+        </div>
+        <div class="mw-pos-group">
+          <button class="mw-pos-btn" id="mwTitleUp"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 15.5V9.5"/><path d="M9 11.5L12 8.5L15 11.5"/></svg></button>
+          <button class="mw-pos-btn" id="mwTitleDown"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 8.5V14.5"/><path d="M9 12.5L12 15.5L15 12.5"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- القسم 5: الوصف -->
+    <div class="mw-section" data-section-id="description" draggable="true">
+      <div class="mw-section-header">
+        <span class="mw-drag-handle" title="اسحب لإعادة الترتيب">⠿</span>
+        <div class="mw-section-title">الوصف</div>
+        <button class="mw-reset-btn" data-section-id="description"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+        <button class="mw-collapse-btn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+      </div>
+      <div class="mw-section-body">
+        <div class="mw-grid-2">
+          <div class="mw-field"><label>نص الوصف</label><input id="mwDescription" class="mw-input" type="text" placeholder="سطر وصفي قصير" value="هذا وصف تجريبي للمقالة. هذا وصف تجريبي للمقالة. هذا وصف تجريبي للمقالة. هذا وصف تجريبي للمقالة."></div>
+          <div class="mw-field"><label>حجم الخط (px)</label><input id="mwDescSize" class="mw-input" type="number" value="34" min="12" max="50"></div>
+          <div class="mw-field"><label>الموقع Y</label><input id="mwDescY" class="mw-input" type="number" value="470" min="100" max="600"></div>
+          <div class="mw-field"><label>المسافة</label><input id="mwDescSpacing" class="mw-input" type="number" value="20" min="10" max="50"></div>
+          <div class="mw-field"><label>عرض السطر الأول (%)</label><input id="mwDescFirstLineWidth" class="mw-input" type="number" value="65" min="30" max="100" step="1"></div>
+          <div class="mw-field"><label>المسافة الفاصلة</label><input id="mwDescLineSpacing" class="mw-input" type="number" value="1.2" min="1" max="2" step="0.1"></div>
+        </div>
+        <div class="mw-pos-group">
+          <button class="mw-pos-btn" id="mwDescUp"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 15.5V9.5"/><path d="M9 11.5L12 8.5L15 11.5"/></svg></button>
+          <button class="mw-pos-btn" id="mwDescDown"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 8.5V14.5"/><path d="M9 12.5L12 15.5L15 12.5"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- القسم 6: الناشر والتاريخ -->
+    <div class="mw-section" data-section-id="publisher" draggable="true">
+      <div class="mw-section-header">
+        <span class="mw-drag-handle" title="اسحب لإعادة الترتيب">⠿</span>
+        <div class="mw-section-title">الناشر والتاريخ</div>
+        <button class="mw-reset-btn" data-section-id="publisher"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+        <button class="mw-collapse-btn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+      </div>
+      <div class="mw-section-body">
+        <div class="mw-grid-2">
+          <div class="mw-field"><label>رفع شعار (Logo)</label><input id="mwLogoFile" class="mw-input" type="file" accept="image/*"></div>
+          <div class="mw-field"><label>اسم المؤسسة / الموقع</label><input id="mwOrganization" class="mw-input" type="text" placeholder="اسم الموقع" value="Modweeb Design"></div>
+          <div class="mw-field"><label>تاريخ النشر</label><input id="mwPublishDate" class="mw-input" type="date"></div>
+          <div class="mw-field"><label>موقع الناشر Y</label><input id="mwOrgY" class="mw-input" type="number" value="80" min="20" max="200"></div>
+          <div class="mw-field"><label>مسافة الشعار</label><input id="mwLogoSpacing" class="mw-input" type="number" value="15" min="5" max="40"></div>
+          <div class="mw-field"><label>موقع الفئات Y</label><input id="mwTagsY" class="mw-input" type="number" value="220" min="80" max="300"></div>
+        </div>
+        <div class="mw-pos-group">
+          <button class="mw-pos-btn" id="mwOrgUp"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 15.5V9.5"/><path d="M9 11.5L12 8.5L15 11.5"/></svg></button>
+          <button class="mw-pos-btn" id="mwOrgDown"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 8.5V14.5"/><path d="M9 12.5L12 15.5L15 12.5"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- القسم 7: صورة المنتج -->
+    <div class="mw-section" data-section-id="product" draggable="true">
+      <div class="mw-section-header">
+        <span class="mw-drag-handle" title="اسحب لإعادة الترتيب">⠿</span>
+        <div class="mw-section-title">صورة المنتج</div>
+        <button class="mw-reset-btn" data-section-id="product"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+        <button class="mw-collapse-btn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+      </div>
+      <div class="mw-section-body">
+        <div class="mw-grid-2">
+          <div class="mw-field"><label>رفع صورة المنتج</label><input id="mwProductFile" class="mw-input" type="file" accept="image/png,image/jpeg"></div>
+          <div class="mw-field"><label>الموقع X</label><input id="mwProdX" class="mw-input" type="number" value="950" min="0" max="1280"></div>
+          <div class="mw-field"><label>الموقع Y</label><input id="mwProdY" class="mw-input" type="number" value="450" min="0" max="720"></div>
+          <div class="mw-field"><label>الحجم (%)</label><input id="mwProdScale" class="mw-input" type="number" value="30" min="1" max="100"></div>
+        </div>
+        <div class="mw-pos-group">
+          <button class="mw-pos-btn" id="mwProdUp"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 15.5V9.5"/><path d="M9 11.5L12 8.5L15 11.5"/></svg></button>
+          <button class="mw-pos-btn" id="mwProdDown"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 8.5V14.5"/><path d="M9 12.5L12 15.5L15 12.5"/></svg></button>
+          <button class="mw-pos-btn" id="mwProdLeft"><svg viewBox="0 0 24 24"><path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"/><path d="M15.5 12H9.5"/><path d="M11.5 9L8.5 12L11.5 15"/></svg></button>
+          <button class="mw-pos-btn" id="mwProdRight"><svg viewBox="0 0 24 24"><path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"/><path d="M8.5 12H14.5"/><path d="M12.5 9L15.5 12L12.5 15"/></svg></button>
+          <button class="mw-pos-btn" id="mwProdZoomIn"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M8 12H16"/><path d="M12 16V8"/></svg></button>
+          <button class="mw-pos-btn" id="mwProdZoomOut"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M8 12H16"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- القسم 8: العلامة المائية -->
+    <div class="mw-section" data-section-id="watermark" draggable="true">
+      <div class="mw-section-header">
+        <span class="mw-drag-handle" title="اسحب لإعادة الترتيب">⠿</span>
+        <div class="mw-section-title">العلامة المائية</div>
+        <button class="mw-reset-btn" data-section-id="watermark"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+        <button class="mw-collapse-btn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+      </div>
+      <div class="mw-section-body">
+        <div class="mw-grid-2">
+          <div class="mw-field"><label>رفع العلامة المائية</label><input id="mwWatermarkFile" class="mw-input" type="file" accept="image/*,.svg"></div>
+          <div class="mw-field"><label>الموقع X</label><input id="mwWmX" class="mw-input" type="number" value="50" min="0" max="1280"></div>
+          <div class="mw-field"><label>الموقع Y</label><input id="mwWmY" class="mw-input" type="number" value="50" min="0" max="720"></div>
+          <div class="mw-field"><label>الحجم (%)</label><input id="mwWmScale" class="mw-input" type="number" value="10" min="1" max="100"></div>
+        </div>
+        <div class="mw-pos-group">
+          <button class="mw-pos-btn" id="mwWmUp"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 15.5V9.5"/><path d="M9 11.5L12 8.5L15 11.5"/></svg></button>
+          <button class="mw-pos-btn" id="mwWmDown"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 8.5V14.5"/><path d="M9 12.5L12 15.5L15 12.5"/></svg></button>
+          <button class="mw-pos-btn" id="mwWmLeft"><svg viewBox="0 0 24 24"><path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"/><path d="M15.5 12H9.5"/><path d="M11.5 9L8.5 12L11.5 15"/></svg></button>
+          <button class="mw-pos-btn" id="mwWmRight"><svg viewBox="0 0 24 24"><path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"/><path d="M8.5 12H14.5"/><path d="M12.5 9L15.5 12L12.5 15"/></svg></button>
+          <button class="mw-pos-btn" id="mwWmZoomIn"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M8 12H16"/><path d="M12 16V8"/></svg></button>
+          <button class="mw-pos-btn" id="mwWmZoomOut"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M8 12H16"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- القسم 9: الزاوية الأيقونية -->
+    <div class="mw-section" data-section-id="corner" draggable="true">
+      <div class="mw-section-header">
+        <span class="mw-drag-handle" title="اسحب لإعادة الترتيب">⠿</span>
+        <div class="mw-section-title">الزاوية الأيقونية</div>
+        <button class="mw-reset-btn" data-section-id="corner"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+        <button class="mw-collapse-btn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+      </div>
+      <div class="mw-section-body">
+        <div class="mw-grid-2">
+          <div class="mw-field"><label>SVG مخصص</label><input id="mwCornerSvg" class="mw-input" type="text" placeholder="الصق SVG هنا..."></div>
+          <div class="mw-field"><label>الحجم (%)</label><input id="mwCornerSize" class="mw-input" type="number" value="100" min="20" max="300" step="5"></div>
+          <div class="mw-field"><label>الموقع X</label><input id="mwCornerX" class="mw-input" type="number" value="0" min="-500" max="500" step="5"></div>
+          <div class="mw-field"><label>الموقع Y</label><input id="mwCornerY" class="mw-input" type="number" value="0" min="-500" max="500" step="5"></div>
+          <div class="mw-field"><label>اللون</label><input id="mwCornerColor" class="mw-input" type="color" value="#0ea5a4"></div>
+          <div class="mw-field"><label>الشفافية</label><input id="mwCornerOpacity" class="mw-input" type="number" value="80" min="0" max="100" step="1"></div>
+          <div class="mw-field"><label>تأثير الحواف</label><select id="mwCornerEffect" class="mw-select"><option value="none">بدون</option><option value="blur">ضبابي</option><option value="glow">توهج</option><option value="fade">تدرج</option></select></div>
+          <div class="mw-field"><label>قوة التأثير</label><input id="mwCornerEffectStrength" class="mw-input" type="number" value="5" min="1" max="50" step="1"></div>
+        </div>
+        <div class="mw-icon-picker" id="mwCornerIconPicker">
+          <!-- أيقونات جاهزة -->
+        </div>
+        <div class="mw-pos-group">
+          <button class="mw-pos-btn" id="mwCornerUp"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 15.5V9.5"/><path d="M9 11.5L12 8.5L15 11.5"/></svg></button>
+          <button class="mw-pos-btn" id="mwCornerDown"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 8.5V14.5"/><path d="M9 12.5L12 15.5L15 12.5"/></svg></button>
+          <button class="mw-pos-btn" id="mwCornerLeft"><svg viewBox="0 0 24 24"><path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"/><path d="M15.5 12H9.5"/><path d="M11.5 9L8.5 12L11.5 15"/></svg></button>
+          <button class="mw-pos-btn" id="mwCornerRight"><svg viewBox="0 0 24 24"><path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"/><path d="M8.5 12H14.5"/><path d="M12.5 9L15.5 12L12.5 15"/></svg></button>
+          <button class="mw-pos-btn" id="mwCornerSizeUp"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M8 12H16"/><path d="M12 16V8"/></svg></button>
+          <button class="mw-pos-btn" id="mwCornerSizeDown"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M8 12H16"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- نافذة تأكيد إعادة التعيين -->
+  <div id="mwResetConfirmModal" class="mw-modal">
+    <div class="mw-modal-content">
+      <div class="mw-modal-header"><span>تأكيد إعادة التعيين</span><button class="mw-btn icon-only" id="mwCloseResetModalBtn"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+      <div class="mw-modal-body">
+        <p style="font-size:0.8rem;">هل أنت متأكد من إعادة تعيين جميع الإعدادات إلى القيم الافتراضية؟</p>
+        <div class="mw-modal-actions">
+          <button class="mw-btn danger" id="mwConfirmResetBtn">نعم، إعادة تعيين</button>
+          <button class="mw-btn" id="mwCancelResetBtn">إلغاء</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة تأكيد التحميل -->
+  <div id="mwDownloadConfirmModal" class="mw-modal">
+    <div class="mw-modal-content">
+      <div class="mw-modal-header"><span>تأكيد التحميل</span><button class="mw-btn icon-only" id="mwCloseDownloadModalBtn"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+      <div class="mw-modal-body">
+        <p style="font-size:0.8rem;">هل تريد تحميل الصورة بصيغة <span id="mwDownloadFormatText">PNG</span>؟</p>
+        <div class="mw-modal-actions">
+          <button class="mw-btn primary" id="mwConfirmDownloadBtn">نعم، تحميل</button>
+          <button class="mw-btn" id="mwCancelDownloadBtn">إلغاء</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+'use strict';
+
+// ============================================================
+// عناصر DOM
+// ============================================================
+const tool = document.querySelector('.mw-thumb-generator');
+if(!tool) return;
+const q = s => tool.querySelector(s);
+const canvas = q('#mwThumbCanvas');
+const ctx = canvas.getContext('2d', { alpha: true });
+const statusEl = q('#mwStatus');
+const sectionsContainer = q('#mwSectionsContainer');
+
+// ============================================================
+// عناصر التحكم
+// ============================================================
+const bgFile = q('#mwBgFile'), bgColor = q('#mwBgColor'), bgColorPreview = q('#mwBgColorPreview');
+const titleInput = q('#mwTitle'), descInput = q('#mwDescription'), orgInput = q('#mwOrganization'), dateInput = q('#mwPublishDate');
+const logoFile = q('#mwLogoFile'), ratioSelect = q('#mwRatio'), alignment = q('#mwAlignment');
+const titleSize = q('#mwTitleSize'), descSize = q('#mwDescSize');
+const titleFirstLineWidth = q('#mwTitleFirstLineWidth'), descFirstLineWidth = q('#mwDescFirstLineWidth');
+const marginScaleInput = q('#mwMarginScale'), titleYInput = q('#mwTitleY'), titleSpacingInput = q('#mwTitleSpacing');
+const titleLineSpacingInput = q('#mwTitleLineSpacing'), descYInput = q('#mwDescY'), descSpacingInput = q('#mwDescSpacing');
+const descLineSpacingInput = q('#mwDescLineSpacing'), orgYInput = q('#mwOrgY'), logoSpacingInput = q('#mwLogoSpacing'), tagsYInput = q('#mwTagsY');
+const titleColor = q('#mwTitleColor'), descColor = q('#mwDescColor'), tagTextColor = q('#mwTagTextColor'), orgColor = q('#mwOrgColor');
+const tagInput = q('#mwTagInput'), addTagBtn = q('#mwAddTagBtn'), tagsList = q('#mwTagsList');
+const tagIconColor = q('#mwTagIconColor'), tagIconOffsetX = q('#mwTagIconOffsetX'), tagIconOffsetY = q('#mwTagIconOffsetY'), tagIconSpacing = q('#mwTagIconSpacing');
+const watermarkFile = q('#mwWatermarkFile'), wmX = q('#mwWmX'), wmY = q('#mwWmY'), wmScale = q('#mwWmScale');
+const productFile = q('#mwProductFile'), prodX = q('#mwProdX'), prodY = q('#mwProdY'), prodScale = q('#mwProdScale');
+const cornerSvgInput = q('#mwCornerSvg'), cornerSizeInput = q('#mwCornerSize'), cornerXInput = q('#mwCornerX'), cornerYInput = q('#mwCornerY');
+const cornerColorInput = q('#mwCornerColor'), cornerOpacityInput = q('#mwCornerOpacity'), cornerEffectSelect = q('#mwCornerEffect'), cornerEffectStrengthInput = q('#mwCornerEffectStrength');
+const fontFamilySelect = q('#mwFontFamily');
+
+// أزرار التحريك
+const titleUp = q('#mwTitleUp'), titleDown = q('#mwTitleDown'), descUp = q('#mwDescUp'), descDown = q('#mwDescDown');
+const orgUp = q('#mwOrgUp'), orgDown = q('#mwOrgDown');
+const cornerUp = q('#mwCornerUp'), cornerDown = q('#mwCornerDown'), cornerLeft = q('#mwCornerLeft'), cornerRight = q('#mwCornerRight');
+const cornerSizeUp = q('#mwCornerSizeUp'), cornerSizeDown = q('#mwCornerSizeDown');
+const prodUp = q('#mwProdUp'), prodDown = q('#mwProdDown'), prodLeft = q('#mwProdLeft'), prodRight = q('#mwProdRight');
+const prodZoomIn = q('#mwProdZoomIn'), prodZoomOut = q('#mwProdZoomOut');
+const wmUp = q('#mwWmUp'), wmDown = q('#mwWmDown'), wmLeft = q('#mwWmLeft'), wmRight = q('#mwWmRight');
+const wmZoomIn = q('#mwWmZoomIn'), wmZoomOut = q('#mwWmZoomOut');
+
+// أزرار الهيدر
+const resetHeaderBtn = q('#mwResetHeaderBtn'), downloadToggleBtn = q('#mwDownloadToggleBtn');
+const downloadDropdown = q('#mwDownloadDropdown'), saveSettingsBtn = q('#mwSaveSettingsBtn');
+const togglePreviewBtn = q('#mwTogglePreviewBtn'), previewSticky = q('#mwPreviewSticky');
+const previewSizeText = q('#mwPreviewSizeText');
+const copyImageBtn = q('#mwCopyImageBtn');
+
+// نافذة التأكيد (إعادة التعيين)
+const resetModal = q('#mwResetConfirmModal'), closeResetModalBtn = q('#mwCloseResetModalBtn');
+const confirmResetBtn = q('#mwConfirmResetBtn'), cancelResetBtn = q('#mwCancelResetBtn');
+
+// نافذة تأكيد التحميل
+const downloadModal = q('#mwDownloadConfirmModal'), closeDownloadModalBtn = q('#mwCloseDownloadModalBtn');
+const confirmDownloadBtn = q('#mwConfirmDownloadBtn'), cancelDownloadBtn = q('#mwCancelDownloadBtn');
+const downloadFormatText = q('#mwDownloadFormatText');
+
+// ============================================================
+// حالة الأداة
+// ============================================================
+let bgImage = null, logoImage = null, watermarkImage = null, productImage = null, customCornerImage = null, tagIconImage = null;
+let tags = ['بلوجر','ادوات','شروحات','شبكات'];
+let baseWidth = 1280, isPreviewVisible = true;
+let selectedFont = "'Cairo', sans-serif";
+let autoSaveInterval = null;
+let pendingDownload = null; // لتخزين بيانات التحميل المؤقتة
+
+const defaultPositions = { title: 340, description: 470, organization: 80, tags: 220 };
+const defaultSpacing = { logo: 15, title: 25, description: 20 };
+let positions = JSON.parse(JSON.stringify(defaultPositions));
+let spacing = JSON.parse(JSON.stringify(defaultSpacing));
+
+// ============================================================
+// دوال مساعدة
+// ============================================================
+let notifTimeout = null;
+function showNotification(msg, isError = false) {
+  clearTimeout(notifTimeout);
+  statusEl.textContent = msg;
+  statusEl.style.display = 'block';
+  statusEl.className = 'mw-status' + (isError ? ' error' : '');
+  notifTimeout = setTimeout(() => { statusEl.style.display = 'none'; }, 2200);
+}
+
+function hexToRgba(hex, alpha = 1) {
+  if(!hex) return `rgba(0,0,0,${alpha})`;
+  hex = hex.replace('#','');
+  if(hex.length === 3) hex = hex.split('').map(h => h+h).join('');
+  const r = parseInt(hex.substring(0,2),16), g = parseInt(hex.substring(2,4),16), b = parseInt(hex.substring(4,6),16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+function getLightenedHex(hex, mix = 0.85) {
+  if(!hex || hex.length < 4) return '#ffffff';
+  hex = hex.replace('#','');
+  if(hex.length === 3) hex = hex.split('').map(h => h+h).join('');
+  const r = parseInt(hex.substring(0,2),16), g = parseInt(hex.substring(2,4),16), b = parseInt(hex.substring(4,6),16);
+  const w = 255;
+  const rn = Math.round(r*(1-mix)+w*mix), gn = Math.round(g*(1-mix)+w*mix), bn = Math.round(b*(1-mix)+w*mix);
+  return '#'+[rn,gn,bn].map(x => { const h = x.toString(16); return h.length === 1 ? '0'+h : h; }).join('');
+}
+function loadImageFromFile(file, maxDim = 2000) {
+  return new Promise((res, rej) => {
+    if(!file) { res(null); return; }
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      if(img.width > maxDim || img.height > maxDim) {
+        const ratio = Math.min(maxDim/img.width, maxDim/img.height);
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * ratio);
+        canvas.height = Math.round(img.height * ratio);
+        const cctx = canvas.getContext('2d');
+        cctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const compressedImg = new Image();
+        compressedImg.onload = () => res(compressedImg);
+        compressedImg.src = canvas.toDataURL('image/jpeg', 0.85);
+      } else {
+        res(img);
+      }
+    };
+    img.onerror = e => { URL.revokeObjectURL(url); rej(e); };
+    img.src = url;
+  });
+}
+function imageToBase64(img) {
+  return new Promise(resolve => {
+    const c = document.createElement('canvas');
+    c.width = img.naturalWidth || img.width;
+    c.height = img.naturalHeight || img.height;
+    const cx = c.getContext('2d');
+    cx.drawImage(img, 0, 0);
+    resolve(c.toDataURL('image/png'));
+  });
+}
+function loadBase64Image(dataURL) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.src = dataURL;
+  });
+}
+
+// دالة النصوص متعددة الأسطر - تستخدم الخط المحدد
+function drawTruncatedText(ctx, text, x, y, maxWidth, fontSize, maxLines, fontFamily, color, align, lineHeightFactor = 1.3, fontWeight = '400', firstLineMaxWidth = null) {
+  if(!text || text.trim() === '') return;
+  if(!firstLineMaxWidth) firstLineMaxWidth = maxWidth;
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+  ctx.textAlign = 'left';
+  const words = text.split(' ');
+  let lines = [], currentLine = '', lineIndex = 0, lineMax = firstLineMaxWidth;
+  for(let i = 0; i < words.length; i++) {
+    const testLine = currentLine + (currentLine ? ' ' : '') + words[i];
+    const metrics = ctx.measureText(testLine);
+    if(metrics.width > lineMax && currentLine !== '') {
+      lines.push(currentLine);
+      lineIndex++;
+      currentLine = words[i];
+      if(lineIndex === 1) lineMax = maxWidth;
+      if(lines.length >= maxLines) break;
+    } else {
+      currentLine = testLine;
+    }
+  }
+  if(currentLine !== '' && lines.length < maxLines) lines.push(currentLine);
+  const wordsConsumed = lines.join(' ').split(' ').length;
+  const truncated = (wordsConsumed < words.length);
+  if(truncated && lines.length === maxLines) {
+    let lastLine = lines[maxLines-1];
+    const suffix = '...';
+    for(let len = lastLine.length; len > 3; len--) {
+      const testLine = lastLine.substring(0, len) + suffix;
+      if(ctx.measureText(testLine).width <= maxWidth) {
+        lines[maxLines-1] = testLine;
+        break;
+      }
+    }
+  }
+  for(let i = 0; i < lines.length; i++) {
+    let lineX = x;
+    const lineWidth = ctx.measureText(lines[i]).width;
+    if(align === 'center') lineX = x - lineWidth/2;
+    else if(align === 'right') lineX = x - lineWidth;
+    ctx.fillText(lines[i], lineX, y + i * fontSize * lineHeightFactor);
+  }
+  ctx.restore();
+}
+
+CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+  if(w < 2*r) r = w/2;
+  if(h < 2*r) r = h/2;
+  this.beginPath();
+  this.moveTo(x+r, y);
+  this.arcTo(x+w, y, x+w, y+h, r);
+  this.arcTo(x+w, y+h, x, y+h, r);
+  this.arcTo(x, y+h, x, y, r);
+  this.arcTo(x, y, x+w, y, r);
+  this.closePath();
+  return this;
+};
+
+function updateColorPreviews() {
+  bgColorPreview.style.background = bgColor.value;
+}
+
+// ============================================================
+// دوال التاجات
+// ============================================================
+function updateTagsDisplay() {
+  tagsList.innerHTML = '';
+  const removeIcon = `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none"><path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"/><path d="M9.16998 14.83L14.83 9.17004"/><path d="M14.83 14.83L9.16998 9.17004"/></svg>`;
+  tags.forEach((tag, index) => {
+    const el = document.createElement('div');
+    el.className = 'mw-tag';
+    el.innerHTML = `${tag} <button class="mw-remove-tag" data-index="${index}" title="إزالة">${removeIcon}</button>`;
+    tagsList.appendChild(el);
+  });
+  tagsList.querySelectorAll('.mw-remove-tag').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const idx = parseInt(this.dataset.index);
+      tags.splice(idx, 1);
+      updateTagsDisplay();
+      renderCanvas();
+      showNotification('تم حذف التاج');
+    });
+  });
+}
+function addTag() {
+  const val = tagInput.value.trim();
+  if(val && !tags.includes(val)) {
+    tags.push(val);
+    tagInput.value = '';
+    updateTagsDisplay();
+    renderCanvas();
+    showNotification('تم إضافة التاج');
+  } else {
+    showNotification('التاج موجود أو فارغ', true);
+  }
+}
+function buildTagIcon(color) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.40476 15.5264L8.93476 20.0564C10.7948 21.9164 13.8148 21.9164 15.6848 20.0564L20.0748 15.6664C21.9348 13.8064 21.9348 10.7864 20.0748 8.91637L15.5348 4.39637C14.5848 3.44637 13.2748 2.93637 11.9348 3.00637L6.93476 3.24637C4.93476 3.33637 3.34476 4.92637 3.24476 6.91637L3.00476 11.9164C2.94476 13.2664 3.45476 14.5764 4.40476 15.5264Z"/><path d="M9.73486 12.2263C11.1156 12.2263 12.2349 11.107 12.2349 9.72632C12.2349 8.34561 11.1156 7.22632 9.73486 7.22632C8.35415 7.22632 7.23486 8.34561 7.23486 9.72632C7.23486 11.107 8.35415 12.2263 9.73486 12.2263Z"/><path d="M13.2349 17.2263L17.2349 13.2263"/></svg>`;
+  const blob = new Blob([svg], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const img = new Image();
+  img.onload = () => { URL.revokeObjectURL(url); tagIconImage = img; renderCanvas(); };
+  img.src = url;
+  return img;
+}
+function loadCustomCornerIcon() {
+  let svgString = cornerSvgInput.value.trim();
+  const color = cornerColorInput.value;
+  const opacity = parseInt(cornerOpacityInput.value, 10) / 100;
+  const rgbaColor = hexToRgba(color, opacity);
+  if(!svgString) { customCornerImage = null; renderCanvas(); return; }
+  if(!svgString.includes('xmlns="http://www.w3.org/2000/svg"')) svgString = svgString.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+  if(svgString.match(/stroke="[^"]*"/i)) svgString = svgString.replace(/stroke="[^"]*"/gi, `stroke="${color}"`);
+  else svgString = svgString.replace('<svg', `<svg stroke="${color}"`);
+  if(svgString.match(/fill="[^"]*"/i)) svgString = svgString.replace(/fill="[^"]*"/gi, `fill="${rgbaColor}"`);
+  else svgString = svgString.replace('<svg', '<svg fill="none"');
+  try {
+    const blob = new Blob([svgString], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const img = new Image();
+    img.onload = () => { URL.revokeObjectURL(url); customCornerImage = img; renderCanvas(); };
+    img.onerror = () => { showNotification('صيغة SVG غير صالحة', true); customCornerImage = null; };
+    img.src = url;
+  } catch(e) {
+    showNotification('لا يمكن معالجة SVG', true);
+    customCornerImage = null;
+  }
+}
+
+// ============================================================
+// مكتبة أيقونات الزاوية (موسّعة)
+// ============================================================
+const cornerIcons = [
+  // أشكال هندسية أساسية
+  { name: 'مثلث', svg: '<svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>' },
+  { name: 'دائرة', svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>' },
+  { name: 'مستطيل', svg: '<svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/></svg>' },
+  { name: 'مربع', svg: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/></svg>' },
+  { name: 'قلب', svg: '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' },
+  { name: 'نجمة', svg: '<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
+  { name: 'سداسي', svg: '<svg viewBox="0 0 24 24"><polygon points="12 2 20 7 20 17 12 22 4 17 4 7 12 2"/></svg>' },
+  { name: 'خماسي', svg: '<svg viewBox="0 0 24 24"><polygon points="12 2 22 10 18 20 6 20 2 10 12 2"/></svg>' },
+  { name: 'معين', svg: '<svg viewBox="0 0 24 24"><polygon points="12 2 22 12 12 22 2 12 12 2"/></svg>' },
+  { name: 'بيضاوي', svg: '<svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="8"/></svg>' },
+  { name: 'سهم', svg: '<svg viewBox="0 0 24 24"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg>' },
+  { name: 'شكل هلال', svg: '<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>' },
+  { name: 'صاعقة', svg: '<svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>' },
+  { name: 'شكل قطرة', svg: '<svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>' },
+  { name: 'ورقة شجر', svg: '<svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 4 13c0-4 3-8 11-11 0 4 2 8 5 11a7 7 0 0 1-9 7z"/></svg>' },
+  { name: 'حلزون', svg: '<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6a6 6 0 1 1-6 6"/><path d="M12 10a2 2 0 1 0 2 2"/></svg>' },
+  { name: 'زهرة', svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M1 12h6M17 12h6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg>' },
+  { name: 'شبكة', svg: '<svg viewBox="0 0 24 24"><line x1="3" y1="3" x2="21" y2="21"/><line x1="21" y1="3" x2="3" y2="21"/></svg>' },
+  { name: 'موجة', svg: '<svg viewBox="0 0 24 24"><path d="M2 12c2 0 2-4 4-4s2 4 4 4 2-4 4-4 2 4 4 4 2-4 4-4"/></svg>' },
+  { name: 'تاج', svg: '<svg viewBox="0 0 24 24"><path d="M2 7l4 4 6-8 6 8 4-4-2 12H4L2 7z"/></svg>' },
+  { name: 'دبوس', svg: '<svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>' },
+];
+function buildCornerIconPicker() {
+  const picker = q('#mwCornerIconPicker');
+  picker.innerHTML = '';
+  cornerIcons.forEach(icon => {
+    const btn = document.createElement('button');
+    btn.className = 'mw-icon-option';
+    btn.dataset.svg = icon.svg;
+    btn.title = icon.name;
+    btn.innerHTML = icon.svg;
+    btn.addEventListener('click', () => {
+      cornerSvgInput.value = icon.svg;
+      picker.querySelectorAll('.mw-icon-option').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadCustomCornerIcon();
+    });
+    picker.appendChild(btn);
+  });
+}
+
+// ============================================================
+// دالة الرسم الرئيسية
+// ============================================================
+function renderCanvas() {
+  const r = parseFloat(ratioSelect.value) || (16/9);
+  canvas.width = baseWidth;
+  canvas.height = Math.round(baseWidth / r);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const marginFactor = parseInt(marginScaleInput.value, 10) / 100 || 1;
+  const padding = Math.round(canvas.width * 0.05 * marginFactor);
+  const align = alignment.value || 'right';
+  const FONT_FAMILY = fontFamilySelect.value || selectedFont;
+  selectedFont = FONT_FAMILY;
+
+  // الخلفية
+  if(bgImage) {
+    const sw = bgImage.width, sh = bgImage.height, dw = canvas.width, dh = canvas.height;
+    const scaleFactor = Math.max(dw/sw, dh/sh);
+    const iw = sw * scaleFactor, ih = sh * scaleFactor;
+    const sx = (dw - iw) / 2, sy = (dh - ih) / 2;
+    ctx.drawImage(bgImage, sx, sy, iw, ih);
+    ctx.fillStyle = hexToRgba(bgColor.value, 0.1);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  } else {
+    ctx.fillStyle = getLightenedHex(bgColor.value || '#f8fafc', 0.92);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  // العلامة المائية
+  if(watermarkImage) {
+    ctx.save();
+    const wmS = (parseInt(wmScale.value, 10) || 10) / 100;
+    const wmAsp = watermarkImage.width / watermarkImage.height;
+    const wmW = canvas.width * wmS, wmH = wmW / wmAsp;
+    ctx.globalAlpha = 0.5;
+    ctx.drawImage(watermarkImage, parseInt(wmX.value, 10) || 50, parseInt(wmY.value, 10) || 50, wmW, wmH);
+    ctx.restore();
+  }
+
+  // الشعار
+  let logoSize = 0;
+  if(logoImage) {
+    const logoScale = 0.06;
+    logoSize = Math.round(canvas.width * logoScale);
+    const cornerRadius = 9, borderWidth = 0.5, borderColor = '#909191';
+    const lx = (align === 'right') ? canvas.width - padding - logoSize : padding;
+    const ly = positions.organization;
+    ctx.save();
+    ctx.beginPath();
+    ctx.roundRect(lx, ly, logoSize, logoSize, cornerRadius);
+    ctx.clip();
+    const minSize = Math.min(logoImage.width, logoImage.height);
+    const srcX = (logoImage.width - minSize) / 2, srcY = (logoImage.height - minSize) / 2;
+    ctx.drawImage(logoImage, srcX, srcY, minSize, minSize, lx, ly, logoSize, logoSize);
+    ctx.restore();
+    ctx.save();
+    ctx.beginPath();
+    ctx.roundRect(lx, ly, logoSize, logoSize, cornerRadius);
+    ctx.strokeStyle = borderColor;
+    ctx.lineWidth = borderWidth;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // الناشر والتاريخ
+  const orgText = orgInput.value || '';
+  const dateText = dateInput.value ? new Date(dateInput.value).toLocaleDateString('en-EG', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+  if(orgText || dateText) {
+    const orgColorValue = orgColor.value || '#0f172a';
+    const dateColorValue = descColor.value || '#667085';
+    const orgFontSize = 40, dateFontSize = 22;
+    let orgY;
+    if(logoImage) { orgY = positions.organization + logoSize/2 + 8; }
+    else { orgY = positions.organization + 25; }
+
+    let nameStartX;
+    if(align === 'right') {
+      nameStartX = canvas.width - padding - (logoImage ? logoSize + spacing.logo : 0);
+      ctx.textAlign = 'right';
+    } else if(align === 'center') {
+      ctx.font = `700 ${orgFontSize}px ${FONT_FAMILY}`;
+      const orgWidth = ctx.measureText(orgText).width;
+      nameStartX = canvas.width/2 - orgWidth/2;
+      ctx.textAlign = 'left';
+    } else {
+      nameStartX = padding + (logoImage ? logoSize + spacing.logo : 0);
+      ctx.textAlign = 'left';
+    }
+    ctx.font = `600 ${orgFontSize}px ${FONT_FAMILY}`;
+    ctx.fillStyle = orgColorValue;
+    ctx.fillText(orgText, nameStartX, orgY);
+
+    if(dateText) {
+      let dateX;
+      if(align === 'right') { ctx.textAlign = 'right'; dateX = canvas.width - padding - (logoImage ? logoSize + spacing.logo : 0); }
+      else if(align === 'center') { ctx.textAlign = 'center'; dateX = canvas.width/2; }
+      else { ctx.textAlign = 'left'; dateX = padding + (logoImage ? logoSize + spacing.logo : 0); }
+      ctx.font = `400 ${dateFontSize}px ${FONT_FAMILY}`;
+      ctx.fillStyle = dateColorValue;
+      ctx.fillText(dateText, dateX, orgY + orgFontSize + 8);
+    }
+  }
+
+  // خطوط فاصلة
+  const sepColor = orgColor.value || '#0f172a';
+  const topY = Math.min(Math.max(Math.round(padding * 0.4), positions.organization - 40 * marginFactor), positions.organization - 10);
+  ctx.beginPath(); ctx.moveTo(0, topY); ctx.lineTo(canvas.width, topY);
+  ctx.strokeStyle = hexToRgba(sepColor, 0.25); ctx.lineWidth = 1; ctx.stroke();
+
+  const vPad = 30 * marginFactor, vX = canvas.width - vPad;
+  ctx.beginPath(); ctx.moveTo(vX, 0); ctx.lineTo(vX, canvas.height);
+  ctx.strokeStyle = hexToRgba(sepColor, 0.2); ctx.lineWidth = 1; ctx.stroke();
+
+  const bottomY = canvas.height - 40 * marginFactor;
+  ctx.beginPath(); ctx.moveTo(0, bottomY); ctx.lineTo(canvas.width, bottomY);
+  ctx.strokeStyle = hexToRgba(sepColor, 0.2); ctx.lineWidth = 1; ctx.stroke();
+
+  const leftX = 40 * marginFactor;
+  ctx.beginPath(); ctx.moveTo(leftX, 0); ctx.lineTo(leftX, canvas.height);
+  ctx.strokeStyle = hexToRgba(sepColor, 0.2); ctx.lineWidth = 1; ctx.stroke();
+
+  // التاجات
+  if(tags.length > 0 && tagIconImage) {
+    const tagTextColorValue = tagTextColor.value || '#0f172a';
+    const fontSize = 32, iconSize = 48, spacingVal = parseInt(tagIconSpacing.value, 10) || 12;
+    ctx.font = `600 ${fontSize}px ${FONT_FAMILY}`;
+    ctx.fillStyle = tagTextColorValue;
+    const fullText = tags.join(' / ');
+    const textWidth = ctx.measureText(fullText).width;
+    let iconX_base;
+    if(align === 'right') iconX_base = canvas.width - padding - iconSize;
+    else if(align === 'center') iconX_base = (canvas.width/2) - (iconSize + spacingVal + textWidth)/2;
+    else iconX_base = padding;
+
+    const iconX = iconX_base + (parseInt(tagIconOffsetX.value, 10) || 0);
+    const startY = positions.tags + 30;
+    const iconY = startY - (iconSize/2) - (fontSize * 0.2) + (parseInt(tagIconOffsetY.value, 10) || 0) - 6;
+
+    if(align === 'right') { ctx.textAlign = 'right'; ctx.fillText(fullText, iconX - spacingVal, startY); }
+    else if(align === 'center') { ctx.textAlign = 'left'; ctx.fillText(fullText, iconX + iconSize + spacingVal, startY); }
+    else { ctx.textAlign = 'left'; ctx.fillText(fullText, iconX + iconSize + spacingVal, startY); }
+
+    ctx.save();
+    ctx.globalAlpha = 0.65;
+    ctx.translate(iconX + iconSize/2, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(tagIconImage, -iconSize/2, iconY, iconSize, iconSize);
+    ctx.restore();
+  }
+
+  // العنوان
+  const title = titleInput.value || '';
+  const titleSz = parseInt(titleSize.value, 10) || 58;
+  const titleMaxWidth = canvas.width * 0.65;
+  const titleFirstW = canvas.width * (parseInt(titleFirstLineWidth.value, 10) / 100) || titleMaxWidth;
+  let titleX;
+  if(align === 'right') titleX = canvas.width - padding;
+  else if(align === 'center') titleX = canvas.width / 2;
+  else titleX = padding;
+  const titleLineH = parseFloat(titleLineSpacingInput.value) || 1.3;
+  drawTruncatedText(ctx, title, titleX, positions.title, titleMaxWidth, titleSz, 2, FONT_FAMILY, titleColor.value || '#0f172a', align, titleLineH, '700', titleFirstW);
+
+  // الوصف
+  const desc = descInput.value || '';
+  const descSz = parseInt(descSize.value, 10) || 34;
+  const descMaxWidth = canvas.width * 0.65;
+  const descFirstW = canvas.width * (parseInt(descFirstLineWidth.value, 10) / 100) || descMaxWidth;
+  let descX;
+  if(align === 'right') descX = canvas.width - padding;
+  else if(align === 'center') descX = canvas.width / 2;
+  else descX = padding;
+  const descLineH = parseFloat(descLineSpacingInput.value) || 1.2;
+  drawTruncatedText(ctx, desc, descX, positions.description, descMaxWidth, descSz, 2, FONT_FAMILY, descColor.value || '#667085', align, descLineH, '400', descFirstW);
+
+  // صورة المنتج
+  if(productImage) {
+    ctx.save();
+    const prodS = (parseInt(prodScale.value, 10) || 30) / 100;
+    const aspect = productImage.width / productImage.height;
+    const prodW = canvas.width * prodS * 0.7, prodH = prodW / aspect;
+    ctx.shadowColor = 'rgba(0,0,0,0.4)';
+    ctx.shadowBlur = 20;
+    ctx.shadowOffsetX = 8;
+    ctx.shadowOffsetY = 8;
+    ctx.drawImage(productImage, parseInt(prodX.value, 10) || 950, parseInt(prodY.value, 10) || 450, prodW, prodH);
+    ctx.restore();
+  }
+
+  // الزاوية الأيقونية
+  const effect = cornerEffectSelect.value;
+  const effectStrength = parseInt(cornerEffectStrengthInput.value, 10) || 5;
+  const cornerOpacity = parseInt(cornerOpacityInput.value, 10) / 100;
+  const cornerColor = cornerColorInput.value;
+  const cornerSizeRatio = parseInt(cornerSizeInput.value, 10) / 100;
+  const baseSize = 170;
+  const iconSizeCorner = baseSize * cornerSizeRatio;
+  const isRightCorner = align === 'left' || align === 'center';
+  let cornerBaseX, cornerBaseY;
+  if(isRightCorner) { cornerBaseX = canvas.width - iconSizeCorner; cornerBaseY = canvas.height - iconSizeCorner; }
+  else { cornerBaseX = 0; cornerBaseY = canvas.height - iconSizeCorner; }
+  const offsetX = parseInt(cornerXInput.value, 10) || 0;
+  const offsetY = parseInt(cornerYInput.value, 10) || 0;
+  const cornerX = cornerBaseX + offsetX, cornerY = cornerBaseY + offsetY;
+
+  ctx.save();
+  if(effect === 'blur') { ctx.filter = `blur(${effectStrength}px)`; }
+  else if(effect === 'glow') { ctx.shadowColor = cornerColor; ctx.shadowBlur = effectStrength; }
+  if(customCornerImage) {
+    ctx.globalAlpha = cornerOpacity;
+    ctx.drawImage(customCornerImage, cornerX, cornerY, iconSizeCorner, iconSizeCorner);
+  } else {
+    ctx.fillStyle = getLightenedHex(cornerColor, 0.15);
+    ctx.globalAlpha = cornerOpacity;
+    ctx.beginPath();
+    if(isRightCorner) {
+      ctx.moveTo(canvas.width, canvas.height);
+      ctx.lineTo(cornerX, canvas.height);
+      ctx.arcTo(cornerX, cornerY, canvas.width, cornerY, iconSizeCorner);
+      ctx.lineTo(canvas.width, cornerY);
+    } else {
+      ctx.moveTo(0, canvas.height);
+      ctx.lineTo(cornerX + iconSizeCorner, canvas.height);
+      ctx.arcTo(cornerX + iconSizeCorner, cornerY, 0, cornerY, iconSizeCorner);
+      ctx.lineTo(0, cornerY);
+    }
+    ctx.closePath();
+    ctx.fill();
+  }
+  ctx.restore();
+
+  previewSizeText.textContent = canvas.width + ' : ' + canvas.height;
+}
+
+// ============================================================
+// دوال الحفظ والاسترجاع
+// ============================================================
+async function saveSettings() {
+  try {
+    const s = {
+      title: titleInput.value, description: descInput.value, organization: orgInput.value, date: dateInput.value,
+      tags: tags, bgColor: bgColor.value, titleColor: titleColor.value, descColor: descColor.value,
+      tagTextColor: tagTextColor.value, orgColor: orgColor.value, titleSize: titleSize.value, descSize: descSize.value,
+      titleFirstLineWidth: titleFirstLineWidth.value, descFirstLineWidth: descFirstLineWidth.value,
+      marginScale: marginScaleInput.value, ratio: ratioSelect.value, alignment: alignment.value,
+      positions: positions, spacing: spacing, iconOffsetX: tagIconOffsetX.value, iconOffsetY: tagIconOffsetY.value,
+      iconSpacing: tagIconSpacing.value, tagIconColor: tagIconColor.value, cornerSvg: cornerSvgInput.value,
+      cornerSize: cornerSizeInput.value, cornerX: cornerXInput.value, cornerY: cornerYInput.value,
+      cornerColor: cornerColorInput.value, cornerOpacity: cornerOpacityInput.value,
+      cornerEffect: cornerEffectSelect.value, cornerEffectStrength: cornerEffectStrengthInput.value,
+      wmX: wmX.value, wmY: wmY.value, wmScale: wmScale.value, prodX: prodX.value, prodY: prodY.value, prodScale: prodScale.value,
+      titleLineSpacing: titleLineSpacingInput.value, descLineSpacing: descLineSpacingInput.value,
+      fontFamily: fontFamilySelect.value,
+      bgImageData: bgImage ? await imageToBase64(bgImage) : null,
+      logoImageData: logoImage ? await imageToBase64(logoImage) : null,
+      watermarkImageData: watermarkImage ? await imageToBase64(watermarkImage) : null,
+      productImageData: productImage ? await imageToBase64(productImage) : null,
+      customCornerImageData: customCornerImage ? await imageToBase64(customCornerImage) : null
+    };
+    localStorage.setItem('mwThumbGeneratorSettings', JSON.stringify(s));
+    showNotification('تم حفظ الإعدادات');
+  } catch(e) {
+    showNotification('فشل الحفظ', true);
+  }
+}
+
+async function loadSettings() {
+  const saved = localStorage.getItem('mwThumbGeneratorSettings');
+  if(!saved) return;
+  try {
+    const s = JSON.parse(saved);
+    if(s.title) titleInput.value = s.title;
+    if(s.description) descInput.value = s.description;
+    if(s.organization) orgInput.value = s.organization;
+    if(s.date) dateInput.value = s.date;
+    if(s.tags) { tags = s.tags; updateTagsDisplay(); }
+    if(s.bgColor) bgColor.value = s.bgColor;
+    if(s.titleColor) titleColor.value = s.titleColor;
+    if(s.descColor) descColor.value = s.descColor;
+    if(s.tagTextColor) tagTextColor.value = s.tagTextColor;
+    if(s.orgColor) orgColor.value = s.orgColor;
+    if(s.titleSize) titleSize.value = s.titleSize;
+    if(s.descSize) descSize.value = s.descSize;
+    if(s.titleFirstLineWidth) titleFirstLineWidth.value = s.titleFirstLineWidth;
+    if(s.descFirstLineWidth) descFirstLineWidth.value = s.descFirstLineWidth;
+    if(s.marginScale) marginScaleInput.value = s.marginScale;
+    if(s.ratio) ratioSelect.value = s.ratio;
+    if(s.alignment) alignment.value = s.alignment;
+    if(s.tagIconColor) tagIconColor.value = s.tagIconColor;
+    if(s.fontFamily) fontFamilySelect.value = s.fontFamily;
+    if(s.positions) {
+      positions = s.positions;
+      titleYInput.value = positions.title;
+      descYInput.value = positions.description;
+      orgYInput.value = positions.organization;
+      tagsYInput.value = positions.tags;
+    }
+    if(s.spacing) { spacing = s.spacing; logoSpacingInput.value = spacing.logo || 15; }
+    if(s.iconOffsetX !== undefined) tagIconOffsetX.value = s.iconOffsetX;
+    if(s.iconOffsetY !== undefined) tagIconOffsetY.value = s.iconOffsetY;
+    if(s.iconSpacing) tagIconSpacing.value = s.iconSpacing;
+    if(s.cornerSvg) cornerSvgInput.value = s.cornerSvg;
+    if(s.cornerSize) cornerSizeInput.value = s.cornerSize;
+    if(s.cornerX) cornerXInput.value = s.cornerX;
+    if(s.cornerY) cornerYInput.value = s.cornerY;
+    if(s.cornerColor) cornerColorInput.value = s.cornerColor;
+    if(s.cornerOpacity) cornerOpacityInput.value = s.cornerOpacity;
+    if(s.cornerEffect) cornerEffectSelect.value = s.cornerEffect;
+    if(s.cornerEffectStrength) cornerEffectStrengthInput.value = s.cornerEffectStrength;
+    if(s.wmX) wmX.value = s.wmX;
+    if(s.wmY) wmY.value = s.wmY;
+    if(s.wmScale) wmScale.value = s.wmScale;
+    if(s.prodX) prodX.value = s.prodX;
+    if(s.prodY) prodY.value = s.prodY;
+    if(s.prodScale) prodScale.value = s.prodScale;
+    if(s.titleLineSpacing) titleLineSpacingInput.value = s.titleLineSpacing;
+    if(s.descLineSpacing) descLineSpacingInput.value = s.descLineSpacing;
+    if(s.bgImageData) bgImage = await loadBase64Image(s.bgImageData);
+    if(s.logoImageData) logoImage = await loadBase64Image(s.logoImageData);
+    if(s.watermarkImageData) watermarkImage = await loadBase64Image(s.watermarkImageData);
+    if(s.productImageData) productImage = await loadBase64Image(s.productImageData);
+    if(s.customCornerImageData) customCornerImage = await loadBase64Image(s.customCornerImageData);
+    updateColorPreviews();
+    renderCanvas();
+    showNotification('تم استرجاع الإعدادات');
+  } catch(e) {
+    console.error('فشل تحميل الإعدادات', e);
+    localStorage.removeItem('mwThumbGeneratorSettings');
+  }
+}
+
+// ============================================================
+// إعادة التعيين (كاملة وقسمية)
+// ============================================================
+function resetAll() {
+  bgImage = null; logoImage = null; watermarkImage = null; productImage = null; customCornerImage = null;
+  tool.querySelectorAll('input[type="file"]').forEach(i => i.value = '');
+  bgColor.value = '#f8fafc'; titleColor.value = '#0f172a'; descColor.value = '#667085';
+  tagTextColor.value = '#0f172a'; orgColor.value = '#0f172a';
+  titleInput.value = 'عنوان المثال الكبير عنوان المثال عنوان المثال الكبير عنوان المثال الكبير';
+  descInput.value = 'هذا وصف تجريبي للمقالة. هذا وصف تجريبي للمقالة. هذا وصف تجريبي للمقالة. هذا وصف تجريبي للمقالة.';
+  orgInput.value = 'Modweeb Design';
+  dateInput.value = new Date().toISOString().split('T')[0];
+  ratioSelect.value = '1.7777777777777777'; alignment.value = 'right';
+  titleSize.value = '58'; descSize.value = '34';
+  titleFirstLineWidth.value = '65'; descFirstLineWidth.value = '65';
+  marginScaleInput.value = '250';
+  titleLineSpacingInput.value = '1.3'; descLineSpacingInput.value = '1.2';
+  fontFamilySelect.value = "'Cairo', sans-serif";
+  selectedFont = "'Cairo', sans-serif";
+
+  positions = JSON.parse(JSON.stringify(defaultPositions));
+  spacing = JSON.parse(JSON.stringify(defaultSpacing));
+  titleYInput.value = positions.title;
+  descYInput.value = positions.description;
+  orgYInput.value = positions.organization;
+  tagsYInput.value = positions.tags;
+  logoSpacingInput.value = spacing.logo;
+
+  tagIconOffsetX.value = '0'; tagIconOffsetY.value = '0'; tagIconSpacing.value = '12'; tagIconColor.value = '#888888';
+  cornerSvgInput.value = ''; cornerSizeInput.value = '100'; cornerXInput.value = '0'; cornerYInput.value = '0';
+  cornerColorInput.value = '#0ea5a4'; cornerOpacityInput.value = '80'; cornerEffectSelect.value = 'none'; cornerEffectStrengthInput.value = '5';
+  wmX.value = '50'; wmY.value = '50'; wmScale.value = '10';
+  prodX.value = '950'; prodY.value = '450'; prodScale.value = '30';
+
+  tags = ['بلوجر','ادوات','شروحات','شبكات'];
+  updateTagsDisplay();
+  updateColorPreviews();
+  buildTagIcon(tagIconColor.value);
+  renderCanvas();
+  showNotification('تم إعادة التعيين بالكامل');
+}
+
+// دالة إعادة تعيين قسم محدد
+function resetSection(sectionId) {
+  // سنقوم بإعادة تعيين الحقول الخاصة بكل قسم
+  switch(sectionId) {
+    case 'background':
+      bgFile.value = '';
+      bgColor.value = '#f8fafc';
+      ratioSelect.value = '1.7777777777777777';
+      alignment.value = 'right';
+      marginScaleInput.value = '250';
+      fontFamilySelect.value = "'Cairo', sans-serif";
+      selectedFont = "'Cairo', sans-serif";
+      bgImage = null;
+      break;
+    case 'textColors':
+      titleColor.value = '#0f172a';
+      descColor.value = '#667085';
+      tagTextColor.value = '#0f172a';
+      orgColor.value = '#0f172a';
+      break;
+    case 'tags':
+      tags = ['بلوجر','ادوات','شروحات','شبكات'];
+      updateTagsDisplay();
+      tagIconOffsetX.value = '0';
+      tagIconOffsetY.value = '0';
+      tagIconSpacing.value = '12';
+      tagIconColor.value = '#888888';
+      buildTagIcon(tagIconColor.value);
+      break;
+    case 'title':
+      titleInput.value = 'عنوان المثال الكبير عنوان المثال عنوان المثال الكبير عنوان المثال الكبير';
+      titleSize.value = '58';
+      titleYInput.value = '340';
+      positions.title = 340;
+      titleSpacingInput.value = '25';
+      spacing.title = 25;
+      titleFirstLineWidth.value = '65';
+      titleLineSpacingInput.value = '1.3';
+      break;
+    case 'description':
+      descInput.value = 'هذا وصف تجريبي للمقالة. هذا وصف تجريبي للمقالة. هذا وصف تجريبي للمقالة. هذا وصف تجريبي للمقالة.';
+      descSize.value = '34';
+      descYInput.value = '470';
+      positions.description = 470;
+      descSpacingInput.value = '20';
+      spacing.description = 20;
+      descFirstLineWidth.value = '65';
+      descLineSpacingInput.value = '1.2';
+      break;
+    case 'publisher':
+      logoFile.value = '';
+      logoImage = null;
+      orgInput.value = 'Modweeb Design';
+      dateInput.value = new Date().toISOString().split('T')[0];
+      orgYInput.value = '80';
+      positions.organization = 80;
+      logoSpacingInput.value = '15';
+      spacing.logo = 15;
+      tagsYInput.value = '220';
+      positions.tags = 220;
+      break;
+    case 'product':
+      productFile.value = '';
+      productImage = null;
+      prodX.value = '950';
+      prodY.value = '450';
+      prodScale.value = '30';
+      break;
+    case 'watermark':
+      watermarkFile.value = '';
+      watermarkImage = null;
+      wmX.value = '50';
+      wmY.value = '50';
+      wmScale.value = '10';
+      break;
+    case 'corner':
+      cornerSvgInput.value = '';
+      customCornerImage = null;
+      cornerSizeInput.value = '100';
+      cornerXInput.value = '0';
+      cornerYInput.value = '0';
+      cornerColorInput.value = '#0ea5a4';
+      cornerOpacityInput.value = '80';
+      cornerEffectSelect.value = 'none';
+      cornerEffectStrengthInput.value = '5';
+      // إلغاء تفعيل أيقونات المنتقي
+      document.querySelectorAll('.mw-icon-option').forEach(b => b.classList.remove('active'));
+      break;
+  }
+  updateColorPreviews();
+  renderCanvas();
+  showNotification('تم إعادة تعيين القسم');
+}
+
+// ============================================================
+// دوال التحميل - مع نافذة تأكيد
+// ============================================================
+function prepareDownload(format, mimeType, quality) {
+  pendingDownload = { format, mimeType, quality };
+  downloadFormatText.textContent = format.toUpperCase();
+  downloadModal.classList.add('active');
+}
+
+function performDownload() {
+  if(!pendingDownload) return;
+  const { format, mimeType, quality } = pendingDownload;
+  const fileName = `modweeb-thumbnail-${Date.now()}.${format}`;
+  try {
+    canvas.toBlob(blob => {
+      if(blob) {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        setTimeout(() => {
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+        }, 800);
+        showNotification(`تم تحميل ${format.toUpperCase()}`);
+      }
+    }, mimeType, quality);
+  } catch(e) {
+    const dataURL = canvas.toDataURL(mimeType, quality);
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = fileName;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => document.body.removeChild(link), 800);
+    showNotification('تم التحميل (احتياطي)');
+  }
+  pendingDownload = null;
+  downloadModal.classList.remove('active');
+}
+
+// نسخ الصورة إلى الحافظة
+async function copyImageToClipboard() {
+  try {
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+    await navigator.clipboard.write([
+      new ClipboardItem({ 'image/png': blob })
+    ]);
+    showNotification('تم نسخ الصورة إلى الحافظة');
+  } catch(e) {
+    showNotification('فشل النسخ إلى الحافظة', true);
+  }
+}
+
+// ============================================================
+// ربط الأحداث
+// ============================================================
+// ملفات
+bgFile.addEventListener('change', async e => { const f = e.target.files[0]; if(f) { bgImage = await loadImageFromFile(f); renderCanvas(); showNotification('تم تحميل الخلفية'); } });
+logoFile.addEventListener('change', async e => { const f = e.target.files[0]; if(f) { logoImage = await loadImageFromFile(f); renderCanvas(); showNotification('تم تحميل الشعار'); } });
+watermarkFile.addEventListener('change', async e => { const f = e.target.files[0]; if(f) { watermarkImage = await loadImageFromFile(f); renderCanvas(); showNotification('تم تحميل العلامة المائية'); } });
+productFile.addEventListener('change', async e => { const f = e.target.files[0]; if(f) { productImage = await loadImageFromFile(f); renderCanvas(); showNotification('تم تحميل صورة المنتج'); } });
+
+// مدخلات
+const inputsToRender = [
+  titleInput, descInput, orgInput, dateInput, ratioSelect, alignment,
+  titleSize, descSize, titleFirstLineWidth, descFirstLineWidth, marginScaleInput,
+  bgColor, titleColor, descColor, tagTextColor, orgColor,
+  tagIconOffsetX, tagIconOffsetY, tagIconSpacing,
+  wmX, wmY, wmScale, prodX, prodY, prodScale,
+  cornerSizeInput, cornerXInput, cornerYInput, cornerColorInput,
+  cornerOpacityInput, cornerEffectSelect, cornerEffectStrengthInput,
+  titleLineSpacingInput, descLineSpacingInput, fontFamilySelect
+];
+inputsToRender.forEach(el => {
+  if(el) el.addEventListener('input', () => {
+    if(el.id === 'mwTitleY') positions.title = parseInt(el.value, 10) || 340;
+    if(el.id === 'mwDescY') positions.description = parseInt(el.value, 10) || 470;
+    if(el.id === 'mwOrgY') positions.organization = parseInt(el.value, 10) || 80;
+    if(el.id === 'mwTagsY') positions.tags = parseInt(el.value, 10) || 220;
+    if(el.id === 'mwLogoSpacing') spacing.logo = parseInt(el.value, 10) || 15;
+    if(el.id === 'mwTagIconColor') buildTagIcon(el.value);
+    if(el.id === 'mwCornerSvg') loadCustomCornerIcon();
+    if(el.id === 'mwFontFamily') { selectedFont = el.value; renderCanvas(); return; }
+    updateColorPreviews();
+    renderCanvas();
+  });
+});
+
+// أزرار التحريك - العنوان والوصف والناشر
+titleUp.addEventListener('click', () => { positions.title = Math.max(50, positions.title - 10); titleYInput.value = positions.title; renderCanvas(); });
+titleDown.addEventListener('click', () => { positions.title = Math.min(500, positions.title + 10); titleYInput.value = positions.title; renderCanvas(); });
+descUp.addEventListener('click', () => { positions.description = Math.max(100, positions.description - 10); descYInput.value = positions.description; renderCanvas(); });
+descDown.addEventListener('click', () => { positions.description = Math.min(600, positions.description + 10); descYInput.value = positions.description; renderCanvas(); });
+orgUp.addEventListener('click', () => { positions.organization = Math.max(20, positions.organization - 10); positions.tags = Math.max(80, positions.tags - 10); orgYInput.value = positions.organization; tagsYInput.value = positions.tags; renderCanvas(); });
+orgDown.addEventListener('click', () => { positions.organization = Math.min(200, positions.organization + 10); positions.tags = Math.min(300, positions.tags + 10); orgYInput.value = positions.organization; tagsYInput.value = positions.tags; renderCanvas(); });
+
+// أزرار الزاوية الأيقونية
+cornerUp.addEventListener('click', () => { cornerYInput.value = parseInt(cornerYInput.value, 10) - 10; renderCanvas(); });
+cornerDown.addEventListener('click', () => { cornerYInput.value = parseInt(cornerYInput.value, 10) + 10; renderCanvas(); });
+cornerLeft.addEventListener('click', () => { cornerXInput.value = parseInt(cornerXInput.value, 10) - 10; renderCanvas(); });
+cornerRight.addEventListener('click', () => { cornerXInput.value = parseInt(cornerXInput.value, 10) + 10; renderCanvas(); });
+cornerSizeUp.addEventListener('click', () => { cornerSizeInput.value = Math.min(300, parseInt(cornerSizeInput.value, 10) + 10); renderCanvas(); });
+cornerSizeDown.addEventListener('click', () => { cornerSizeInput.value = Math.max(20, parseInt(cornerSizeInput.value, 10) - 10); renderCanvas(); });
+
+// أزرار صورة المنتج
+prodUp.addEventListener('click', () => { prodY.value = Math.max(0, parseInt(prodY.value, 10) - 15); renderCanvas(); });
+prodDown.addEventListener('click', () => { prodY.value = Math.min(720, parseInt(prodY.value, 10) + 15); renderCanvas(); });
+prodLeft.addEventListener('click', () => { prodX.value = Math.max(0, parseInt(prodX.value, 10) - 15); renderCanvas(); });
+prodRight.addEventListener('click', () => { prodX.value = Math.min(1280, parseInt(prodX.value, 10) + 15); renderCanvas(); });
+prodZoomIn.addEventListener('click', () => { prodScale.value = Math.min(100, parseInt(prodScale.value, 10) + 5); renderCanvas(); });
+prodZoomOut.addEventListener('click', () => { prodScale.value = Math.max(1, parseInt(prodScale.value, 10) - 5); renderCanvas(); });
+
+// أزرار العلامة المائية
+wmUp.addEventListener('click', () => { wmY.value = Math.max(0, parseInt(wmY.value, 10) - 15); renderCanvas(); });
+wmDown.addEventListener('click', () => { wmY.value = Math.min(720, parseInt(wmY.value, 10) + 15); renderCanvas(); });
+wmLeft.addEventListener('click', () => { wmX.value = Math.max(0, parseInt(wmX.value, 10) - 15); renderCanvas(); });
+wmRight.addEventListener('click', () => { wmX.value = Math.min(1280, parseInt(wmX.value, 10) + 15); renderCanvas(); });
+wmZoomIn.addEventListener('click', () => { wmScale.value = Math.min(100, parseInt(wmScale.value, 10) + 5); renderCanvas(); });
+wmZoomOut.addEventListener('click', () => { wmScale.value = Math.max(1, parseInt(wmScale.value, 10) - 5); renderCanvas(); });
+
+// التاجات
+addTagBtn.addEventListener('click', addTag);
+tagInput.addEventListener('keypress', e => { if(e.key === 'Enter') addTag(); });
+
+// الهيدر
+saveSettingsBtn.addEventListener('click', saveSettings);
+resetHeaderBtn.addEventListener('click', () => { resetModal.classList.add('active'); });
+closeResetModalBtn.addEventListener('click', () => resetModal.classList.remove('active'));
+cancelResetBtn.addEventListener('click', () => resetModal.classList.remove('active'));
+resetModal.addEventListener('click', e => { if(e.target === resetModal) resetModal.classList.remove('active'); });
+confirmResetBtn.addEventListener('click', () => { resetAll(); resetModal.classList.remove('active'); });
+
+// أزرار إعادة تعيين الأقسام
+tool.querySelectorAll('.mw-reset-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const sectionId = btn.dataset.sectionId;
+    resetSection(sectionId);
+  });
+});
+
+// التحميل
+downloadToggleBtn.addEventListener('click', e => { e.stopPropagation(); downloadDropdown.classList.toggle('active'); });
+document.addEventListener('click', () => downloadDropdown.classList.remove('active'));
+downloadDropdown.querySelectorAll('.mw-btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const format = btn.dataset.format;
+    const quality = parseFloat(btn.dataset.quality) || 0.92;
+    let mime;
+    if(format === 'png') mime = 'image/png';
+    else if(format === 'jpeg') mime = 'image/jpeg';
+    else mime = 'image/webp';
+    prepareDownload(format, mime, quality);
+    downloadDropdown.classList.remove('active');
+  });
+});
+
+// نافذة تأكيد التحميل
+closeDownloadModalBtn.addEventListener('click', () => downloadModal.classList.remove('active'));
+cancelDownloadBtn.addEventListener('click', () => downloadModal.classList.remove('active'));
+downloadModal.addEventListener('click', e => { if(e.target === downloadModal) downloadModal.classList.remove('active'); });
+confirmDownloadBtn.addEventListener('click', performDownload);
+
+// نسخ الصورة
+copyImageBtn.addEventListener('click', copyImageToClipboard);
+
+// إظهار/إخفاء المعاينة
+togglePreviewBtn.addEventListener('click', () => {
+  isPreviewVisible = !isPreviewVisible;
+  previewSticky.classList.toggle('collapsed', !isPreviewVisible);
+  showNotification(isPreviewVisible ? 'المعاينة ظاهرة' : 'المعاينة مخفية');
+});
+
+// تغيير النسبة
+ratioSelect.addEventListener('change', () => {
+  const r = parseFloat(ratioSelect.value) || (16/9);
+  canvas.width = baseWidth;
+  canvas.height = Math.round(baseWidth / r);
+  previewSizeText.textContent = canvas.width + ' : ' + canvas.height;
+  renderCanvas();
+  if(!isPreviewVisible) previewSticky.classList.add('collapsed');
+  else previewSticky.classList.remove('collapsed');
+});
+
+// سحب وإفلات
+tool.addEventListener('dragover', e => { e.preventDefault(); tool.style.borderColor = 'var(--linkC)'; });
+tool.addEventListener('dragleave', () => { tool.style.borderColor = ''; });
+tool.addEventListener('drop', async e => {
+  e.preventDefault();
+  tool.style.borderColor = '';
+  const files = e.dataTransfer.files;
+  if(files.length > 0) {
+    const file = files[0];
+    const ext = file.name.split('.').pop().toLowerCase();
+    if(['png','jpg','jpeg','webp','svg','gif'].includes(ext)) {
+      const img = await loadImageFromFile(file);
+      if(img) { bgImage = img; bgFile.value = ''; renderCanvas(); showNotification('تم إفلات الصورة كخلفية'); }
+    } else { showNotification('الملف ليس صورة', true); }
+  }
+});
+
+// لصق من الحافظة
+document.addEventListener('paste', async e => {
+  const items = e.clipboardData?.items;
+  if(!items) return;
+  for(const item of items) {
+    if(item.type.startsWith('image/')) {
+      const file = item.getAsFile();
+      if(file) {
+        const img = await loadImageFromFile(file);
+        if(img) {
+          bgImage = img;
+          bgFile.value = '';
+          renderCanvas();
+          showNotification('تم لصق الصورة كخلفية');
+        }
+      }
+      break;
+    }
+  }
+});
+
+// ============================================================
+// سحب وإفلات الأقسام
+// ============================================================
+let draggedSection = null;
+tool.querySelectorAll('.mw-section').forEach(section => {
+  section.addEventListener('dragstart', e => {
+    draggedSection = section;
+    section.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', section.dataset.sectionId);
+  });
+  section.addEventListener('dragend', () => {
+    section.classList.remove('dragging');
+    draggedSection = null;
+    document.querySelectorAll('.mw-section').forEach(s => s.classList.remove('drop-target'));
+  });
+  section.addEventListener('dragover', e => {
+    e.preventDefault();
+    if(draggedSection && draggedSection !== section) {
+      section.classList.add('drop-target');
+    }
+  });
+  section.addEventListener('dragleave', () => {
+    section.classList.remove('drop-target');
+  });
+  section.addEventListener('drop', e => {
+    e.preventDefault();
+    if(draggedSection && draggedSection !== section) {
+      const rect = section.getBoundingClientRect();
+      const after = e.clientY > rect.top + rect.height / 2;
+      if(after) {
+        section.parentNode.insertBefore(draggedSection, section.nextSibling);
+      } else {
+        section.parentNode.insertBefore(draggedSection, section);
+      }
+      section.classList.remove('drop-target');
+      showNotification('تم إعادة ترتيب الأقسام');
+    }
+  });
+});
+
+// طي وفتح الأقسام
+tool.querySelectorAll('.mw-collapse-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const section = btn.closest('.mw-section');
+    section.classList.toggle('collapsed');
+  });
+});
+
+// ============================================================
+window.ModweebThumbnail = {
+  async applyGeneratedImage(blob, target) {
+    if (!(blob instanceof Blob) || !blob.type.startsWith('image/')) throw new Error('ملف الصورة غير صالح.');
+    const extension = blob.type.includes('jpeg') ? 'jpg' : blob.type.split('/')[1].replace(/[^a-z0-9]/gi, '') || 'png';
+    const file = new File([blob], `pollinations-${target}.${extension}`, { type: blob.type });
+    const image = await loadImageFromFile(file);
+    if (!image) throw new Error('تعذّر قراءة الصورة في المحرر.');
+    if (target === 'background') { bgImage = image; bgFile.value = ''; }
+    else if (target === 'character') { productImage = image; productFile.value = ''; }
+    else if (target === 'icon') { customCornerImage = image; cornerSvgInput.value = ''; }
+    else throw new Error('نوع الإدراج غير معروف.');
+    renderCanvas();
+    showNotification(target === 'background' ? 'تم استخدام الصورة كخلفية' : target === 'character' ? 'تم إدراج الصورة كعنصر رئيسي' : 'تم إدراج الصورة كرمز زاوية');
+  },
+  applyDesign(design) {
+    const colorFields = {
+      backgroundColor: bgColor,
+      titleColor,
+      descriptionColor: descColor,
+      organizationColor: orgColor,
+      tagTextColor,
+    };
+    for (const [key, field] of Object.entries(colorFields)) {
+      const value = design?.[key];
+      if (field && /^#[0-9a-f]{6}$/i.test(String(value || ''))) field.value = value;
+    }
+    if (design?.font && [...fontFamilySelect.options].some((option) => option.value === design.font)) fontFamilySelect.value = design.font;
+    if (Array.isArray(design?.tags) && design.tags.length) {
+      tags = design.tags.slice(0, 5).map((tag) => String(tag).replace(/[^\p{L}\p{N}\s_-]/gu, '').trim().slice(0, 22)).filter(Boolean);
+      updateTagsDisplay();
+    }
+    updateColorPreviews();
+    buildTagIcon(tagIconColor.value);
+    renderCanvas();
+    showNotification('تم تطبيق اقتراح التصميم؛ يمكنك مراجعة الألوان والوسوم');
+  },
+};
+
+// اختصارات لوحة المفاتيح
+// ============================================================
+document.addEventListener('keydown', e => {
+  if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+  
+  if(e.ctrlKey && e.key === 's') { e.preventDefault(); saveSettings(); }
+  if(e.ctrlKey && e.key === 'Enter') { e.preventDefault(); renderCanvas(); showNotification('تم تحديث المعاينة'); }
+  if(e.key === 'Escape') {
+    if(resetModal.classList.contains('active')) resetModal.classList.remove('active');
+    if(downloadModal.classList.contains('active')) downloadModal.classList.remove('active');
+  }
+  
+  if(e.key === 'ArrowUp') { prodY.value = Math.max(0, parseInt(prodY.value, 10) - 1); renderCanvas(); }
+  if(e.key === 'ArrowDown') { prodY.value = Math.min(720, parseInt(prodY.value, 10) + 1); renderCanvas(); }
+  if(e.key === 'ArrowLeft') { prodX.value = Math.max(0, parseInt(prodX.value, 10) - 1); renderCanvas(); }
+  if(e.key === 'ArrowRight') { prodX.value = Math.min(1280, parseInt(prodX.value, 10) + 1); renderCanvas(); }
+});
+
+// ============================================================
+// حفظ تلقائي دوري
+// ============================================================
+function startAutoSave() {
+  if(autoSaveInterval) clearInterval(autoSaveInterval);
+  autoSaveInterval = setInterval(() => {
+    saveSettings();
+  }, 30000);
+}
+function stopAutoSave() {
+  if(autoSaveInterval) clearInterval(autoSaveInterval);
+}
+
+// ============================================================
+// التهيئة
+// ============================================================
+dateInput.value = new Date().toISOString().split('T')[0];
+updateTagsDisplay();
+updateColorPreviews();
+buildCornerIconPicker();
+loadSettings().then(() => {
+  buildTagIcon(tagIconColor.value);
+  renderCanvas();
+  if(!isPreviewVisible) previewSticky.classList.add('collapsed');
+  else previewSticky.classList.remove('collapsed');
+}).catch(error => {
+  console.error('تعذر استعادة إعدادات مولد الصور', error);
+  showNotification('تعذر استعادة الإعدادات المحفوظة', true);
+}).finally(() => {
+  window.__hideThumbnailBoot?.();
+});
+startAutoSave();
+
+console.log('مولد الصور المصغرة V3 جاهز (نسخة modweeb)');
+})();
+</script>
+
+<script type="module" src="./thumbnail-ai.js"></script>
+</body>
+</html>
