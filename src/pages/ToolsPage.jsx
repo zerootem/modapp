@@ -21,6 +21,21 @@ function ToolsPage() {
           </p>
         </div>
       </Link>
+
+      <a
+        href="https://zerootem.github.io/article-generator-tool/"
+        className="tool-card"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="مولّد المقالات — يفتح في علامة تبويب جديدة"
+      >
+        <div className="tool-card-content">
+          <h3 className="tool-card-title">مولّد المقالات</h3>
+          <p className="tool-card-desc">
+            أنشئ مقالات عربية، حرّر عناصرها، حسّن SEO، وجهّزها للنشر إلى Blogger.
+          </p>
+        </div>
+      </a>
     </div>
   );
 }

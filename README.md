@@ -1,16 +1,44 @@
-# React + Vite
+# ModApp — مركز الأدوات التوليدية
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+مركز عربي يجمع أدوات ويب عملية في واجهة واحدة. يعرض المشروع كل أداة كبطاقة مستقلة، ويعمل على GitHub Pages دون خادم تطبيق خاص.
 
-Currently, two official plugins are available:
+**الموقع المنشور:** [zerootem.github.io/modapp](https://zerootem.github.io/modapp/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## الأدوات
 
-## React Compiler
+- **ضاغط الأكواد:** ضغط وتنسيق CSS وJavaScript وHTML، مع خيارات للتعليقات والفراغات و`console`، إضافةً إلى التراجع والنسخ والتنزيل. يستخدم JavaScript محرك Terser المضمّن في التطبيق بدلاً من إزالة الفراغات بالتعبيرات النصية.
+- **تحويل الصور إلى SVG:** تحويل صورة محلية إلى رسم SVG مع التحكم بعدد الألوان ومستوى التفاصيل، ومعاينة النتيجة ونسخها أو تنزيلها.
+- **مولّد المقالات:** بطاقة تفتح [مولّد المقالات العربي](https://zerootem.github.io/article-generator-tool/) في صفحة مستقلة. يوفّر إنشاء المقال وتحريره وتحسين عناصر SEO والنشر إلى Blogger بحسب إعدادات الأداة.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## التشغيل محلياً
 
-## Expanding the Oxlint configuration
+يتطلب المشروع Node.js وnpm:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+npm ci
+npm run dev
+```
+
+وللتحقق والبناء:
+
+```bash
+npm run lint
+npm test
+npm run build
+```
+
+ينشئ `npm run build` نسخة الموقع في `dist/`. بعد تهيئة صلاحية النشر إلى GitHub Pages، ينفذ `npm run deploy` البناء ثم ينشر ملفات `dist/` إلى فرع `gh-pages`.
+
+## الخصوصية والاعتماديات
+
+يعالج محوّل الصور الملفات في المتصفح ولا يرفعها إلى خادم التطبيق. يحتاج تحميل مكتبة ImageTracer من jsDelivr عند استخدام المحوّل، لذلك يلزم اتصال بالإنترنت لتحميل المكتبة أول مرة. يحفظ ضاغط الأكواد نص الجلسة وخياراتها في `localStorage` على المتصفح المستخدم؛ لا تُدخل فيه أسراراً أو مفاتيح API.
+
+## بنية المشروع
+
+- `src/pages/`: صفحات قائمة الأدوات وصفحات كل أداة.
+- `src/components/`: مكونات الأدوات والواجهة المشتركة.
+- `src/minifyJavaScript.js`: منطق ضغط JavaScript.
+- `src/context/`: حالة الثيم.
+- `public/`: الأيقونات والملفات العامة.
+
+إعداد المسار الأساسي لـGitHub Pages موجود في `vite.config.js`، وتُعرّف المسارات داخل التطبيق باستخدام `HashRouter` لتعمل الصفحات الفرعية على الاستضافة الثابتة.

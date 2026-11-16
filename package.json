@@ -9,12 +9,14 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "lint": "oxlint",
+    "test": "node --test src/minifyJavaScript.test.js",
     "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-router-dom": "^7.18.1"
+    "react-router-dom": "^7.18.1",
+    "terser": "5.51.2"
   },
   "devDependencies": {
     "@types/react": "^19.2.17",

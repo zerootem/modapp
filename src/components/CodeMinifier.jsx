@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { minifyJavaScript } from '../minifyJavaScript.js';
 
 function CodeMinifier() {
   const [currentType, setCurrentType] = useState('css');
@@ -24,7 +25,6 @@ function CodeMinifier() {
   const textareaRef = useRef(null);
   const statusTimer = useRef(null);
   const autoTimer = useRef(null);
-  const terserRef = useRef(null);
   const editorWrapRef = useRef(null);
 
   const showStatus = useCallback((msg, isError = false) => {
@@ -34,8 +34,7 @@ function CodeMinifier() {
     statusTimer.current = setTimeout(() => setStatusMsg(''), 2200);
   }, []);
 
-  const formatBytes = (chars) => {
-    const bytes = new Blob([chars]).size;
+  const formatBytes = (bytes) => {
     return bytes < 1024 ? bytes + ' B' : (bytes / 1024).toFixed(1) + ' KB';
   };
 
@@ -51,7 +50,7 @@ function CodeMinifier() {
     const ml = mini.length;
     const ratio = ol ? Math.round((1 - ml / ol) * 100) : 0;
     setStats({
-      origLen: ol, miniLen: ml, ratio, timeMs,
+      origLen: ol, miniLen: ml, origBytes: new Blob([orig]).size, miniBytes: new Blob([mini]).size, ratio, timeMs,
       origLines: orig.split(/\r?\n/).length,
       miniLines: mini.split(/\r?\n/).length
     });
@@ -92,27 +91,6 @@ function CodeMinifier() {
     } catch (e) {}
   }, []);
 
-  const fallbackJS = (code, opts) => {
-    let out = code;
-    if (opts.removeComments) {
-      out = out.replace(/\/\*[\s\S]*?\*\//g, '');
-      out = out.replace(/(?::\s*\/\/.*$)|(?:\/\/.*$)/gm, '');
-    }
-    if (opts.dropConsole) {
-      out = out.replace(/console\.(?:log|debug|info|warn|error|table|trace|time|timeEnd|count|group|groupEnd)\s*\([^;]*\);?/g, '');
-    }
-    if (opts.removeWhitespace) {
-      const tokens = [];
-      let prot = out.replace(/`(?:\\.|[^`\\])*`/g, m => (tokens.push(m), '\x00' + (tokens.length-1)));
-      prot = prot.replace(/"(?:\\.|[^"\\])*"/g, m => (tokens.push(m), '\x00' + (tokens.length-1)));
-      prot = prot.replace(/'(?:\\.|[^'\\])*'/g, m => (tokens.push(m), '\x00' + (tokens.length-1)));
-      prot = prot.replace(/(\/[^*\/](?:\\.|[^\/\\])*\/[gimsuyd]*)/g, m => (tokens.push(m), '\x00' + (tokens.length-1)));
-      prot = prot.replace(/\s+/g, ' ').replace(/\s*([{}();,:!+\-*/%=<>&|^~?])\s*/g, '$1').replace(/^\s+|\s+$/g, '');
-      out = prot.replace(/\x00(\d+)/g, (_, i) => tokens[parseInt(i)]);
-    }
-    return out.trim();
-  };
-
   const fallbackCSS = (code, opts) => {
     let out = code;
     if (opts.removeComments) out = out.replace(/\/\*[\s\S]*?\*\//g, '');
@@ -143,18 +121,6 @@ function CodeMinifier() {
     return out;
   };
 
-  const loadTerser = useCallback(async () => {
-    if (terserRef.current) return terserRef.current;
-    return new Promise((resolve, reject) => {
-      if (window.Terser) { terserRef.current = window.Terser; resolve(window.Terser); return; }
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/terser@5.31.0/dist/bundle.min.js';
-      script.onload = () => { terserRef.current = window.Terser; resolve(window.Terser); };
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-  }, []);
-
   const proMinify = useCallback(async (silent = false) => {
     const code = textareaRef.current?.value;
     if (!code || !code.trim()) {
@@ -174,21 +140,8 @@ function CodeMinifier() {
       };
       let output = '';
 
-      if (currentType === 'js' && (opts.mangle || code.length > 50000)) {
-        try {
-          const T = await loadTerser();
-          const res = await T.minify(code, {
-            compress: { drop_console: opts.dropConsole, passes: 2 },
-            mangle: opts.mangle ? { toplevel: false } : false,
-            output: { comments: false }
-          });
-          if (res.error) throw res.error;
-          output = res.code;
-        } catch (e) {
-          console.warn('Terser failed, fallback:', e);
-          output = fallbackJS(code, opts);
-          if (opts.mangle) showStatus('تم استخدام المحرك الاحتياطي بدون تقصير المتغيرات', true);
-        }
+      if (currentType === 'js') {
+        output = await minifyJavaScript(code, opts);
       } else if (currentType === 'css') {
         output = fallbackCSS(code, opts);
       } else if (currentType === 'html') {
@@ -205,11 +158,11 @@ function CodeMinifier() {
       if (!silent) showStatus(`تم الضغط بنجاح - نسبة التوفير: ${Math.round((1 - output.length / code.length) * 100)}%`);
     } catch (e) {
       console.error(e);
-      showStatus('حدث خطأ غير متوقع', true);
+      showStatus(currentType === 'js' ? 'تعذّر ضغط JavaScript؛ تحقق من صحة صياغة الكود.' : 'حدث خطأ غير متوقع', true);
     } finally {
       setIsProcessing(false);
     }
-  }, [isProcessing, pushUndo, showStatus, currentType, removeComments, removeWhitespace, dropConsole, mangle, mergeRules, optimizeColors, minifyInline, removeEmptyAttr, loadTerser, updateStats]);
+  }, [isProcessing, pushUndo, showStatus, currentType, removeComments, removeWhitespace, dropConsole, mangle, mergeRules, optimizeColors, minifyInline, removeEmptyAttr, updateStats]);
 
   const proUndo = () => {
     if (undoStack.length === 0) {
@@ -396,7 +349,7 @@ function CodeMinifier() {
           <button onClick={() => proMinify(false)} className="minifier-btn primary" disabled={isProcessing}>
             <span>{isProcessing ? 'جاري الضغط...' : 'ضغط الكود'}</span>
             {isProcessing && (
-              <svg className="tool-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" className="spin">
+              <svg className="tool-icon spin" width="16" height="16" viewBox="0 0 24 24" fill="none">
                 <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
               </svg>
             )}
@@ -433,8 +386,8 @@ function CodeMinifier() {
             <label style={{display: currentType === 'html' ? '' : 'none'}}><input type="checkbox" checked={removeEmptyAttr} onChange={e => setRemoveEmptyAttr(e.target.checked)} /> حذف السمات الفارغة</label>
           </div>
           <div className="minify-stats" style={{display: stats.origLen > 0 ? 'flex' : 'none'}}>
-            <span>المدخل: {stats.origLen.toLocaleString()} حرف ({formatBytes(String(stats.origLen))})</span>
-            <span>الناتج: {stats.miniLen.toLocaleString()} حرف ({formatBytes(String(stats.miniLen))})</span>
+            <span>المدخل: {stats.origLen.toLocaleString()} حرف ({formatBytes(stats.origBytes)})</span>
+            <span>الناتج: {stats.miniLen.toLocaleString()} حرف ({formatBytes(stats.miniBytes)})</span>
             <span>نسبة الضغط: {stats.ratio}%</span>
             <span>الوقت: {stats.timeMs}ms</span>
             <span>الأسطر: {stats.origLines} - {stats.miniLines}</span>
