@@ -7,6 +7,7 @@ import Breadcrumb from './components/Breadcrumb';
 import ToolsPage from './pages/ToolsPage';
 import ToolDetail from './pages/ToolDetail';
 import ImageToSvgPage from './pages/ImageToSvgPage';
+import ThumbnailPage from './pages/ThumbnailPage';
 import './App.css';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/tools" element={<ToolsPage />} />
                 <Route path="/tools/code-minifier" element={<ToolDetail />} />
                 <Route path="/tools/image-to-svg" element={<ImageToSvgPage />} />
+                <Route path="/tools/thumbnail-generator" element={<ThumbnailPage />} />
               </Routes>
             </main>
           </div>

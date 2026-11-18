@@ -22,18 +22,18 @@ function ToolsPage() {
         </div>
       </Link>
 
-      <a
-        href={`${import.meta.env.BASE_URL}tools/thumbnail-generator.html`}
+      <Link
+        to="/tools/thumbnail-generator"
         className="tool-card"
         aria-label="مولد الصور المصغرة بالذكاء الاصطناعي"
       >
         <div className="tool-card-content">
           <h3 className="tool-card-title">مولد الصور المصغرة بالذكاء الاصطناعي</h3>
           <p className="tool-card-desc">
-            صمّم صورة المقال على لوحة Canvas، وولّد خلفية أو شخصية أو رمزاً، واحصل على اقتراحات للألوان والخطوط والوسوم.
+            صمّم صورة المقال على لوحة Canvas، وولّد خلفية أو شخصية أو رمزاً عبر Pollinations أو Puter أو مفتاح API، مع اقتراحات للألوان والخطوط والوسوم.
           </p>
         </div>
-      </a>
+      </Link>
 
       <a
         href="https://zerootem.github.io/article-generator-tool/"

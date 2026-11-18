@@ -166,6 +166,12 @@ header > div {
 }
 
 /* ================= [11] تنسيقات أداة ضغط الأكواد ================= */
+.tool-embed {
+  max-width: 1000px; margin: 0 auto; height: calc(100dvh - 200px);
+  min-height: 480px; border: 1px solid var(--mw-contentL);
+  border-radius: 0.5rem; overflow: hidden; background: var(--mw-contentB);
+}
+.tool-embed-frame { width: 100%; height: 100%; border: 0; display: block; background: var(--mw-bodyB); }
 .minifier-tool {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--mw-bodyC); line-height: 1.5; font-size: 0.875rem;

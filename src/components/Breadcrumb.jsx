@@ -16,6 +16,8 @@ function Breadcrumb() {
       items.push({ label: 'ضاغط الأكواد', path: '/tools/code-minifier', active: true, noIcon: true });
     } else if (pathSegments[1] === 'image-to-svg') {
       items.push({ label: 'تحويل الصور إلى SVG', path: '/tools/image-to-svg', active: true, noIcon: true });
+    } else if (pathSegments[1] === 'thumbnail-generator') {
+      items.push({ label: 'مولد الصور المصغرة', path: '/tools/thumbnail-generator', active: true, noIcon: true });
     }
   }
 
