@@ -37,14 +37,14 @@ export function imageDimensions(kind = 'background', ratio = '') {
   return dimensions[ratio] || defaults;
 }
 
-export function buildClassicImageUrl(prompt, { kind = 'background', ratio = '16:9', seed = Math.floor(Math.random() * 2_000_000_000) } = {}) {
+export function buildClassicImageUrl(prompt, { kind = 'background', ratio = '16:9', model = '', seed = Math.floor(Math.random() * 2_000_000_000) } = {}) {
   const fullPrompt = imagePromptForKind(prompt, kind);
   const { width, height } = imageDimensions(kind, ratio);
   const url = new URL(encodeURIComponent(fullPrompt), IMAGE_ENDPOINT);
   url.search = new URLSearchParams({
     width: String(width),
     height: String(height),
-    model: IMAGE_MODEL,
+    model: model || IMAGE_MODEL,
     seed: String(Number.isFinite(Number(seed)) ? Math.trunc(Number(seed)) : 1),
     nologo: 'true',
   }).toString();
@@ -179,6 +179,69 @@ function errorMessage(error) {
   return error instanceof Error ? error.message : 'حدث خطأ غير متوقع.';
 }
 
+export const THUMB_PROVIDERS = {
+  pollinations: { label: 'Pollinations — مجاني بلا مفتاح', models: ['sana', 'flux', 'turbo'] },
+  puter: { label: 'Puter — بلا مفتاح', models: ['gpt-image-1', 'dall-e-3'] },
+  api: { label: 'API مخصص — OpenAI متوافق', models: [] },
+};
+function readField(root, id) {
+  const el = root.getElementById(id);
+  return el ? String(el.value || '').trim() : '';
+}
+export function readAiSettings(root) {
+  return {
+    provider: readField(root, 'mwAiProvider') || 'pollinations',
+    model: readField(root, 'mwAiModel'),
+    baseUrl: readField(root, 'mwAiBaseUrl'),
+    apiKey: readField(root, 'mwAiApiKey'),
+  };
+}
+async function blobFromUrl(url, signal) {
+  const response = await fetch(url, { signal, mode: 'cors', credentials: 'omit', headers: { Accept: 'image/*' } });
+  if (!response.ok) throw new Error(`تعذّر تنزيل الصورة المولدة (${response.status}).`);
+  const blob = await response.blob();
+  if (!blob.type.startsWith('image/') || blob.size === 0) throw new Error('لم تُرجع الخدمة ملف صورة صالحاً.');
+  return blob;
+}
+export async function generatePuterImage(prompt, { kind = 'background', ratio = '16:9', model = '', signal } = {}) {
+  const puter = typeof window !== 'undefined' ? window.puter : null;
+  if (!puter?.ai?.txt2img) throw new Error('مكتبة Puter غير متاحة؛ تحقق من الاتصال ثم أعد تحميل الصفحة.');
+  const image = await puter.ai.txt2img(imagePromptForKind(prompt, kind), { model: model || 'gpt-image-1', aspect_ratio: ratio });
+  const src = typeof image === 'string' ? image : String(image?.src || '');
+  if (!/^(https:|data:image\/|blob:)/i.test(src)) throw new Error('لم يُرجع Puter رابط صورة صالحاً.');
+  if (src.startsWith('data:image/')) {
+    const response = await fetch(src);
+    return response.blob();
+  }
+  return blobFromUrl(src, signal);
+}
+export async function generateApiImage(prompt, { kind = 'background', ratio = '16:9', model = '', baseUrl = '', apiKey = '', signal } = {}) {
+  if (!baseUrl) throw new Error('أدخل عنوان الـAPI (Base URL) أولاً.');
+  if (!apiKey) throw new Error('أدخل مفتاح الـAPI أولاً.');
+  const { width, height } = imageDimensions(kind, ratio);
+  const endpoint = /\/images\/generations\/?$/.test(baseUrl)
+    ? baseUrl.replace(/\/+$/, '')
+    : `${baseUrl.replace(/\/+$/, '')}/images/generations`;
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    signal,
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({ model: model || 'gpt-image-1', prompt: imagePromptForKind(prompt, kind), n: 1, size: `${width}x${height}`, response_format: 'b64_json' }),
+  });
+  const data = await response.json().catch(() => null);
+  if (!response.ok) {
+    const reason = data?.error?.message || (response.status === 401 ? 'المفتاح غير صالح.' : `تعذّر توليد الصورة (${response.status}).`);
+    throw new Error(reason);
+  }
+  const item = data?.data?.[0];
+  if (item?.b64_json) {
+    const bytes = Uint8Array.from(atob(item.b64_json), (char) => char.charCodeAt(0));
+    return new Blob([bytes], { type: 'image/png' });
+  }
+  if (item?.url) return blobFromUrl(item.url, signal);
+  throw new Error('لم يُرجع المزود صورة صالحة.');
+}
+
 export function installThumbnailAI(root = document) {
   const generateButton = root.getElementById('mwAiGenerateBtn');
   const designButton = root.getElementById('mwDesignAssistBtn');
@@ -207,34 +270,43 @@ export function installThumbnailAI(root = document) {
     if (imageController) return;
     let timeout;
     try {
-      const url = buildClassicImageUrl(promptField.value, { kind: kindField.value, ratio: ratioField.value });
+      const settings = readAiSettings(root);
       imageController = new AbortController();
-      timeout = setTimeout(() => imageController?.abort(), 120_000);
+      timeout = setTimeout(() => imageController?.abort(), 180_000);
       generateButton.disabled = true;
       if (cancelButton) cancelButton.hidden = false;
-      setStatus(status, 'جارٍ إرسال الوصف إلى Pollinations وتوليد الصورة… قد يستغرق ذلك بعض الوقت.');
+      setStatus(status, settings.provider === 'pollinations'
+        ? 'جارٍ إرسال الوصف إلى Pollinations وتوليد الصورة… قد يستغرق ذلك بعض الوقت.'
+        : `جارٍ توليد الصورة عبر ${THUMB_PROVIDERS[settings.provider]?.label || settings.provider}…`);
       resultPanel.hidden = true;
-      const response = await fetch(url, {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'omit',
-        referrerPolicy: 'no-referrer',
-        headers: { Accept: 'image/*' },
-        signal: imageController.signal,
-      });
-      clearTimeout(timeout);
-      if (!response.ok) {
-        const reason = response.status === 429
-          ? 'وصلت إلى حد الطلبات المؤقت؛ انتظر قليلاً ثم حاول مجدداً.'
-          : response.status === 402
-            ? 'توفّر المسار المجاني تغيّر أو يتطلب رصيداً حالياً.'
-            : response.status === 401 || response.status === 403
-              ? 'واجهة التوليد بلا مفتاح لم تعد متاحة لهذا الطلب.'
-              : `تعذّر توليد الصورة (${response.status}).`;
-        throw new Error(reason);
+      let blob;
+      if (settings.provider === 'puter') {
+        blob = await generatePuterImage(promptField.value, { kind: kindField.value, ratio: ratioField.value, model: settings.model, signal: imageController.signal });
+      } else if (settings.provider === 'api') {
+        blob = await generateApiImage(promptField.value, { kind: kindField.value, ratio: ratioField.value, model: settings.model, baseUrl: settings.baseUrl, apiKey: settings.apiKey, signal: imageController.signal });
+      } else {
+        const url = buildClassicImageUrl(promptField.value, { kind: kindField.value, ratio: ratioField.value, model: settings.model || undefined });
+        const response = await fetch(url, {
+          method: 'GET',
+          mode: 'cors',
+          credentials: 'omit',
+          referrerPolicy: 'no-referrer',
+          headers: { Accept: 'image/*' },
+          signal: imageController.signal,
+        });
+        if (!response.ok) {
+          const reason = response.status === 429
+            ? 'وصلت إلى حد الطلبات المؤقت؛ انتظر قليلاً ثم حاول مجدداً.'
+            : response.status === 402
+              ? 'توفّر المسار المجاني تغيّر أو يتطلب رصيداً حالياً.'
+              : response.status === 401 || response.status === 403
+                ? 'واجهة التوليد بلا مفتاح لم تعد متاحة لهذا الطلب.'
+                : `تعذّر توليد الصورة (${response.status}).`;
+          throw new Error(reason);
+        }
+        blob = await response.blob();
+        if (!blob.type.startsWith('image/') || blob.size === 0) throw new Error('لم تُرجع الخدمة ملف صورة صالحاً.');
       }
-      const blob = await response.blob();
-      if (!blob.type.startsWith('image/') || blob.size === 0) throw new Error('لم تُرجع الخدمة ملف صورة صالحاً.');
       if (blob.size > 20 * 1024 * 1024) throw new Error('الصورة أكبر من الحد المحلي البالغ 20 ميغابايت.');
       generatedBlob = blob;
       if (generatedObjectUrl) URL.revokeObjectURL(generatedObjectUrl);
