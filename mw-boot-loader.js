@@ -5,7 +5,7 @@
   var DEFAULTS = {
     speed: 1000,        // ms per worm cycle
     size: 85,           // px
-    dash: 600,          // visible worm length
+    dash: 900,          // visible worm length
     strokeWidth: 5,     // px
     accent: '#e11462',  // worm color
     iconScale: 0.8,
@@ -264,6 +264,11 @@
     if (overlay && !overlay.classList.contains('h')) {
       overlay.classList.add('e');
       measure();
+      if (window.requestAnimationFrame) {
+        requestAnimationFrame(measure);
+        setTimeout(measure, 80);
+        setTimeout(measure, 400);
+      }
       shownAt = Date.now();
       clearTimeout(fallbackTimer);
       fallbackTimer = setTimeout(function () { hide(true); }, 12000);
