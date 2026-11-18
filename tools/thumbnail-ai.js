@@ -192,6 +192,7 @@ export function readAiSettings(root) {
   return {
     provider: readField(root, 'mwAiProvider') || 'pollinations',
     model: readField(root, 'mwAiModel'),
+    apiModel: readField(root, 'mwAiApiModel'),
     baseUrl: readField(root, 'mwAiBaseUrl'),
     apiKey: readField(root, 'mwAiApiKey'),
   };
@@ -283,7 +284,7 @@ export function installThumbnailAI(root = document) {
       if (settings.provider === 'puter') {
         blob = await generatePuterImage(promptField.value, { kind: kindField.value, ratio: ratioField.value, model: settings.model, signal: imageController.signal });
       } else if (settings.provider === 'api') {
-        blob = await generateApiImage(promptField.value, { kind: kindField.value, ratio: ratioField.value, model: settings.model, baseUrl: settings.baseUrl, apiKey: settings.apiKey, signal: imageController.signal });
+        blob = await generateApiImage(promptField.value, { kind: kindField.value, ratio: ratioField.value, model: settings.apiModel || settings.model, baseUrl: settings.baseUrl, apiKey: settings.apiKey, signal: imageController.signal });
       } else {
         const url = buildClassicImageUrl(promptField.value, { kind: kindField.value, ratio: ratioField.value, model: settings.model || undefined });
         const response = await fetch(url, {
