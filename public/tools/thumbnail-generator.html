@@ -826,6 +826,8 @@ body { margin:0; min-height:100vh; background:var(--bodyB,#f8fafc); color:var(--
             <input id="mwAiBaseUrl" type="url" dir="ltr" placeholder="https://api.openai.com/v1">
             <label for="mwAiApiKey">مفتاح الـAPI (يُحفظ في متصفحك فقط)</label>
             <input id="mwAiApiKey" type="password" dir="ltr" autocomplete="off" placeholder="sk-...">
+            <label for="mwAiApiModel">اسم النموذج</label>
+            <input id="mwAiApiModel" type="text" dir="ltr" placeholder="gpt-image-1">
           </div>
           <div class="mw-ai-field">
             <label for="mwAiImageKind">نوع الصورة</label>
@@ -2315,14 +2317,14 @@ console.log('مولد الصور المصغرة V3 جاهز (نسخة modweeb)')
   if(provider && saved.provider) provider.value=saved.provider;
   fillModels();
   if(model && saved.model){ model.value=saved.model; }
-  ['mwAiBaseUrl','mwAiApiKey'].forEach(function(id){ var el=document.getElementById(id); if(el && saved[id]) el.value=saved[id]; });
+  ['mwAiBaseUrl','mwAiApiKey','mwAiApiModel'].forEach(function(id){ var el=document.getElementById(id); if(el && saved[id]) el.value=saved[id]; });
   function save(){
-    var data={provider:provider.value, model:model?model.value:'', mwAiBaseUrl:(document.getElementById('mwAiBaseUrl')||{}).value||'', mwAiApiKey:(document.getElementById('mwAiApiKey')||{}).value||''};
+    var data={provider:provider.value, model:model?model.value:'', mwAiBaseUrl:(document.getElementById('mwAiBaseUrl')||{}).value||'', mwAiApiKey:(document.getElementById('mwAiApiKey')||{}).value||'', mwAiApiModel:(document.getElementById('mwAiApiModel')||{}).value||''};
     try{ localStorage.setItem(KEY, JSON.stringify(data)); }catch(e){}
   }
   provider && provider.addEventListener('change', function(){ fillModels(); save(); });
   model && model.addEventListener('change', save);
-  ['mwAiBaseUrl','mwAiApiKey'].forEach(function(id){ var el=document.getElementById(id); if(el) el.addEventListener('input', save); });
+  ['mwAiBaseUrl','mwAiApiKey','mwAiApiModel'].forEach(function(id){ var el=document.getElementById(id); if(el) el.addEventListener('input', save); });
 })();
 </script>
 </body>
