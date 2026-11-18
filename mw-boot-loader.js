@@ -5,7 +5,7 @@
   var DEFAULTS = {
     speed: 1000,        // ms per worm cycle
     size: 85,           // px
-    dash: 900,          // visible worm length
+    dash: 600,          // visible worm length
     strokeWidth: 5,     // px
     accent: '#e11462',  // worm color
     iconScale: 0.8,
