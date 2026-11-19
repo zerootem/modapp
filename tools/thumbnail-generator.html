@@ -754,6 +754,26 @@ body { margin:0; min-height:100vh; background:var(--bodyB,var(--lBodyB,#f9fafb))
   .mw-ai-form { gap:.5rem; }
 }
 
+/* أيقونات الهيدر موحدة مع قالب مولد المقالات، والتحكم بالمعاينة من الهيدر. */
+.mw-thumb-generator .mw-header-actions { gap:.28rem; }
+.mw-thumb-generator .mw-header-actions button.mw-btn.icon-only {
+  width:30px!important; height:30px!important; min-width:30px!important; min-height:30px!important;
+  padding:0!important; border-radius:50%!important; border:1px solid var(--contentL)!important;
+  background:var(--contentB)!important; color:var(--bodyC)!important; box-shadow:none!important;
+  display:inline-flex; align-items:center; justify-content:center; flex:0 0 30px;
+}
+.mw-thumb-generator .mw-header-actions button.mw-btn.icon-only:hover {
+  background:var(--contentBa)!important; border-color:var(--linkC)!important; color:var(--bodyC)!important;
+}
+.mw-thumb-generator .mw-header-actions button.mw-btn.icon-only svg {
+  width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.8;
+  stroke-linecap:round; stroke-linejoin:round;
+}
+.mw-thumb-generator .mw-header-actions button.mw-btn.icon-only.primary,
+.mw-thumb-generator .mw-header-actions button.mw-btn.icon-only.primary:hover {
+  background:var(--linkC)!important; border-color:var(--linkC)!important; color:#fff!important;
+}
+.mw-thumb-generator .mw-header-actions button:focus-visible { outline:2px solid var(--linkC); outline-offset:2px; }
 
 </style>
 
@@ -767,23 +787,20 @@ body { margin:0; min-height:100vh; background:var(--bodyB,var(--lBodyB,#f9fafb))
 
   <!-- الهيدر -->
   <div class="mw-header">
-    <div class="mw-header-title">
-      <span>مولد الصور المصغرة</span>
-      <span style="font-size:0.55rem;background:var(--contentBa);padding:0.05rem 0.4rem;border-radius:1rem;border:1px solid var(--contentL);color:var(--notifC);">V3</span>
-    </div>
     <div class="mw-header-actions">
-      <a class="mw-btn mw-back-center" href="../#/tools" aria-label="العودة إلى مركز الأدوات" title="العودة إلى مركز الأدوات">← المركز</a>
-      <button class="mw-btn icon-only" id="mwResetHeaderBtn"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+      <button class="mw-btn icon-only" id="mwTogglePreviewBtn" title="إخفاء المعاينة المباشرة" aria-label="إخفاء المعاينة المباشرة" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      <button class="mw-btn icon-only" id="mwResetHeaderBtn" title="إعادة التعيين" aria-label="إعادة التعيين"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
       <div class="mw-dropdown">
-        <button class="mw-btn icon-only" id="mwDownloadToggleBtn"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+        <button class="mw-btn icon-only" id="mwDownloadToggleBtn" title="تحميل الصورة" aria-label="تحميل الصورة"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
         <div class="mw-dropdown-content" id="mwDownloadDropdown">
           <button class="mw-btn" data-format="webp" data-quality="0.92">WebP</button>
           <button class="mw-btn" data-format="png" data-quality="1.0">PNG</button>
           <button class="mw-btn" data-format="jpeg" data-quality="0.92">JPEG</button>
         </div>
       </div>
-      <button class="mw-btn icon-only" id="mwCopyImageBtn"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
-      <button class="mw-btn icon-only" id="mwSaveSettingsBtn"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
+      <button class="mw-btn icon-only" id="mwCopyImageBtn" title="نسخ الصورة" aria-label="نسخ الصورة"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      <button class="mw-btn icon-only" id="mwSaveSettingsBtn" title="حفظ الإعدادات" aria-label="حفظ الإعدادات"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
+      <button class="mw-btn icon-only primary" id="mwToggleFullScreenBtn" title="تكبير بطاقة الأداة" aria-label="تكبير بطاقة الأداة" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg></button>
     </div>
   </div>
 
@@ -791,9 +808,6 @@ body { margin:0; min-height:100vh; background:var(--bodyB,var(--lBodyB,#f9fafb))
   <div class="mw-preview-sticky" id="mwPreviewSticky">
     <div class="mw-preview-toolbar">
       <span class="mw-alert">معاينة مباشرة <code>الحجم: <span id="mwPreviewSizeText">16:9</span></code></span>
-      <div class="mw-flex">
-        <button class="mw-btn icon-only" id="mwTogglePreviewBtn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
-      </div>
     </div>
     <div class="mw-preview-frame" id="mwPreviewFrame">
       <canvas id="mwThumbCanvas" class="canvas-dom" width="1280" height="720"></canvas>
@@ -1173,6 +1187,7 @@ const wmZoomIn = q('#mwWmZoomIn'), wmZoomOut = q('#mwWmZoomOut');
 const resetHeaderBtn = q('#mwResetHeaderBtn'), downloadToggleBtn = q('#mwDownloadToggleBtn');
 const downloadDropdown = q('#mwDownloadDropdown'), saveSettingsBtn = q('#mwSaveSettingsBtn');
 const togglePreviewBtn = q('#mwTogglePreviewBtn'), previewSticky = q('#mwPreviewSticky');
+const toggleFullScreenBtn = q('#mwToggleFullScreenBtn');
 const previewSizeText = q('#mwPreviewSizeText');
 const copyImageBtn = q('#mwCopyImageBtn');
 
@@ -2087,11 +2102,45 @@ confirmDownloadBtn.addEventListener('click', performDownload);
 // نسخ الصورة
 copyImageBtn.addEventListener('click', copyImageToClipboard);
 
-// إظهار/إخفاء المعاينة
-togglePreviewBtn.addEventListener('click', () => {
-  isPreviewVisible = !isPreviewVisible;
+// إظهار/إخفاء المعاينة من أيقونة الهيدر مع مزامنة حالة الوصول.
+function syncPreviewVisibility() {
   previewSticky.classList.toggle('collapsed', !isPreviewVisible);
-  showNotification(isPreviewVisible ? 'المعاينة ظاهرة' : 'المعاينة مخفية');
+  togglePreviewBtn.setAttribute('aria-pressed', String(isPreviewVisible));
+  togglePreviewBtn.setAttribute('aria-label', isPreviewVisible ? 'إخفاء المعاينة المباشرة' : 'إظهار المعاينة المباشرة');
+  togglePreviewBtn.title = isPreviewVisible ? 'إخفاء المعاينة المباشرة' : 'إظهار المعاينة المباشرة';
+  togglePreviewBtn.innerHTML = isPreviewVisible
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M10.6 5.1A11.7 11.7 0 0 1 12 5c6.5 0 10 7 10 7a15 15 0 0 1-3 3.8M6.2 6.2C3.5 8 2 12 2 12s3.5 7 10 7c1.1 0 2.1-.2 3-.5"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
+}
+function setPreviewVisible(visible, announce = false) {
+  isPreviewVisible = Boolean(visible);
+  syncPreviewVisibility();
+  if (announce) showNotification(isPreviewVisible ? 'المعاينة ظاهرة' : 'المعاينة مخفية');
+}
+syncPreviewVisibility();
+togglePreviewBtn.addEventListener('click', () => setPreviewVisible(!isPreviewVisible, true));
+
+// تكبير بطاقة الأداة فوق القالب مع إبقاء زر التصغير داخل الهيدر.
+let isToolFullscreen = false;
+function setToolFullscreen(expanded, notifyParent = true) {
+  isToolFullscreen = Boolean(expanded);
+  toggleFullScreenBtn.setAttribute('aria-pressed', String(isToolFullscreen));
+  toggleFullScreenBtn.setAttribute('aria-label', isToolFullscreen ? 'تصغير بطاقة الأداة' : 'تكبير بطاقة الأداة');
+  toggleFullScreenBtn.title = isToolFullscreen ? 'تصغير بطاقة الأداة' : 'تكبير بطاقة الأداة';
+  toggleFullScreenBtn.innerHTML = isToolFullscreen
+    ? '<svg viewBox="0 0 24 24"><path d="M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3"/></svg>'
+    : '<svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>';
+  if (notifyParent && window.parent !== window) {
+    window.parent.postMessage({ type: 'mw-thumbnail-fullscreen', expanded: isToolFullscreen }, window.location.origin);
+  }
+}
+toggleFullScreenBtn.addEventListener('click', () => setToolFullscreen(!isToolFullscreen));
+window.addEventListener('message', event => {
+  if (event.origin !== window.location.origin || event.source !== window.parent) return;
+  if (event.data?.type === 'mw-thumbnail-fullscreen-state') setToolFullscreen(event.data.expanded, false);
+});
+window.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && isToolFullscreen) setToolFullscreen(false);
 });
 
 // تغيير النسبة
@@ -2101,8 +2150,7 @@ ratioSelect.addEventListener('change', () => {
   canvas.height = Math.round(baseWidth / r);
   previewSizeText.textContent = canvas.width + ' : ' + canvas.height;
   renderCanvas();
-  if(!isPreviewVisible) previewSticky.classList.add('collapsed');
-  else previewSticky.classList.remove('collapsed');
+  syncPreviewVisibility();
 });
 
 // سحب وإفلات
@@ -2272,8 +2320,7 @@ buildCornerIconPicker();
 loadSettings().then(() => {
   buildTagIcon(tagIconColor.value);
   renderCanvas();
-  if(!isPreviewVisible) previewSticky.classList.add('collapsed');
-  else previewSticky.classList.remove('collapsed');
+  syncPreviewVisibility();
 }).catch(error => {
   console.error('تعذر استعادة إعدادات مولد الصور', error);
   showNotification('تعذر استعادة الإعدادات المحفوظة', true);
