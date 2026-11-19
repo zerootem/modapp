@@ -2,6 +2,7 @@
 (function () {
   'use strict';
   var STORAGE_KEY = 'mw-loader-settings';
+  var SETTINGS_VERSION_KEY = 'mw-loader-settings-version';
   var DEFAULTS = {
     speed: 1000,        // ms per worm cycle
     size: 85,           // px
@@ -14,8 +15,8 @@
     fade: 800           // ms fade-out
   };
   var THEME_DEFAULTS = {
-    light: { bg: '#f8fafc', fill: '#f1f1f0', stroke: '#e3e7ef' },
-    dark: { bg: '#1a1a1a', fill: '#2d2d2d', stroke: '#404040' }
+    light: { bg: '#f9fafb', fill: 'rgba(0,0,0,.05)', stroke: '#e11462' },
+    dark: { bg: '#1a1a1a', fill: 'rgba(255,255,255,.05)', stroke: '#e11462' }
   };
   var script = document.currentScript;
   var hookName = script && script.getAttribute('data-hook');
@@ -24,7 +25,15 @@
   function readStore() {
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : {};
+      var stored = raw ? JSON.parse(raw) : {};
+      if (localStorage.getItem(SETTINGS_VERSION_KEY) !== '2') {
+        if (stored.fill === '#f1f1f0' || stored.fill === '#2d2d2d') delete stored.fill;
+        if (stored.stroke === '#e3e7ef' || stored.stroke === '#404040') delete stored.stroke;
+        if (stored.bg === '#f8fafc') delete stored.bg;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
+        localStorage.setItem(SETTINGS_VERSION_KEY, '2');
+      }
+      return stored;
     } catch (error) {
       return {};
     }
@@ -110,7 +119,7 @@
     apply();
   }
   function reset() {
-    try { localStorage.removeItem(STORAGE_KEY); } catch (error) { /* ignore */ }
+    try { localStorage.removeItem(STORAGE_KEY); localStorage.setItem(SETTINGS_VERSION_KEY, '2'); } catch (error) { /* ignore */ }
     apply();
   }
 
@@ -212,8 +221,8 @@
     var theme = THEME_DEFAULTS[prefersDark() ? 'dark' : 'light'];
     body.appendChild(colorRow('لون الضوء', 'accent', cfg.accent || DEFAULTS.accent));
     body.appendChild(colorRow('خلفية الشاشة', 'bg', cfg.bg || theme.bg));
-    body.appendChild(colorRow('لون المسار', 'fill', cfg.fill || theme.fill));
-    body.appendChild(colorRow('حدود المسار', 'stroke', cfg.stroke || theme.stroke));
+    body.appendChild(colorRow('تعبئة الشكل الثابت', 'fill', cfg.fill || theme.fill));
+    body.appendChild(colorRow('لون حد الشكل الثابت', 'stroke', cfg.stroke || theme.stroke));
     var icon = document.createElement('input');
     icon.type = 'checkbox';
     icon.checked = cfg.showIcon !== false;
