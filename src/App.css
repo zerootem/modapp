@@ -313,3 +313,37 @@ header > div {
   .footer-content { gap: .15rem .4rem; font-size: .62rem; }
   .theme-switch-btn { min-width: 26px; min-height: 26px; padding: .25rem; }
 }
+
+
+/* وضع التركيز لمولد الصور: توسعة البطاقة إلى كامل الشاشة دون رأس القالب أو مساره أو تذييله. */
+html.mw-thumbnail-expanded,
+body.mw-thumbnail-expanded { overflow: hidden !important; }
+body.mw-thumbnail-expanded .modweeb-fullpage {
+  height: 100vh !important; height: 100dvh !important; min-height: 0 !important; overflow: hidden !important;
+}
+body.mw-thumbnail-expanded .modweeb-fullpage > header,
+body.mw-thumbnail-expanded .modweeb-fullpage > .site-footer,
+body.mw-thumbnail-expanded .modweeb-fullpage .content-wrapper > .breadcrumb-nav { display: none !important; }
+body.mw-thumbnail-expanded .modweeb-fullpage > .content-wrapper {
+  position: fixed !important; inset: 0 !important; width: 100vw !important;
+  height: 100vh !important; height: 100dvh !important; min-height: 0 !important;
+  margin: 0 !important; padding: 0 !important; overflow: hidden !important;
+}
+body.mw-thumbnail-expanded .route-content {
+  position: fixed !important; inset: 0 !important; width: 100vw !important;
+  height: 100vh !important; height: 100dvh !important; min-height: 0 !important;
+  margin: 0 !important; padding: 0 !important; overflow: hidden !important;
+}
+body.mw-thumbnail-expanded .tool-embed,
+body.mw-thumbnail-expanded .tool-embed-expanded {
+  position: fixed !important; inset: 0 !important; z-index: 10001 !important;
+  width: 100vw !important; max-width: none !important;
+  height: 100vh !important; height: 100dvh !important; min-height: 0 !important;
+  margin: 0 !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important;
+  overflow: hidden !important; box-shadow: none !important; background: var(--mw-bodyB) !important;
+}
+body.mw-thumbnail-expanded .tool-embed-frame {
+  display: block !important; width: 100vw !important;
+  height: 100vh !important; height: 100dvh !important; min-height: 0 !important;
+  margin: 0 !important; border: 0 !important;
+}
