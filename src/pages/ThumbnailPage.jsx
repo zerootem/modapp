@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useTheme } from '../context/ThemeContext';
 
+const THEME_KEYS = ['iconC','iconCa','iconCs','headC','bodyC','bodyCa','bodyB','linkC','linkB','headerC','headerB','headerHc','notifB','notifC','contentB','contentBs','contentBa','contentL','contentLa','fotB','fotC','transB','statusC','selectC','selectB','scrollT','scrollB','scrollBh','scrollBa','scrollH','scrollV','scrollR','aInvert','svgW','svgH','svgC'];
+
 function ThumbnailPage() {
   const { theme } = useTheme();
   const frameRef = useRef(null);
@@ -10,7 +12,7 @@ function ThumbnailPage() {
     if (!frame) return undefined;
     const sync = (mode = theme) => {
       const rootStyle = getComputedStyle(document.documentElement);
-      const tokens = Object.fromEntries(['bodyB','bodyC','contentB','contentBa','contentL','headC','notifB','notifC','linkC','white'].map((key) => [key, rootStyle.getPropertyValue(`--mw-${key}`).trim()]));
+      const tokens = Object.fromEntries(THEME_KEYS.map((key) => [key, rootStyle.getPropertyValue(`--mw-${key}`).trim()]));
       frame.contentWindow?.postMessage({ type: 'mw-theme', theme: mode, tokens }, '*');
       frame.contentWindow?.postMessage({ type: 'mw-embed', embed: true }, '*');
     };
@@ -30,7 +32,7 @@ function ThumbnailPage() {
         title="مولد الصور المصغرة بالذكاء الاصطناعي"
         onLoad={() => {
           const rootStyle = getComputedStyle(document.documentElement);
-          const tokens = Object.fromEntries(['bodyB','bodyC','contentB','contentBa','contentL','headC','notifB','notifC','linkC','white'].map((key) => [key, rootStyle.getPropertyValue(`--mw-${key}`).trim()]));
+          const tokens = Object.fromEntries(THEME_KEYS.map((key) => [key, rootStyle.getPropertyValue(`--mw-${key}`).trim()]));
           frameRef.current?.contentWindow?.postMessage({ type: 'mw-theme', theme, tokens }, '*');
           frameRef.current?.contentWindow?.postMessage({ type: 'mw-embed', embed: true }, '*');
         }}

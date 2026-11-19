@@ -1,20 +1,20 @@
 /* ================= [1] المتغيرات الموحدة ================= */
 :root {
-  --mw-bodyB: #f9fafb;
-  --mw-bodyC: #1f2937;
-  --mw-contentB: #ffffff;
-  --mw-contentL: #e5e7eb;
-  --mw-headC: #111827;
-  --mw-linkB: #000000;
-  --mw-linkC: #3b82f6;
+  --mw-bodyB: var(--bodyB);
+  --mw-bodyC: var(--bodyC);
+  --mw-contentB: var(--contentB);
+  --mw-contentL: var(--contentL);
+  --mw-headC: var(--headC);
+  --mw-linkB: var(--linkB);
+  --mw-linkC: var(--linkC);
   --mw-white: #ffffff;
-  --mw-notifB: #f9fafb;
-  --mw-notifC: #6b7280;
-  --mw-contentBa: #f4f8ff;
+  --mw-notifB: var(--notifB);
+  --mw-notifC: var(--notifC);
+  --mw-contentBa: var(--contentBa);
   --mw-breadcrumb: #6b7280;
   --mw-breadcrumb-active: #4b5563;
   --mw-breadcrumb-sep: #9ca3af;
-}
+--lIconC:#64748b;--lIconCa:#94a3b8;--lIconCs:#3b82f6;--lHeadC:#111827;--lBodyC:#1f2937;--lBodyCa:#6b7280;--lBodyB:#f9fafb;--lLinkC:#3b82f6;--lLinkB:#eff6ff;--lHeaderC:#ffffff;--lHeaderB:#3b82f6;--headerH:52px;--lNotifB:#f9fafb;--lNotifC:#6b7280;--lContentB:#ffffff;--lContentL:#e5e7eb;--lStatusC:#16a34a;--darkB:#1a1a1a;--darkT:#e5e5e5;--darkL:#41a2ef;--darkBa:#252526;--bodyB:var(--lBodyB);--bodyC:var(--lBodyC);--headC:var(--lHeadC);--linkB:var(--lLinkB);--linkC:var(--lLinkC);--contentB:var(--lContentB);--contentBs:#f1f1f0;--contentBa:#f6f6f6;--contentL:var(--lContentL);--contentLa:#b5b5b4;--notifB:var(--lNotifB);--notifC:var(--lNotifC);--fotB:var(--lBodyB);--fotC:var(--lBodyC);--mw-contentBs:var(--contentBs);--mw-contentLa:var(--contentLa);--mw-fotB:var(--fotB);--mw-fotC:var(--fotC);--mw-headerB:var(--headerB);--mw-headerC:var(--headerC);--mw-headerHc:var(--headerHc);--mw-iconC:var(--iconC);--mw-iconCa:var(--iconCa);--mw-iconCs:var(--iconCs);--mw-transB:var(--transB);--mw-aInvert:var(--aInvert);--mw-scrollH:var(--scrollH);--mw-scrollV:var(--scrollV);--mw-scrollR:var(--scrollR);}
 
 /* ================= [2] إعدادات عامة واتجاه عربي ================= */
 html, body {

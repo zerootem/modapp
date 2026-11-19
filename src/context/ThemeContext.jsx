@@ -2,93 +2,58 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 
 const ThemeContext = createContext();
 const THEME_STORAGE_KEY = 'mw-theme-v2';
-
+const THEME_KEYS = [
+  'iconC','iconCa','iconCs','headC','bodyC','bodyCa','bodyB','linkC','linkB','headerC','headerB','headerHc',
+  'notifB','notifC','contentB','contentBs','contentBa','contentL','contentLa','fotB','fotC','transB','statusC',
+  'selectC','selectB','scrollT','scrollB','scrollBh','scrollBa','scrollH','scrollV','scrollR','aInvert','svgW','svgH','svgC'
+];
+const MODE_TOKENS = {
+  light: {
+    iconC:'var(--lIconC)',iconCa:'var(--lIconCa)',iconCs:'var(--lIconCs)',headC:'var(--lHeadC)',bodyC:'var(--lBodyC)',bodyCa:'var(--lBodyCa)',bodyB:'var(--lBodyB)',
+    linkC:'var(--lLinkC)',linkB:'var(--lLinkB)',headerC:'var(--lHeaderC)',headerB:'var(--lHeaderB)',headerHc:'var(--headerH)',
+    notifB:'var(--lNotifB)',notifC:'var(--lNotifC)',contentB:'var(--lContentB)',contentBs:'#f1f1f0',contentBa:'#f6f6f6',contentL:'var(--lContentL)',contentLa:'#b5b5b4',
+    fotB:'var(--lBodyB)',fotC:'var(--lBodyC)',transB:'rgba(0,0,0,.05)',statusC:'var(--lStatusC)',selectC:'#ffffff',selectB:'var(--lLinkB)',
+    scrollT:'rgba(0,0,0,.05)',scrollB:'rgba(0,0,0,.15)',scrollBh:'rgba(0,0,0,.25)',scrollBa:'rgba(0,0,0,.25)',scrollH:'8px',scrollV:'var(--scrollH)',scrollR:'2px',aInvert:'0',svgW:'22px',svgH:'22px',svgC:'currentColor'
+  },
+  dark: {
+    iconC:'var(--darkT)',iconCa:'#94a3b8',iconCs:'var(--darkL)',headC:'var(--darkT)',bodyC:'var(--darkT)',bodyCa:'var(--darkT)',bodyB:'var(--darkB)',
+    linkC:'var(--darkL)',linkB:'var(--darkL)',headerC:'var(--darkT)',headerB:'var(--darkB)',headerHc:'var(--headerH)',
+    notifB:'var(--darkBa)',notifC:'rgba(255,255,255,.9)',contentB:'#252526',contentBs:'#303031',contentBa:'#252526',contentL:'#444444',contentLa:'#696969',
+    fotB:'var(--darkB)',fotC:'var(--darkT)',transB:'rgba(255,255,255,.05)',statusC:'var(--lStatusC)',selectC:'#ffffff',selectB:'var(--darkL)',
+    scrollT:'rgba(255,255,255,.05)',scrollB:'rgba(255,255,255,.15)',scrollBh:'rgba(255,255,255,.25)',scrollBa:'rgba(255,255,255,.25)',scrollH:'8px',scrollV:'var(--scrollH)',scrollR:'2px',aInvert:'1',svgW:'22px',svgH:'22px',svgC:'currentColor'
+  }
+};
 function notifyTheme(mode) {
   const root = document.documentElement;
-  window.dispatchEvent(new CustomEvent('mw-theme-change', { detail: { mode, tokens: {
-    bodyB: getComputedStyle(root).getPropertyValue('--mw-bodyB').trim(),
-    bodyC: getComputedStyle(root).getPropertyValue('--mw-bodyC').trim(),
-    contentB: getComputedStyle(root).getPropertyValue('--mw-contentB').trim(),
-    contentBa: getComputedStyle(root).getPropertyValue('--mw-contentBa').trim(),
-    contentL: getComputedStyle(root).getPropertyValue('--mw-contentL').trim(),
-    headC: getComputedStyle(root).getPropertyValue('--mw-headC').trim(),
-    notifB: getComputedStyle(root).getPropertyValue('--mw-notifB').trim(),
-    notifC: getComputedStyle(root).getPropertyValue('--mw-notifC').trim(),
-    linkC: getComputedStyle(root).getPropertyValue('--mw-linkC').trim(),
-    white: getComputedStyle(root).getPropertyValue('--mw-white').trim()
-  } } }));
+  const style = getComputedStyle(root);
+  const tokens = Object.fromEntries(THEME_KEYS.map((key) => [key, style.getPropertyValue(`--mw-${key}`).trim()]));
+  window.dispatchEvent(new CustomEvent('mw-theme-change', { detail: { mode, tokens } }));
 }
-
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => localStorage.getItem(THEME_STORAGE_KEY) || 'system');
-
   const applyTheme = useCallback((mode) => {
-    const root = document.documentElement;
     const isDark = mode === 'dark' || (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-    const themeColor = isDark ? '#1a1a1a' : '#f9fafb';
-    const themeMeta = document.querySelector('meta[name="theme-color"]');
-    if (themeMeta) themeMeta.setAttribute('content', themeColor);
-
-    if (isDark) {
-      root.style.setProperty('--mw-bodyB', '#1a1a1a');
-      root.style.setProperty('--mw-bodyC', '#e5e5e5');
-      root.style.setProperty('--mw-contentB', '#2d2d2d');
-      root.style.setProperty('--mw-contentL', '#404040');
-      root.style.setProperty('--mw-headC', '#ffffff');
-      root.style.setProperty('--mw-white', '#ffffff');
-      root.style.setProperty('--mw-notifB', '#2d2d2d');
-      root.style.setProperty('--mw-notifC', '#e5e5e5');
-      root.style.setProperty('--mw-contentBa', '#3a3a4a');
-      root.style.setProperty('--mw-linkC', '#3b82f6');
-      root.style.colorScheme = 'dark';
-      // ألوان مسار التنقل في الوضع الداكن (فاتحة للقراءة)
-      root.style.setProperty('--mw-breadcrumb', '#b0b7c3');
-      root.style.setProperty('--mw-breadcrumb-active', '#e0e0e0');
-      root.style.setProperty('--mw-breadcrumb-sep', '#8a8f98');
-    } else {
-      root.style.setProperty('--mw-bodyB', '#f9fafb');
-      root.style.setProperty('--mw-bodyC', '#1f2937');
-      root.style.setProperty('--mw-contentB', '#ffffff');
-      root.style.setProperty('--mw-contentL', '#e5e7eb');
-      root.style.setProperty('--mw-headC', '#111827');
-      root.style.setProperty('--mw-white', '#ffffff');
-      root.style.setProperty('--mw-notifB', '#f9fafb');
-      root.style.setProperty('--mw-notifC', '#6b7280');
-      root.style.setProperty('--mw-contentBa', '#f4f8ff');
-      root.style.setProperty('--mw-linkC', '#3b82f6');
-      root.style.colorScheme = 'light';
-      // ألوان مسار التنقل في الوضع الفاتح
-      root.style.setProperty('--mw-breadcrumb', '#6b7280');
-      root.style.setProperty('--mw-breadcrumb-active', '#4b5563');
-      root.style.setProperty('--mw-breadcrumb-sep', '#9ca3af');
-    }
+    const root = document.documentElement;
+    const selected = MODE_TOKENS[isDark ? 'dark' : 'light'];
+    Object.entries(selected).forEach(([key,value]) => root.style.setProperty(`--mw-${key}`, value));
+    root.style.colorScheme = isDark ? 'dark' : 'light';
+    const themeColor = getComputedStyle(root).getPropertyValue('--mw-bodyB').trim();
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', themeColor);
+    root.style.setProperty('--mw-breadcrumb', isDark ? '#b0b7c3' : 'var(--lBodyCa)');
+    root.style.setProperty('--mw-breadcrumb-active', isDark ? 'var(--darkT)' : 'var(--lHeadC)');
+    root.style.setProperty('--mw-breadcrumb-sep', isDark ? '#8a8f98' : 'var(--lIconCa)');
   }, []);
-
   useEffect(() => {
     localStorage.setItem(THEME_STORAGE_KEY, theme);
     applyTheme(theme);
     notifyTheme(theme);
-
-    if (theme === 'system') {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const handleChange = () => { applyTheme('system'); notifyTheme('system'); };
-      if (mediaQuery.addEventListener) {
-        mediaQuery.addEventListener('change', handleChange);
-        return () => mediaQuery.removeEventListener('change', handleChange);
-      }
-      mediaQuery.addListener(handleChange);
-      return () => mediaQuery.removeListener(handleChange);
-    }
+    if (theme !== 'system') return;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const update = () => { applyTheme('system'); notifyTheme('system'); };
+    if (media.addEventListener) { media.addEventListener('change', update); return () => media.removeEventListener('change', update); }
+    media.addListener(update); return () => media.removeListener(update);
   }, [theme, applyTheme]);
-
-  return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>;
 }
-
-export function useTheme() {
-  return useContext(ThemeContext);
-}
+export function useTheme() { return useContext(ThemeContext); }
