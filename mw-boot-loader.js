@@ -43,9 +43,10 @@
   }
   function prefersDark() {
     var stored = null;
-    try { stored = localStorage.getItem('mw-theme') || localStorage.getItem('modweeb-theme'); } catch (error) { /* ignore */ }
+    try { stored = localStorage.getItem('mw-theme-v2') || localStorage.getItem('modweebThemeModeV2'); } catch (error) { /* ignore */ }
     if (stored === 'dark') return true;
     if (stored === 'light') return false;
+    if (stored === 'system' || stored === 'default') return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
     if (document.documentElement.classList.contains('dark') || document.body && document.body.classList.contains('dark')) return true;
     return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
   }
