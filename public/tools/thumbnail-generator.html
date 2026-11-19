@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#2563eb">
+  <meta name="theme-color" content="#3b82f6">
   <meta name="description" content="أنشئ صورة مصغرة لمقالك، وولّد خلفية أو شخصية أو رمزاً بالذكاء الاصطناعي، مع مساعد لتنسيق الألوان والخطوط والوسوم.">
   <title>مولد الصور المصغرة بالذكاء الاصطناعي | ModApp</title>
   <style id="mw-boot-loader-style">
@@ -12,20 +12,25 @@
 .pldW.e{display:flex}.pldW.h{opacity:0;visibility:hidden}
 :root:has(.pldW.e){overflow:hidden}
 .svg-loader{position:relative;width:var(--boot-size,85px);height:var(--boot-size,85px)}
+.svg-loader::before{content:"";position:absolute;inset:-9px;border:2px solid transparent;border-top-color:var(--boot-accent,#e11462);border-left-color:rgba(225,20,98,.28);border-radius:50%;pointer-events:none;animation:mwOrbit var(--boot-speed,1s) linear infinite}
+@keyframes mwOrbit{to{transform:rotate(360deg)}}
 .svg-loader svg{width:100%;height:100%}
 .svg-loader .part0{fill:var(--boot-fill,#f1f1f0);stroke:var(--boot-stroke,#e3e7ef);stroke-width:var(--boot-stroke-width,5px);stroke-linecap:round;--dash:var(--boot-dash,900);stroke-dasharray:var(--dash) calc(var(--path-length) - var(--dash));animation:worm var(--boot-speed,1s) linear infinite}
 @keyframes worm{0%{stroke-dashoffset:0;stroke:color-mix(in srgb,var(--boot-accent,#e11462) 0%,transparent)}20%{stroke:color-mix(in srgb,var(--boot-accent,#e11462) 95%,transparent)}40%{stroke:color-mix(in srgb,var(--boot-accent,#e11462) 80%,transparent)}60%{stroke:color-mix(in srgb,var(--boot-accent,#e11462) 50%,transparent)}80%{stroke:color-mix(in srgb,var(--boot-accent,#e11462) 20%,transparent)}100%{stroke-dashoffset:calc(-1 * var(--path-length));stroke:color-mix(in srgb,var(--boot-accent,#e11462) 0%,transparent)}}
 .svg-loader .part1{fill:rgba(225,20,98,.9)}.svg-loader .part2{fill:rgba(111,202,220,.9)}.svg-loader .part3{fill:rgba(61,184,143,.9)}.svg-loader .part4{fill:rgba(233,169,32,.9)}
 .mod-icon{transform:scale(var(--boot-icon-scale,.8));transform-origin:center;transition:opacity .2s ease}
 .pldW.no-icon .mod-icon{opacity:0}
-@media(prefers-reduced-motion:reduce){.svg-loader .part0{animation-duration:calc(var(--boot-speed,1s) * 3)}}
+@media(prefers-reduced-motion:reduce){.svg-loader .part0,.svg-loader::before{animation-duration:calc(var(--boot-speed,1s) * 3)}}
 </style>
 <script src="../mw-boot-loader.js" data-hook="__hideThumbnailBoot" data-panel="0"></script>
 <script src="https://js.puter.com/v2/" defer></script>
 <style id="mw-embed-fix">
+html.mw-embedded,html.mw-embedded body{height:100%;min-height:0;overflow:hidden}
 html.mw-embedded body{background:var(--bodyB)}
-html.mw-embedded .mw-thumb-generator{border:0;border-radius:0;box-shadow:none;max-height:none}
+html.mw-embedded .mw-thumb-generator{height:100vh;min-height:0;border:0;border-radius:0;box-shadow:none;max-height:100vh}
+html.mw-embedded .mw-scroll-content{flex:1 1 0;min-height:0;overflow-y:auto;overscroll-behavior:contain}
 html.mw-embedded .mw-header{padding:.3rem .55rem;gap:.35rem}
+html.mw-embedded .mw-header{position:sticky;top:0;z-index:50;flex:0 0 auto}
 html.mw-embedded .mw-header-title,
 html.mw-embedded .mw-back-center{display:none!important}
 html.mw-embedded .mw-btn{min-height:26px;padding:2px 8px;font-size:.72rem;border-radius:6px}
@@ -50,7 +55,7 @@ html.mw-embedded .mw-status{font-size:.72rem}
   --contentB: #ffffff;
   --contentL: #e5e7eb;
   --contentBa: #f4f8ff;
-  --linkC: #2563eb;
+  --linkC: #3b82f6;
   --fotC: #6b7280;
   --white: #ffffff;
   --border-radius: 0.5rem;
@@ -70,10 +75,10 @@ html.dark, body.dark, :root.drK, html.drK {
   --contentB: #2d2d2d;
   --contentL: #404040;
   --contentBa: #3a3a4a;
-  --linkC: #60a5fa;
+  --linkC: #3b82f6;
   --fotC: #d1d5db;
   --notifC: #e5e5e5;
-  --notifB: #1f2937;
+  --notifB: #2d2d2d;
   --headC: #ffffff;
   --bodyB: #1a1a1a;
   --transB: rgba(255,255,255,0.05);
@@ -143,7 +148,8 @@ html.dark, body.dark, :root.drK, html.drK {
   flex-shrink: 0;
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 50;
+  flex-shrink: 0;
 }
 .mw-header-title {
   display: flex;
@@ -216,6 +222,8 @@ html.dark, body.dark, :root.drK, html.drK {
 .mw-preview-sticky {
   position: sticky;
   top: 0;
+  z-index: 30;
+  flex: 0 0 auto;
   z-index: 10;
   background: var(--contentB);
   padding: 0.3rem 0.5rem;
@@ -297,7 +305,7 @@ html.dark, body.dark, :root.drK, html.drK {
 .mw-section.dragging { opacity: 0.5; box-shadow: var(--shadow-md); }
 .mw-section.drop-target {
   border-color: var(--linkC);
-  box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
 }
 .mw-section.collapsed .mw-section-body { display: none; }
 .mw-section-header {
@@ -417,7 +425,7 @@ html.dark, body.dark, :root.drK, html.drK {
 .mw-field .mw-select:focus {
   outline: none;
   border-color: var(--linkC);
-  box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.1);
 }
 .mw-field .mw-input[type="file"] {
   padding: 1px;
@@ -506,7 +514,7 @@ html.dark, body.dark, :root.drK, html.drK {
 .mw-tag-input-row .mw-input:focus {
   outline: none;
   border-color: var(--linkC);
-  box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.1);
 }
 .mw-add-tag-btn {
   width: 28px;
@@ -760,9 +768,7 @@ body { margin:0; min-height:100vh; background:var(--bodyB,#f8fafc); color:var(--
   .mw-back-center { font-size:.68rem!important; padding:.32rem .4rem!important; }
   .mw-ai-form { gap:.5rem; }
 }
-@media (prefers-color-scheme:dark) {
-  :root { --bodyC:#e5e7eb; --contentB:#1f2937; --contentL:#374151; --contentBa:#111827; --bodyB:#111827; --headC:#f9fafb; --white:#111827; --notifB:#1f2937; --notifC:#9ca3af; --linkC:#60a5fa; }
-}
+
 
 </style>
 
@@ -2299,19 +2305,30 @@ console.log('مولد الصور المصغرة V3 جاهز (نسخة modweeb)')
 <script>
 (function(){
   var KEY='mw-thumb-ai-settings';
-  function applyTheme(mode){
+  function applyTheme(mode, tokens){
     var dark = mode==='dark' || (mode!=='light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     document.documentElement.classList.toggle('dark', dark);
     document.body.classList.toggle('dark', dark);
+    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+    if (tokens) {
+      Object.keys(tokens).forEach(function(key){
+        var value = tokens[key];
+        if (value) { document.documentElement.style.setProperty('--mw-' + key, value); document.documentElement.style.setProperty('--' + key, value); }
+      });
+    }
     var meta=document.querySelector('meta[name="theme-color"]'); if(meta) meta.setAttribute('content', dark?'#1a1a1a':'#f9fafb');
   }
-  try{ applyTheme(localStorage.getItem('mw-theme')||'system'); }catch(e){ applyTheme('system'); }
+  var themeMode='system';
+  try{ themeMode=localStorage.getItem('mw-theme-v2')||'system'; }catch(e){}
+  function applyCurrentTheme(mode,tokens){ themeMode=mode||'system'; applyTheme(themeMode,tokens); }
+  applyCurrentTheme(themeMode);
   window.addEventListener('message', function(event){
     var data=event.data||{};
-    if(data.type==='mw-theme') applyTheme(data.theme);
+    if(data.type==='mw-theme') applyCurrentTheme(data.theme, data.tokens);
     if(data.type==='mw-embed') document.documentElement.classList.toggle('mw-embedded', !!data.embed);
   });
   if(/[?&]embed=1/.test(location.search)) document.documentElement.classList.add('mw-embedded');
+  if(window.matchMedia){ var themeQuery=window.matchMedia('(prefers-color-scheme: dark)'); var onThemeMedia=function(){ if(themeMode==='system') applyTheme('system'); }; if(themeQuery.addEventListener) themeQuery.addEventListener('change',onThemeMedia); else if(themeQuery.addListener) themeQuery.addListener(onThemeMedia); }
   var provider=document.getElementById('mwAiProvider');
   var model=document.getElementById('mwAiModel');
   var apiBox=document.getElementById('mwAiApiBox');

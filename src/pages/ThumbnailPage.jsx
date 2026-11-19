@@ -1,11 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useTheme } from '../context/ThemeContext';
 
-function resolvedTheme(theme) {
-  if (theme === 'light' || theme === 'dark') return theme;
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
-
 function ThumbnailPage() {
   const { theme } = useTheme();
   const frameRef = useRef(null);
@@ -13,13 +8,17 @@ function ThumbnailPage() {
   useEffect(() => {
     const frame = frameRef.current;
     if (!frame) return undefined;
-    const sync = () => {
-      frame.contentWindow?.postMessage({ type: 'mw-theme', theme: resolvedTheme(theme) }, '*');
+    const sync = (mode = theme) => {
+      const rootStyle = getComputedStyle(document.documentElement);
+      const tokens = Object.fromEntries(['bodyB','bodyC','contentB','contentBa','contentL','headC','notifB','notifC','linkC','white'].map((key) => [key, rootStyle.getPropertyValue(`--mw-${key}`).trim()]));
+      frame.contentWindow?.postMessage({ type: 'mw-theme', theme: mode, tokens }, '*');
       frame.contentWindow?.postMessage({ type: 'mw-embed', embed: true }, '*');
     };
+    const onThemeChange = (event) => sync(event.detail?.mode || theme);
+    window.addEventListener('mw-theme-change', onThemeChange);
     sync();
     const timer = setTimeout(sync, 400);
-    return () => clearTimeout(timer);
+    return () => { clearTimeout(timer); window.removeEventListener('mw-theme-change', onThemeChange); };
   }, [theme]);
 
   return (
@@ -27,10 +26,12 @@ function ThumbnailPage() {
       <iframe
         ref={frameRef}
         className="tool-embed-frame"
-        src={`${import.meta.env.BASE_URL}tools/thumbnail-generator.html?embed=1`}
+        src={`${import.meta.env.BASE_URL}tools/thumbnail-generator.html?embed=1&v=${__APP_BUILD_ID__}`}
         title="مولد الصور المصغرة بالذكاء الاصطناعي"
         onLoad={() => {
-          frameRef.current?.contentWindow?.postMessage({ type: 'mw-theme', theme: resolvedTheme(theme) }, '*');
+          const rootStyle = getComputedStyle(document.documentElement);
+          const tokens = Object.fromEntries(['bodyB','bodyC','contentB','contentBa','contentL','headC','notifB','notifC','linkC','white'].map((key) => [key, rootStyle.getPropertyValue(`--mw-${key}`).trim()]));
+          frameRef.current?.contentWindow?.postMessage({ type: 'mw-theme', theme, tokens }, '*');
           frameRef.current?.contentWindow?.postMessage({ type: 'mw-embed', embed: true }, '*');
         }}
       />

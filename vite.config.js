@@ -1,7 +1,37 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { createHash } from 'node:crypto'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { join, resolve } from 'node:path'
+
+function fingerprintAssets() {
+  const publicDir = resolve(process.cwd(), 'public')
+  const digest = (file) => createHash('sha256').update(readFileSync(join(publicDir, file))).digest('hex').slice(0, 12)
+  const loaderHash = digest('mw-boot-loader.js')
+  const thumbnailHash = createHash('sha256').update(readFileSync(join(publicDir, 'tools/thumbnail-generator.html'))).update(readFileSync(join(publicDir, 'tools/thumbnail-ai.js'))).update(loaderHash).digest('hex').slice(0, 12)
+  return {
+    name: 'modapp-content-fingerprints',
+    config() { return { define: { __APP_BUILD_ID__: JSON.stringify(thumbnailHash) } } },
+    transformIndexHtml: {
+      order: 'post',
+      handler(html) {
+        return html.replace(/src=(['"])(?:\/modapp\/)?mw-boot-loader\.js(?:\?v=[^'"]*)?\1/, `src="/modapp/mw-boot-loader.js?v=${loaderHash}"`)
+      }
+    },
+    writeBundle(options) {
+      const out = options.dir || resolve(process.cwd(), 'dist')
+      const file = join(out, 'tools/thumbnail-generator.html')
+      if (!existsSync(file)) return
+      let html = readFileSync(file, 'utf8')
+      html = html.replace(/(src=["']\.\.\/mw-boot-loader\.js)(?:\?[^"']*)?(["'])/, `$1?v=${loaderHash}$2`)
+      const aiHash = digest('tools/thumbnail-ai.js')
+      html = html.replace(/(src=["']\.\/thumbnail-ai\.js)(?:\?[^"']*)?(["'])/, `$1?v=${aiHash}$2`)
+      writeFileSync(file, html)
+    }
+  }
+}
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), fingerprintAssets()],
   base: '/modapp/',
 })

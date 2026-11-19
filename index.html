@@ -13,13 +13,15 @@
 .pldW.e{display:flex}.pldW.h{opacity:0;visibility:hidden}
 :root:has(.pldW.e){overflow:hidden}
 .svg-loader{position:relative;width:var(--boot-size,85px);height:var(--boot-size,85px)}
+.svg-loader::before{content:"";position:absolute;inset:-9px;border:2px solid transparent;border-top-color:var(--boot-accent,#e11462);border-left-color:rgba(225,20,98,.28);border-radius:50%;pointer-events:none;animation:mwOrbit var(--boot-speed,1s) linear infinite}
+@keyframes mwOrbit{to{transform:rotate(360deg)}}
 .svg-loader svg{width:100%;height:100%}
 .svg-loader .part0{fill:var(--boot-fill,#f1f1f0);stroke:var(--boot-stroke,#e3e7ef);stroke-width:var(--boot-stroke-width,5px);stroke-linecap:round;--dash:var(--boot-dash,900);stroke-dasharray:var(--dash) calc(var(--path-length) - var(--dash));animation:worm var(--boot-speed,1s) linear infinite}
 @keyframes worm{0%{stroke-dashoffset:0;stroke:color-mix(in srgb,var(--boot-accent,#e11462) 0%,transparent)}20%{stroke:color-mix(in srgb,var(--boot-accent,#e11462) 95%,transparent)}40%{stroke:color-mix(in srgb,var(--boot-accent,#e11462) 80%,transparent)}60%{stroke:color-mix(in srgb,var(--boot-accent,#e11462) 50%,transparent)}80%{stroke:color-mix(in srgb,var(--boot-accent,#e11462) 20%,transparent)}100%{stroke-dashoffset:calc(-1 * var(--path-length));stroke:color-mix(in srgb,var(--boot-accent,#e11462) 0%,transparent)}}
 .svg-loader .part1{fill:rgba(225,20,98,.9)}.svg-loader .part2{fill:rgba(111,202,220,.9)}.svg-loader .part3{fill:rgba(61,184,143,.9)}.svg-loader .part4{fill:rgba(233,169,32,.9)}
 .mod-icon{transform:scale(var(--boot-icon-scale,.8));transform-origin:center;transition:opacity .2s ease}
 .pldW.no-icon .mod-icon{opacity:0}
-@media(prefers-reduced-motion:reduce){.svg-loader .part0{animation-duration:calc(var(--boot-speed,1s) * 3)}}
+@media(prefers-reduced-motion:reduce){.svg-loader .part0,.svg-loader::before{animation-duration:calc(var(--boot-speed,1s) * 3)}}
 </style>
 <script src="/mw-boot-loader.js" data-hook="__modweebHidePreloader" data-panel="0"></script>
 </head>
