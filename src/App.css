@@ -35,7 +35,10 @@ body {
 
 /* ================= [4] الهيدر ================= */
 header {
-  background: var(--mw-contentB); border-bottom: 1px solid var(--mw-contentL);
+  background: color-mix(in srgb, var(--mw-contentB) 82%, transparent);
+  -webkit-backdrop-filter: blur(12px) saturate(1.15);
+  backdrop-filter: blur(12px) saturate(1.15);
+  border-bottom: 1px solid var(--mw-contentL);
   color: var(--mw-bodyC);
 }
 header a { color: var(--mw-headC); text-decoration: none; }
@@ -46,7 +49,7 @@ header > div {
 
 /* ================= [5] شريط المسار ================= */
 .breadcrumb-nav {
-  margin-bottom: 1rem; padding-bottom: 0.75rem; text-align: right; direction: rtl;
+  margin-bottom: 0.75rem; padding-bottom: 0.5rem; text-align: right; direction: rtl;
 }
 .breadcrumb-list {
   display: flex; align-items: center; justify-content: flex-start;
@@ -361,9 +364,10 @@ body.mw-thumbnail-expanded .tool-embed-frame {
 .tool-card-tag {
   display: inline-flex; align-items: center; min-height: 20px;
   padding: .12rem .48rem; border: 1px solid var(--mw-contentL);
-  border-radius: 999px; background: var(--mw-contentBa); color: var(--mw-linkC);
+  border-radius: .35rem; background: var(--mw-contentBa); color: var(--mw-linkC);
   font-size: .66rem; font-weight: 600; line-height: 1.25; white-space: nowrap;
 }
+.tool-card-tag > span:first-child { color: var(--mw-notifC); opacity: .8; }
 
 /* ================= [14] الترويسة وقائمة الإعدادات ================= */
 .site-header-inner {
@@ -386,19 +390,19 @@ body.mw-thumbnail-expanded .tool-embed-frame {
   transition: color .18s ease, border-color .18s ease, background .18s ease;
 }
 .site-header-settings-button:hover, .site-header-settings-button[aria-expanded="true"] {
-  border-color: var(--mw-linkC); background: var(--mw-linkB); color: var(--mw-linkC);
+  border-color: var(--mw-linkC); background: var(--mw-contentBa); color: var(--mw-linkC);
 }
 .site-header-settings-button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; }
 .site-header-dropdown {
   position: absolute; z-index: 30; top: calc(100% + .5rem); inset-inline-end: 0;
-  min-width: 150px; padding: .3rem; border: 1px solid var(--mw-contentL);
-  border-radius: .65rem; background: var(--mw-contentB); color: var(--mw-bodyC);
-  box-shadow: 0 10px 28px rgba(0,0,0,.14);
+  width: 132px; min-width: 0; padding: .2rem; border: 1px solid var(--mw-contentL);
+  border-radius: .55rem; background: var(--mw-contentB); color: var(--mw-bodyC);
+  box-shadow: 0 7px 18px rgba(0,0,0,.12);
 }
 .site-header-dropdown a {
-  display: flex; align-items: center; gap: .55rem; min-height: 38px;
-  padding: .45rem .6rem; border-radius: .4rem; color: var(--mw-bodyC);
-  font-size: .83rem; text-decoration: none;
+  display: flex; align-items: center; gap: .45rem; min-height: 32px;
+  padding: .3rem .45rem; border-radius: .32rem; color: var(--mw-bodyC);
+  font-size: .76rem; text-decoration: none;
 }
 .site-header-dropdown a:hover, .site-header-dropdown a:focus-visible { background: var(--mw-contentBa); color: var(--mw-linkC); outline: none; }
 .site-header-dropdown svg { width: 17px; height: 17px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
@@ -456,7 +460,8 @@ body.mw-thumbnail-expanded .tool-embed-frame {
 .article-embed-expand:hover { border-color: var(--mw-linkC); background: var(--mw-linkC); color: var(--mw-white); }
 .article-embed-expand svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .article-embed-frame-wrap { flex: 1 1 0; min-width: 0; min-height: 0; overflow: hidden; background: var(--mw-bodyB); }
-.article-embed-frame { display: block; width: 100%; height: 100%; min-height: 0; border: 0; background: var(--mw-bodyB); }
+.article-embed-frame { display: block; width: 100%; height: 100%; min-height: 0; border: 0; background: var(--mw-bodyB); visibility: hidden; }
+.article-embed-frame.is-ready { visibility: visible; }
 
 /* نمط توسعة مستقل يحافظ على تخطيط مولّد المقالات داخل iframe دون لمس مستودعه. */
 html.mw-article-expanded, body.mw-article-expanded { overflow: hidden !important; }

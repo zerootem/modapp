@@ -1,9 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const ARTICLE_GENERATOR_URL = 'https://zerootem.github.io/article-generator-tool/';
+const EMBED_OVERRIDE_CSS = `
+  #darkModeToggle, [data-theme-menu] { display: none !important; }
+  #preloader, .pldW, .mwbp-fab, .mwbp { display: none !important; visibility: hidden !important; pointer-events: none !important; }
+`;
 
 function ArticleGeneratorPage() {
+  const frameRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
+  const [frameReady, setFrameReady] = useState(false);
+
+  const applyEmbedOverrides = () => {
+    const frame = frameRef.current;
+    try {
+      const frameDocument = frame?.contentDocument;
+      if (frameDocument?.head) {
+        let style = frameDocument.getElementById('modapp-article-embed-overrides');
+        if (!style) {
+          style = frameDocument.createElement('style');
+          style.id = 'modapp-article-embed-overrides';
+          frameDocument.head.appendChild(style);
+        }
+        style.textContent = EMBED_OVERRIDE_CSS;
+
+        const loader = frameDocument.getElementById('preloader');
+        if (loader) {
+          loader.classList.remove('e');
+          loader.classList.add('h');
+          loader.setAttribute('aria-hidden', 'true');
+        }
+        frame?.contentWindow?.__hideArticleBoot?.();
+      }
+    } catch {
+      // Keep the embed usable if a future deployment changes its same-origin policy.
+    }
+    setFrameReady(true);
+  };
 
   useEffect(() => {
     document.documentElement.classList.toggle('mw-article-expanded', expanded);
@@ -44,9 +77,11 @@ function ArticleGeneratorPage() {
       </div>
       <div className="article-embed-frame-wrap">
         <iframe
-          className="article-embed-frame"
+          ref={frameRef}
+          className={`article-embed-frame${frameReady ? ' is-ready' : ''}`}
           src={ARTICLE_GENERATOR_URL}
           title="مولّد المقالات العربي"
+          onLoad={applyEmbedOverrides}
           loading="eager"
           referrerPolicy="strict-origin-when-cross-origin"
           allow="clipboard-read; clipboard-write; fullscreen"
