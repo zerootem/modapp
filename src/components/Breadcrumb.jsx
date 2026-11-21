@@ -4,9 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 function Breadcrumb() {
   const location = useLocation();
   const pathSegments = location.pathname.split('/').filter(Boolean);
-
-  let items = [];
-  items.push({ label: 'الرئيسية', path: 'https://www.modweeb.com', icon: 'home', external: true });
+  const items = [{ label: 'الرئيسية', path: 'https://www.modweeb.com', icon: 'home', external: true, iconOnly: true }];
 
   if (pathSegments[0] === 'tools') {
     const isToolPage = pathSegments.length > 1;
@@ -18,7 +16,11 @@ function Breadcrumb() {
       items.push({ label: 'تحويل الصور إلى SVG', path: '/tools/image-to-svg', active: true, noIcon: true });
     } else if (pathSegments[1] === 'thumbnail-generator') {
       items.push({ label: 'مولد الصور المصغرة', path: '/tools/thumbnail-generator', active: true, noIcon: true });
+    } else if (pathSegments[1] === 'article-generator') {
+      items.push({ label: 'مولّد المقالات', path: '/tools/article-generator', active: true, noIcon: true });
     }
+  } else if (pathSegments[0] === 'about') {
+    items.push({ label: 'من نحن', path: '/about', active: true, noIcon: true });
   }
 
   const getIcon = (type) => {
@@ -33,33 +35,33 @@ function Breadcrumb() {
   };
 
   return (
-    <nav className="breadcrumb-nav">
+    <nav className="breadcrumb-nav" aria-label="مسار التنقل">
       <div className="breadcrumb-list">
         {items.map((item, index) => (
           <React.Fragment key={item.path}>
-            {index > 0 && <span className="breadcrumb-sep">‹</span>}
+            {index > 0 && <span className="breadcrumb-sep" aria-hidden="true">‹</span>}
             {item.active ? (
-              <span className="breadcrumb-item active">
+              <span className={`breadcrumb-item active${item.iconOnly ? ' breadcrumb-home-only' : ''}`} aria-current="page" aria-label={item.iconOnly ? item.label : undefined} title={item.iconOnly ? item.label : undefined}>
                 {!item.noIcon && item.icon && (
-                  <svg className="breadcrumb-icon" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="breadcrumb-icon" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     {getIcon(item.icon)}
                   </svg>
                 )}
-                <span>{item.label}</span>
+                {!item.iconOnly && <span>{item.label}</span>}
               </span>
             ) : item.external ? (
-              <a href={item.path} target="_blank" rel="noopener noreferrer" className="breadcrumb-item">
+              <a href={item.path} target="_blank" rel="noopener noreferrer" className={`breadcrumb-item${item.iconOnly ? ' breadcrumb-home-only' : ''}`} aria-label={item.label} title={item.label}>
                 {item.icon && (
-                  <svg className="breadcrumb-icon" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="breadcrumb-icon" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     {getIcon(item.icon)}
                   </svg>
                 )}
-                <span>{item.label}</span>
+                {!item.iconOnly && <span>{item.label}</span>}
               </a>
             ) : (
               <Link to={item.path} className="breadcrumb-item">
                 {item.icon && (
-                  <svg className="breadcrumb-icon" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="breadcrumb-icon" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     {getIcon(item.icon)}
                   </svg>
                 )}

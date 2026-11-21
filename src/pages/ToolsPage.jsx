@@ -1,54 +1,37 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import ToolCard from '../components/ToolCard';
+
+const tools = [
+  {
+    to: '/tools/code-minifier',
+    title: 'ضاغط الأكواد',
+    description: 'أداة متقدمة لضغط وتنسيق أكواد CSS و JavaScript و HTML مع خيارات متعددة وتحسين الأداء.',
+    tags: ['CSS', 'JavaScript', 'HTML'],
+  },
+  {
+    to: '/tools/image-to-svg',
+    title: 'تحويل الصور إلى SVG',
+    description: 'حوّل صورك إلى رسوميات SVG احترافية بمستويات ألوان وتفاصيل قابلة للتخصيص.',
+    tags: ['SVG', 'تحويل الصور'],
+  },
+  {
+    to: '/tools/thumbnail-generator',
+    title: 'مولد الصور المصغرة بالذكاء الاصطناعي',
+    description: 'صمّم صورة المقال على لوحة Canvas، وولّد خلفية أو شخصية أو رمزاً عبر Pollinations أو Puter أو مفتاح API، مع اقتراحات للألوان والخطوط والوسوم.',
+    tags: ['تصميم الصور', 'ذكاء اصطناعي'],
+  },
+  {
+    to: '/tools/article-generator',
+    title: 'مولّد المقالات',
+    description: 'أنشئ مقالات عربية، حرّر عناصرها، حسّن SEO، وجهّزها للنشر إلى Blogger.',
+    tags: ['كتابة المحتوى', 'SEO', 'Blogger'],
+  },
+];
 
 function ToolsPage() {
   return (
-    <div>
-      <Link to="/tools/code-minifier" className="tool-card">
-        <div className="tool-card-content">
-          <h3 className="tool-card-title">ضاغط الأكواد</h3>
-          <p className="tool-card-desc">
-            أداة متقدمة لضغط وتنسيق أكواد CSS و JavaScript و HTML مع خيارات متعددة وتحسين الأداء.
-          </p>
-        </div>
-      </Link>
-
-      <Link to="/tools/image-to-svg" className="tool-card">
-        <div className="tool-card-content">
-          <h3 className="tool-card-title">تحويل الصور إلى SVG</h3>
-          <p className="tool-card-desc">
-            حوّل صورك إلى رسوميات SVG احترافية بمستويات ألوان وتفاصيل قابلة للتخصيص.
-          </p>
-        </div>
-      </Link>
-
-      <Link
-        to="/tools/thumbnail-generator"
-        className="tool-card"
-        aria-label="مولد الصور المصغرة بالذكاء الاصطناعي"
-      >
-        <div className="tool-card-content">
-          <h3 className="tool-card-title">مولد الصور المصغرة بالذكاء الاصطناعي</h3>
-          <p className="tool-card-desc">
-            صمّم صورة المقال على لوحة Canvas، وولّد خلفية أو شخصية أو رمزاً عبر Pollinations أو Puter أو مفتاح API، مع اقتراحات للألوان والخطوط والوسوم.
-          </p>
-        </div>
-      </Link>
-
-      <a
-        href="https://zerootem.github.io/article-generator-tool/"
-        className="tool-card"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="مولّد المقالات — يفتح في علامة تبويب جديدة"
-      >
-        <div className="tool-card-content">
-          <h3 className="tool-card-title">مولّد المقالات</h3>
-          <p className="tool-card-desc">
-            أنشئ مقالات عربية، حرّر عناصرها، حسّن SEO، وجهّزها للنشر إلى Blogger.
-          </p>
-        </div>
-      </a>
+    <div className="tools-list" aria-label="الأدوات المتاحة">
+      {tools.map((tool) => <ToolCard {...tool} key={tool.to} />)}
     </div>
   );
 }

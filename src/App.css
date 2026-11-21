@@ -347,3 +347,151 @@ body.mw-thumbnail-expanded .tool-embed-frame {
   height: 100vh !important; height: 100dvh !important; min-height: 0 !important;
   margin: 0 !important; border: 0 !important;
 }
+
+
+/* ================= [13] وسوم بطاقات الأدوات ================= */
+.tool-card { gap: 1rem; }
+.tool-card-content { min-width: 0; }
+.tool-card-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: .65rem; flex-wrap: wrap; margin-bottom: .2rem;
+}
+.tool-card-title { margin: 0; }
+.tool-card-tags { display: flex; align-items: center; gap: .3rem; flex-wrap: wrap; }
+.tool-card-tag {
+  display: inline-flex; align-items: center; min-height: 20px;
+  padding: .12rem .48rem; border: 1px solid var(--mw-contentL);
+  border-radius: 999px; background: var(--mw-contentBa); color: var(--mw-linkC);
+  font-size: .66rem; font-weight: 600; line-height: 1.25; white-space: nowrap;
+}
+
+/* ================= [14] الترويسة وقائمة الإعدادات ================= */
+.site-header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: .75rem; max-width: 64rem; margin: 0 auto; padding: .5rem 1.25rem;
+}
+.site-brand { display: inline-flex; align-items: center; gap: .65rem; min-width: 0; }
+.site-brand .logo-box {
+  display: flex; align-items: center; justify-content: center; flex: 0 0 36px;
+  width: 36px; height: 36px; overflow: hidden; border: 1px solid var(--mw-contentL);
+  border-radius: 8px; background: var(--mw-contentBa);
+}
+.site-brand .logo-box svg { width: 100%; height: 100%; }
+.site-brand-name { color: var(--mw-headC); font-size: 1.05rem; font-weight: 600; }
+.site-header-settings { position: relative; display: flex; align-items: center; }
+.site-header-settings-button {
+  display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px;
+  padding: 0; border: 1px solid var(--mw-contentL); border-radius: 50%;
+  background: var(--mw-contentBa); color: var(--mw-bodyC); cursor: pointer;
+  transition: color .18s ease, border-color .18s ease, background .18s ease;
+}
+.site-header-settings-button:hover, .site-header-settings-button[aria-expanded="true"] {
+  border-color: var(--mw-linkC); background: var(--mw-linkB); color: var(--mw-linkC);
+}
+.site-header-settings-button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; }
+.site-header-dropdown {
+  position: absolute; z-index: 30; top: calc(100% + .5rem); inset-inline-end: 0;
+  min-width: 150px; padding: .3rem; border: 1px solid var(--mw-contentL);
+  border-radius: .65rem; background: var(--mw-contentB); color: var(--mw-bodyC);
+  box-shadow: 0 10px 28px rgba(0,0,0,.14);
+}
+.site-header-dropdown a {
+  display: flex; align-items: center; gap: .55rem; min-height: 38px;
+  padding: .45rem .6rem; border-radius: .4rem; color: var(--mw-bodyC);
+  font-size: .83rem; text-decoration: none;
+}
+.site-header-dropdown a:hover, .site-header-dropdown a:focus-visible { background: var(--mw-contentBa); color: var(--mw-linkC); outline: none; }
+.site-header-dropdown svg { width: 17px; height: 17px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ================= [15] فتات المسار: الرئيسية أيقونة فقط ================= */
+.breadcrumb-home-only { justify-content: center; padding: .12rem; }
+.breadcrumb-home-only .breadcrumb-icon { width: 19px; height: 19px; }
+
+/* ================= [16] صفحة من نحن ================= */
+.about-page { width: min(100%, 900px); margin: 0 auto; padding: .25rem 0 1.5rem; }
+.about-hero {
+  padding: clamp(1.25rem, 4vw, 2.5rem); border: 1px solid var(--mw-contentL);
+  border-radius: 1rem; background: linear-gradient(135deg, var(--mw-contentB), var(--mw-contentBa));
+}
+.about-eyebrow { display: inline-block; color: var(--mw-linkC); font-size: .78rem; font-weight: 700; }
+.about-hero h1 { margin: .55rem 0 .65rem; color: var(--mw-headC); font-size: clamp(1.45rem, 4vw, 2.1rem); line-height: 1.35; }
+.about-hero p, .about-details p, .about-value-card p { margin: 0; color: var(--mw-notifC); font-size: .9rem; line-height: 1.8; }
+.about-cta {
+  display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.1rem; padding: .55rem .85rem;
+  border: 1px solid var(--mw-linkC); border-radius: .55rem; background: var(--mw-linkC);
+  color: var(--mw-white); font-size: .82rem; font-weight: 650; text-decoration: none;
+}
+.about-cta:hover { opacity: .9; }
+.about-cta svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.about-values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-top: .8rem; }
+.about-value-card { padding: 1rem; border: 1px solid var(--mw-contentL); border-radius: .75rem; background: var(--mw-contentB); }
+.about-value-icon { display: grid; place-items: center; width: 34px; height: 34px; margin-bottom: .55rem; border-radius: .6rem; background: var(--mw-contentBa); color: var(--mw-linkC); }
+.about-value-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.about-value-card h2, .about-details h2 { margin: 0 0 .35rem; color: var(--mw-headC); font-size: .98rem; }
+.about-value-card p { font-size: .79rem; }
+.about-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin-top: .8rem; }
+.about-details > div { padding: 1rem; border-inline-start: 3px solid var(--mw-linkC); border-radius: .25rem .65rem .65rem .25rem; background: var(--mw-contentBa); }
+.about-details p { font-size: .82rem; }
+.about-note { margin: 1rem .15rem 0; color: var(--mw-notifC); font-size: .75rem; line-height: 1.7; }
+.about-note a { color: var(--mw-linkC); font-weight: 600; }
+
+/* ================= [17] تضمين مولد المقالات ================= */
+.article-embed-page {
+  display: flex; flex-direction: column; width: min(100%, 1000px);
+  height: calc(100dvh - 190px); min-height: 460px; margin: 0 auto;
+  overflow: hidden; border: 1px solid var(--mw-contentL); border-radius: .65rem;
+  background: var(--mw-contentB); box-shadow: 0 3px 12px rgba(0,0,0,.045);
+}
+.article-embed-toolbar {
+  display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between;
+  gap: .75rem; min-height: 40px; padding: .35rem .65rem;
+  border-bottom: 1px solid var(--mw-contentL); background: var(--mw-contentB); color: var(--mw-notifC);
+  font-size: .72rem;
+}
+.article-embed-expand {
+  display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center;
+  width: 30px; height: 30px; padding: 0; border: 1px solid var(--mw-contentL);
+  border-radius: 50%; background: var(--mw-contentBa); color: var(--mw-bodyC); cursor: pointer;
+}
+.article-embed-expand:hover { border-color: var(--mw-linkC); background: var(--mw-linkC); color: var(--mw-white); }
+.article-embed-expand svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.article-embed-frame-wrap { flex: 1 1 0; min-width: 0; min-height: 0; overflow: hidden; background: var(--mw-bodyB); }
+.article-embed-frame { display: block; width: 100%; height: 100%; min-height: 0; border: 0; background: var(--mw-bodyB); }
+
+/* نمط توسعة مستقل يحافظ على تخطيط مولّد المقالات داخل iframe دون لمس مستودعه. */
+html.mw-article-expanded, body.mw-article-expanded { overflow: hidden !important; }
+body.mw-article-expanded .modweeb-fullpage { height: 100vh !important; height: 100dvh !important; min-height: 0 !important; overflow: hidden !important; }
+body.mw-article-expanded .modweeb-fullpage > header,
+body.mw-article-expanded .modweeb-fullpage > .site-footer,
+body.mw-article-expanded .modweeb-fullpage .content-wrapper > .breadcrumb-nav { display: none !important; }
+body.mw-article-expanded .modweeb-fullpage > .content-wrapper,
+body.mw-article-expanded .route-content,
+body.mw-article-expanded .article-embed-page {
+  position: fixed !important; inset: 0 !important; width: 100vw !important; max-width: none !important;
+  height: 100vh !important; height: 100dvh !important; min-height: 0 !important;
+  margin: 0 !important; padding: 0 !important; overflow: hidden !important;
+  border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+}
+body.mw-article-expanded .article-embed-toolbar { min-height: 40px; }
+body.mw-article-expanded .article-embed-frame-wrap,
+body.mw-article-expanded .article-embed-frame { width: 100vw !important; height: calc(100dvh - 40px) !important; }
+
+@media (max-width: 640px) {
+  .site-header-inner { padding: .45rem .75rem; }
+  .site-brand-name { font-size: .92rem; }
+  .site-brand .logo-box { flex-basis: 32px; width: 32px; height: 32px; }
+  .site-header-settings-button { width: 32px; height: 32px; }
+  .tool-card { align-items: flex-start; padding: .8rem .9rem; }
+  .tool-card-head { align-items: flex-start; flex-direction: column; gap: .35rem; }
+  .tool-card-title { font-size: 1rem; }
+  .about-values { grid-template-columns: 1fr; }
+  .about-details { grid-template-columns: 1fr; }
+  .about-page { padding-bottom: .7rem; }
+  .article-embed-page { width: 100%; height: calc(100dvh - 165px); min-height: 340px; border-radius: .45rem; }
+  .article-embed-toolbar { min-height: 38px; gap: .35rem; padding: .3rem .45rem; font-size: .66rem; }
+  .article-embed-expand { width: 28px; height: 28px; }
+  .article-embed-frame-wrap { min-height: 0; }
+  body.mw-article-expanded .article-embed-toolbar { min-height: 38px; }
+  body.mw-article-expanded .article-embed-frame-wrap,
+  body.mw-article-expanded .article-embed-frame { height: calc(100dvh - 38px) !important; }
+}

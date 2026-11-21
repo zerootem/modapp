@@ -1,17 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function ToolCard() {
+function ToolCard({ to, href, title, description, tags = [] }) {
+  const Card = href ? 'a' : Link;
+  const destination = href ? { href, target: '_blank', rel: 'noopener noreferrer' } : { to };
+
   return (
-    <Link to="/tools/code-minifier" className="tool-card">
+    <Card {...destination} className="tool-card" aria-label={title}>
       <div className="tool-card-content">
-        <h3 className="tool-card-title">ضاغط الأكواد</h3>
-        <p className="tool-card-desc">
-          أداة متقدمة لضغط وتنسيق أكواد CSS و JavaScript و HTML مع خيارات متعددة وتحسين الأداء.
-        </p>
+        <div className="tool-card-head">
+          <h3 className="tool-card-title">{title}</h3>
+          <div className="tool-card-tags" aria-label={`تصنيفات ${title}`}>
+            {tags.map((tag) => <span className="tool-card-tag" key={tag}>{tag}</span>)}
+          </div>
+        </div>
+        <p className="tool-card-desc">{description}</p>
       </div>
-      {/* تمت إزالة أيقونة السهم بالكامل */}
-    </Link>
+    </Card>
   );
 }
 
