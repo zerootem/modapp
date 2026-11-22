@@ -365,7 +365,7 @@ body.mw-thumbnail-expanded .tool-embed-frame {
   display: inline-flex; align-items: center; min-height: 20px;
   padding: .12rem .48rem; border: 1px solid var(--mw-contentL);
   border-radius: .35rem; background: var(--mw-contentBa); color: var(--mw-linkC);
-  font-size: .66rem; font-weight: 600; line-height: 1.25; white-space: nowrap;
+  direction: ltr; font-size: .66rem; font-weight: 600; line-height: 1.25; white-space: nowrap;
 }
 .tool-card-tag > span:first-child { color: var(--mw-notifC); opacity: .8; }
 
