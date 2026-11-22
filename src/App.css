@@ -35,10 +35,14 @@ body {
 
 /* ================= [4] الهيدر ================= */
 header {
-  background: color-mix(in srgb, var(--mw-contentB) 68%, transparent);
-  -webkit-backdrop-filter: blur(15px) saturate(1.2);
-  backdrop-filter: blur(15px) saturate(1.2);
-  border-bottom: 1px solid var(--mw-contentL);
+  position: relative; z-index: 5;
+  background: linear-gradient(115deg,
+    color-mix(in srgb, var(--mw-contentB) 62%, transparent),
+    color-mix(in srgb, var(--mw-contentB) 76%, transparent));
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  backdrop-filter: blur(18px) saturate(1.3);
+  border-bottom: 1px solid color-mix(in srgb, var(--mw-contentL) 72%, transparent);
+  box-shadow: 0 8px 24px rgba(15,23,42,.08);
   color: var(--mw-bodyC);
 }
 header a { color: var(--mw-headC); text-decoration: none; }
@@ -365,9 +369,8 @@ body.mw-thumbnail-expanded .tool-embed-frame {
   display: inline-flex; align-items: center; min-height: 20px;
   padding: .12rem .48rem; border: 1px solid var(--mw-contentL);
   border-radius: .35rem; background: var(--mw-contentBa); color: var(--mw-linkC);
-  direction: ltr; unicode-bidi: isolate; font-size: .66rem; font-weight: 600; line-height: 1.25; white-space: nowrap;
+  unicode-bidi: isolate; font-size: .66rem; font-weight: 600; line-height: 1.25; white-space: nowrap;
 }
-.tool-card-tag > span:first-child { color: var(--mw-notifC); opacity: .8; }
 
 /* ================= [14] الترويسة وقائمة الإعدادات ================= */
 .site-header-inner {

@@ -12,8 +12,8 @@ function ToolCard({ to, href, title, description, tags = [] }) {
           <h3 className="tool-card-title">{title}</h3>
           <div className="tool-card-tags" aria-label={`تصنيفات ${title}`}>
             {tags.map((tag) => (
-              <span className="tool-card-tag" key={tag}>
-                <span aria-hidden="true">#</span><span dir="auto">{tag}</span>
+              <span className="tool-card-tag" dir="auto" key={tag}>
+                {tag}
               </span>
             ))}
           </div>
