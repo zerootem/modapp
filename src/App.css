@@ -35,9 +35,9 @@ body {
 
 /* ================= [4] الهيدر ================= */
 header {
-  background: color-mix(in srgb, var(--mw-contentB) 82%, transparent);
-  -webkit-backdrop-filter: blur(12px) saturate(1.15);
-  backdrop-filter: blur(12px) saturate(1.15);
+  background: color-mix(in srgb, var(--mw-contentB) 68%, transparent);
+  -webkit-backdrop-filter: blur(15px) saturate(1.2);
+  backdrop-filter: blur(15px) saturate(1.2);
   border-bottom: 1px solid var(--mw-contentL);
   color: var(--mw-bodyC);
 }
@@ -365,7 +365,7 @@ body.mw-thumbnail-expanded .tool-embed-frame {
   display: inline-flex; align-items: center; min-height: 20px;
   padding: .12rem .48rem; border: 1px solid var(--mw-contentL);
   border-radius: .35rem; background: var(--mw-contentBa); color: var(--mw-linkC);
-  direction: ltr; font-size: .66rem; font-weight: 600; line-height: 1.25; white-space: nowrap;
+  direction: ltr; unicode-bidi: isolate; font-size: .66rem; font-weight: 600; line-height: 1.25; white-space: nowrap;
 }
 .tool-card-tag > span:first-child { color: var(--mw-notifC); opacity: .8; }
 
@@ -381,7 +381,7 @@ body.mw-thumbnail-expanded .tool-embed-frame {
   border-radius: 8px; background: var(--mw-contentBa);
 }
 .site-brand .logo-box svg { width: 100%; height: 100%; }
-.site-brand-name { color: var(--mw-headC); font-size: 1.05rem; font-weight: 600; }
+.site-brand-name { color: var(--mw-headC); font-size: 1.12rem; font-weight: 600; }
 .site-header-settings { position: relative; display: flex; align-items: center; }
 .site-header-settings-button {
   display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px;
@@ -483,7 +483,7 @@ body.mw-article-expanded .article-embed-frame { width: 100vw !important; height:
 
 @media (max-width: 640px) {
   .site-header-inner { padding: .45rem .75rem; }
-  .site-brand-name { font-size: .92rem; }
+  .site-brand-name { font-size: .98rem; }
   .site-brand .logo-box { flex-basis: 32px; width: 32px; height: 32px; }
   .site-header-settings-button { width: 32px; height: 32px; }
   .tool-card { align-items: flex-start; padding: .8rem .9rem; }

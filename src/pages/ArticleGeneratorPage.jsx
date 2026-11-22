@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 const ARTICLE_GENERATOR_URL = 'https://zerootem.github.io/article-generator-tool/';
 const EMBED_OVERRIDE_CSS = `
   #darkModeToggle, [data-theme-menu] { display: none !important; }
+  #improveTextToolbarBtn, [onclick*="openImproveTextSheet"] { display: none !important; }
   #preloader, .pldW, .mwbp-fab, .mwbp { display: none !important; visibility: hidden !important; pointer-events: none !important; }
 `;
 
