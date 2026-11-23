@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 import ToolCard from '../components/ToolCard';
 import ToolTagDirectory from '../components/ToolTagDirectory';
 import {
@@ -10,9 +10,8 @@ import {
 } from '../data/toolCatalog';
 
 function ToolsPage() {
-  const location = useLocation();
-  const initialTag = new URLSearchParams(location.search).get('tag');
-  const [selectedTag, setSelectedTag] = useState(initialTag);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedTag = searchParams.get('tag');
   const featuredTool = getFeaturedTool();
   const latestTool = getNewestTool();
   const filteredTools = filterToolsByTag(selectedTag);
@@ -20,7 +19,13 @@ function ToolsPage() {
     (tool) => tool.id !== featuredTool?.id && tool.id !== latestTool?.id,
   );
 
-  const toggleTag = (tag) => setSelectedTag((current) => (current === tag ? null : tag));
+  const selectTag = (tag) => {
+    const nextSearchParams = new URLSearchParams(searchParams);
+    if (tag) nextSearchParams.set('tag', tag);
+    else nextSearchParams.delete('tag');
+    setSearchParams(nextSearchParams);
+  };
+  const toggleTag = (tag) => selectTag(selectedTag === tag ? null : tag);
 
   return (
     <div className="tools-page" dir="rtl">
@@ -54,13 +59,11 @@ function ToolsPage() {
               ))}
             </div>
           </section>
-
-          <hr className="tools-divider" />
         </>
       ) : (
         <section className="tools-results" aria-live="polite">
           <div className="tools-section-heading">
-            <h1 dir="auto">أدوات: {selectedTag}</h1>
+            <h1 dir="auto">أدوات: <bdi dir="auto">{selectedTag}</bdi></h1>
             <span>{filteredTools.length} أدوات</span>
           </div>
           {filteredTools.length > 0 ? (
@@ -72,12 +75,11 @@ function ToolsPage() {
           ) : (
             <p className="tools-empty" dir="auto">لا توجد أدوات بهذا التصنيف حالياً.</p>
           )}
-          <hr className="tools-divider" />
         </section>
       )}
 
       <div className="tools-page-bottom">
-        <ToolTagDirectory selectedTag={selectedTag} onSelectTag={setSelectedTag} />
+        <ToolTagDirectory selectedTag={selectedTag} onSelectTag={selectTag} />
         <section className="tools-page-intro" aria-label="عن مدونة أدوات مود ويب">
           <h2 dir="auto">مدونة أدوات مود ويب</h2>
           <p dir="auto">مساحة عملية تجمع أدوات الويب لصناعة المحتوى ومعالجة الصور والأكواد، مع شروحات واضحة وتجربة عربية سهلة.</p>

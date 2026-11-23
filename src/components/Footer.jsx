@@ -8,10 +8,9 @@ function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-content">
-        <span className="footer-copyright">© 2026 جميع الحقوق محفوظة.</span>
-        <span className="footer-credit">
-          صنع بـ <span aria-label="قلب أبيض">🤍</span> بواسطة{' '}
-          <a href="https://www.modweeb.com" target="_blank" rel="noopener noreferrer">مود ويب!</a>
+        <span className="footer-copyright" dir="auto">
+          <span aria-hidden="true">©</span> 2026 ‧ كل الحقوق محفوظة لـ{' '}
+          <span className="footer-credit"><a href="https://www.modweeb.com" target="_blank" rel="noopener noreferrer">مود ويب</a></span> ‧
         </span>
       </div>
       <div className="footer-utilities">

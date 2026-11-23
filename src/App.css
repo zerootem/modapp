@@ -433,6 +433,7 @@ body.mw-thumbnail-expanded .tool-embed-frame {
 
 /* ================= [17] تضمين مولد المقالات ================= */
 .article-embed-page {
+  box-sizing: border-box;
   display: flex; flex-direction: column; width: min(100%, 1000px);
   height: calc(100dvh - 190px); min-height: 460px; margin: 0 auto;
   overflow: hidden; border: 1px solid var(--mw-contentL); border-radius: .65rem;
@@ -511,7 +512,6 @@ body.mw-article-expanded .article-embed-frame { width: 100vw !important; height:
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
-.tool-page-eyebrow { margin: 0 0 .2rem !important; color: var(--mw-linkC) !important; font-size: .74rem; font-weight: 650; }
 .tool-page-heading h1 { margin: 0 0 .25rem !important; color: var(--mw-headC); font-size: clamp(1.35rem, 3.5vw, 1.8rem) !important; line-height: 1.35; }
 .tool-page-intro { max-width: 76ch; margin: 0 !important; color: var(--mw-notifC) !important; font-size: .88rem; line-height: 1.7; }
 .tool-page-meta {
@@ -609,7 +609,7 @@ body.mw-article-expanded .article-embed-frame { width: 100vw !important; height:
 .footer-social svg { width: 15px; height: 15px; stroke-width: 1.8; }
 .theme-switcher { margin: 0; }
 .site-header-settings-button { width: 34px; height: 34px; }
-.site-header-settings-button svg { width: 16px; height: 16px; }
+.site-header-settings-button svg { width: 14px; height: 14px; }
 .site-header-dropdown { inset-inline-end: 0; width: 158px; padding: .16rem; }
 .site-header-dropdown a { min-height: 30px; padding: .27rem .4rem; }
 

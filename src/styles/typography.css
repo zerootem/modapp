@@ -1,6 +1,6 @@
 /* Semantic prose styles adapted from the React reference theme for ModApp's color tokens. */
 :root {
-  --mw-font-sans: 'Inclusive Sans Variable', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --mw-font-sans: system-ui, 'Segoe UI', Tahoma, Arial, sans-serif;
   --mw-font-mono: 'JetBrains Mono Variable', 'Courier New', monospace;
 }
 

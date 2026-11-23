@@ -118,7 +118,6 @@
 .tool-card-author:hover { color: var(--mw-linkC); }
 .tool-card-author-avatar { width: 25px; height: 25px; flex: 0 0 25px; border: 1px solid var(--mw-contentL); border-radius: 50%; background: var(--mw-contentBa); object-fit: cover; }
 .tool-card-meta-separator { width: 1px; height: 14px; background: var(--mw-contentL); }
-.tool-card-date-label { color: var(--mw-notifC); }
 .tool-card-date { display: inline-flex; align-items: center; gap: .25rem; color: var(--mw-notifC); }
 .tool-card-date svg { width: 13px; height: 13px; }
 .tool-card-tags { display: flex; flex-wrap: wrap; align-items: center; gap: .32rem; margin: 0; }
@@ -215,6 +214,7 @@
   font-size: .98rem;
   font-weight: 650;
   line-height: 1.4;
+  letter-spacing: normal;
 }
 .tools-empty { text-align: start; }
 .site-header-dropdown { width: 158px; }

@@ -17,14 +17,14 @@ function ToolTagDirectory({ selectedTag = null, onSelectTag }) {
       <nav className="tool-tag-directory-list" aria-label="تصنيفات الأدوات">
         {onSelectTag && (
           <button className={`tool-filter-chip${selectedTag === null ? ' is-active' : ''}`} type="button" aria-pressed={selectedTag === null} onClick={() => onSelectTag(null)}>
-            كل الأدوات
+            <bdi dir="auto">كل الأدوات</bdi>
           </button>
         )}
         {tags.map((tag) => (
           onSelectTag ? (
-            <button key={tag} className={`tool-filter-chip${selectedTag === tag ? ' is-active' : ''}`} type="button" dir="auto" aria-pressed={selectedTag === tag} onClick={() => onSelectTag(tag)}>{tag}</button>
+            <button key={tag} className={`tool-filter-chip${selectedTag === tag ? ' is-active' : ''}`} type="button" dir="auto" aria-pressed={selectedTag === tag} onClick={() => onSelectTag(tag)}><bdi dir="auto">{tag}</bdi></button>
           ) : (
-            <Link key={tag} className="tool-filter-chip" dir="auto" to={{ pathname: '/tools', search: `?tag=${encodeURIComponent(tag)}` }}>{tag}</Link>
+            <Link key={tag} className="tool-filter-chip" dir="auto" to={{ pathname: '/tools', search: `?tag=${encodeURIComponent(tag)}` }}><bdi dir="auto">{tag}</bdi></Link>
           )
         ))}
       </nav>

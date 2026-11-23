@@ -13,7 +13,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fontsource-variable/inclusive-sans": "^5.3.0",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "lucide-react": "^1.78.0",
     "react": "^19.2.7",
