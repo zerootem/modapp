@@ -499,3 +499,131 @@ body.mw-article-expanded .article-embed-frame { width: 100vw !important; height:
   body.mw-article-expanded .article-embed-frame-wrap,
   body.mw-article-expanded .article-embed-frame { height: calc(100dvh - 38px) !important; }
 }
+
+
+/* ================= [18] دليل وصفحات الأدوات ================= */
+.tool-page-guide {
+  width: min(100%, 1000px);
+  margin: 0 auto;
+  padding-block: .15rem 1rem;
+  text-align: start;
+}
+.tool-page-heading { margin-block-end: .55rem; }
+.tool-page-eyebrow { margin: 0 0 .2rem !important; color: var(--mw-linkC) !important; font-size: .74rem; font-weight: 650; }
+.tool-page-heading h1 { margin: 0 0 .35rem !important; color: var(--mw-headC); font-size: clamp(1.4rem, 4vw, 1.9rem) !important; }
+.tool-page-intro { max-width: 76ch; margin: 0 !important; color: var(--mw-notifC) !important; font-size: .9rem; line-height: 1.7; }
+.tool-page-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .45rem .8rem;
+  margin-block: .65rem .75rem;
+  padding-block: .5rem;
+  border-block: 1px solid var(--mw-contentL);
+  color: var(--mw-notifC);
+  font-size: .7rem;
+}
+.tool-page-author { display: inline-flex; align-items: center; gap: .38rem; color: var(--mw-bodyC) !important; font-weight: 600; text-decoration: none !important; }
+.tool-page-author img { width: 27px; height: 27px; margin: 0 !important; border: 1px solid var(--mw-contentL); border-radius: 50%; object-fit: cover; }
+.tool-page-meta-item { display: inline-flex; align-items: center; gap: .28rem; }
+.tool-page-meta-item svg { width: 14px; height: 14px; color: var(--mw-notifC); }
+.tool-page-note { margin-block: .65rem !important; font-size: .83rem; line-height: 1.65; }
+.tool-usage-guide {
+  margin-block: .75rem;
+  padding: .65rem .8rem;
+  border: 1px solid var(--mw-contentL);
+  border-radius: .6rem;
+  background: var(--mw-contentB);
+}
+.tool-usage-guide h2 { margin: 0 !important; font-size: .95rem !important; }
+.tool-usage-guide .mw-steps { margin: .45rem 0 0; }
+.tool-usage-guide .mw-steps > li { margin-block: .38rem; gap: .5rem; font-size: .82rem; line-height: 1.55; }
+.tool-usage-guide .mw-steps > li::before { flex-basis: 1.45rem; width: 1.45rem; height: 1.45rem; }
+.tool-page-workspace { margin-block-start: .8rem; }
+.tool-page-workspace > :first-child { margin-block-start: 0; }
+
+/* ================= [19] تصنيفات نهاية الصفحات ================= */
+.tool-tag-directory {
+  width: min(100%, 900px);
+  margin: 0 auto;
+  padding-block: .75rem .2rem;
+  border-block-start: 1px solid var(--mw-contentL);
+  text-align: start;
+}
+.tool-tag-directory-heading h2 { margin: 0; color: var(--mw-headC); font-size: .92rem; font-weight: 650; }
+.tool-tag-directory-heading p { margin: .15rem 0 .5rem; color: var(--mw-notifC); font-size: .76rem; line-height: 1.55; }
+.tool-tag-directory-list { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; }
+.tool-tag-directory .tool-filter-chip { display: inline-flex; align-items: center; justify-content: center; min-height: 27px; text-decoration: none; }
+.tool-tag-directory--interactive { width: 100%; padding: 0; border: 0; }
+.tools-page-bottom { padding-block-start: .05rem; border-block-start: 0; }
+.tools-page-bottom > .tool-tag-directory { width: 100%; margin: 0; padding-block: .8rem; }
+.tools-divider { width: 100%; margin: .1rem 0; border: 0; border-top: 1px solid var(--mw-contentL); }
+.tools-spotlights { display: flex; flex-direction: column; gap: .75rem; }
+.tools-spotlight > h2 { margin: 0 0 .45rem; color: var(--mw-headC); font-size: .95rem; font-weight: 650; }
+.tools-catalog .tools-section-heading { margin-block-end: .55rem; }
+
+/* Compact social links remain visually separate from the theme control. */
+.footer-utilities { display: inline-flex; flex: 0 0 auto; align-items: center; gap: .45rem; }
+.footer-social { display: inline-flex; align-items: center; gap: .25rem; }
+.footer-social a {
+  display: inline-grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid var(--mw-contentL);
+  border-radius: .4rem;
+  background: var(--mw-contentB);
+  color: var(--mw-notifC);
+  text-decoration: none;
+  transition: border-color .16s ease, color .16s ease, background-color .16s ease;
+}
+.footer-social a:hover { border-color: var(--mw-linkC); background: var(--mw-contentBa); color: var(--mw-linkC); }
+.footer-social svg { width: 15px; height: 15px; stroke-width: 1.8; }
+.theme-switcher { margin: 0; }
+.site-header-settings-button { width: 34px; height: 34px; }
+.site-header-settings-button svg { width: 16px; height: 16px; }
+.site-header-dropdown { inset-inline-end: 0; width: 158px; padding: .16rem; }
+.site-header-dropdown a { min-height: 30px; padding: .27rem .4rem; }
+
+@media (max-width: 640px) {
+  .tool-page-guide { padding-block: 0 .65rem; }
+  .tool-page-intro { font-size: .83rem; }
+  .tool-page-meta { gap: .35rem .6rem; font-size: .65rem; }
+  .tool-page-author img { width: 24px; height: 24px; }
+  .tool-usage-guide { padding: .58rem .65rem; }
+  .tool-usage-guide .mw-steps > li { font-size: .77rem; }
+  .tool-tag-directory-heading p { font-size: .72rem; }
+  .footer-utilities { gap: .28rem; }
+  .footer-social { gap: .18rem; }
+  .footer-social a { width: 26px; height: 26px; }
+}
+@media (max-width: 420px) {
+  .site-footer { gap: .25rem; }
+  .footer-content { justify-content: flex-start; text-align: start; }
+  .footer-utilities { gap: .22rem; }
+  .footer-social a { width: 24px; height: 24px; }
+  .footer-social svg { width: 14px; height: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-social a { transition: none; }
+}
+
+body.mw-article-expanded .tool-page-guide > :not(.tool-page-workspace),
+body.mw-article-expanded .tool-page-workspace > :not(.article-embed-page),
+body.mw-article-expanded .tool-tag-directory { display: none !important; }
+body.mw-article-expanded .article-embed-page { z-index: 10001 !important; }
+body.mw-thumbnail-expanded .tool-tag-directory { display: none !important; }
+
+.site-header-settings-button {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: var(--mw-contentBa) !important;
+  color: var(--mw-headC) !important;
+}
+.site-header-settings-button:hover,
+.site-header-settings-button[aria-expanded="true"] {
+  border-color: var(--mw-linkC) !important;
+  background-color: var(--mw-contentBa) !important;
+  color: var(--mw-linkC) !important;
+}
+.footer-social .social-github { fill: currentColor; stroke: none; }

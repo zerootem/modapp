@@ -8,14 +8,20 @@ const TOOL_LABELS = {
   'article-generator': 'مولّد المقالات',
 };
 
+const PAGE_LABELS = {
+  '/about': 'من نحن',
+  '/privacy': 'سياسة الخصوصية',
+  '/terms': 'شروط الاستخدام',
+};
+
 function Breadcrumb() {
   const location = useLocation();
   const pathSegments = location.pathname.split('/').filter(Boolean);
   const toolLabel = pathSegments[0] === 'tools' && pathSegments.length === 2
     ? TOOL_LABELS[pathSegments[1]]
-    : null;
+    : PAGE_LABELS[location.pathname];
 
-  // The secondary navigation is only useful after a tool has been opened.
+  // Keep the compact navigation hidden only on the tools index itself.
   if (!toolLabel) return null;
 
   const items = [

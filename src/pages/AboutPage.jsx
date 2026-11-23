@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ContentQuote from '../components/ContentQuote';
 
 const values = [
   {
@@ -41,6 +42,10 @@ function AboutPage() {
           <Link className="about-secondary-cta" to="/terms" dir="auto">شروط الاستخدام</Link>
         </div>
       </section>
+
+      <ContentQuote variant="editorial" citation="مدونة أدوات مود ويب">
+        نبني المركز حول أدوات واضحة تساعدك على إنجاز عملك، مع إبقاء طريقة الاستخدام وحدود الخدمات الخارجية ظاهرة.
+      </ContentQuote>
 
       <section className="about-values" aria-label="مبادئ المركز">
         {values.map((value) => (

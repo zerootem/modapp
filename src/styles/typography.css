@@ -183,3 +183,58 @@ textarea {
   .mw-prose a,
   .mw-prose .mw-blurred-text { transition: none; }
 }
+
+
+/* Quote treatments: editorial, soft and policy variants, all driven by ModApp theme tokens. */
+.mw-prose figure.mw-quote {
+  position: relative;
+  margin: .9rem 0;
+  padding: .72rem .9rem;
+  border: 1px solid var(--mw-contentL);
+  border-radius: .65rem;
+  background: var(--mw-contentB);
+  color: var(--mw-bodyC);
+  text-align: start;
+}
+.mw-prose .mw-quote blockquote {
+  margin: 0;
+  padding: .15rem 0;
+  border: 0;
+  color: inherit;
+}
+.mw-prose .mw-quote blockquote > p { margin: 0; color: inherit; }
+.mw-prose .mw-quote figcaption {
+  margin-block-start: .38rem;
+  color: var(--mw-notifC);
+  font-size: .76rem;
+  text-align: start;
+}
+.mw-prose figure.mw-quote--editorial {
+  padding-inline-start: .9rem;
+  border: 0;
+  border-inline-start: 3px solid var(--mw-linkC);
+  border-radius: .1rem;
+  background: transparent;
+}
+.mw-prose figure.mw-quote--soft {
+  border-color: color-mix(in srgb, var(--mw-linkC) 22%, var(--mw-contentL));
+  background: color-mix(in srgb, var(--mw-linkC) 6%, var(--mw-contentB));
+}
+.mw-prose figure.mw-quote--soft blockquote { color: var(--mw-headC); }
+.mw-prose figure.mw-quote--policy {
+  border-inline-start: 3px solid var(--mw-notifC);
+  background: var(--mw-contentBa);
+}
+.mw-prose figure.mw-quote--pull {
+  padding-block: .8rem;
+  border-inline: 0;
+  border-block: 1px solid var(--mw-contentL);
+  border-radius: 0;
+  background: transparent;
+  color: var(--mw-headC);
+  font-size: 1.08em;
+}
+@media (max-width: 600px) {
+  .mw-prose figure.mw-quote { margin-block: .7rem; padding: .65rem .75rem; }
+  .mw-prose figure.mw-quote--editorial { padding-inline-start: .75rem; }
+}

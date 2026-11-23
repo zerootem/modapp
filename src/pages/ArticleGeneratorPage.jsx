@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import ToolPageGuide from '../components/ToolPageGuide';
 
 const ARTICLE_GENERATOR_URL = 'https://zerootem.github.io/article-generator-tool/';
 const EMBED_OVERRIDE_CSS = `
@@ -58,37 +59,49 @@ function ArticleGeneratorPage() {
   }, [expanded]);
 
   return (
-    <section className={`article-embed-page${expanded ? ' article-embed-page-expanded' : ''}`} aria-label="مولّد المقالات">
-      <div className="article-embed-toolbar">
-        <span>تعمل الأداة داخل إطار مستقل؛ لن يتغير تخطيطها الأصلي.</span>
-        <button
-          type="button"
-          className="article-embed-expand"
-          onClick={() => setExpanded((value) => !value)}
-          aria-label={expanded ? 'إنهاء ملء الشاشة' : 'ملء الشاشة'}
-          title={expanded ? 'إنهاء ملء الشاشة' : 'ملء الشاشة'}
-          aria-pressed={expanded}
-        >
-          {expanded ? (
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
-          ) : (
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>
-          )}
-        </button>
-      </div>
-      <div className="article-embed-frame-wrap">
-        <iframe
-          ref={frameRef}
-          className={`article-embed-frame${frameReady ? ' is-ready' : ''}`}
-          src={ARTICLE_GENERATOR_URL}
-          title="مولّد المقالات العربي"
-          onLoad={applyEmbedOverrides}
-          loading="eager"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allow="clipboard-read; clipboard-write; fullscreen"
-        />
-      </div>
-    </section>
+    <ToolPageGuide
+      toolId="article-generator"
+      intro="أنشئ مسودة مقال عربية منظمة، ثم حرّر عناصرها وراجع إعدادات SEO وجهّز المحتوى للنشر إلى Blogger من واجهة المولّد."
+      note="راجع دقة النص والروابط والمصادر قبل النشر؛ وتعتمد ميزات التوليد على النموذج أو المزوّد الذي تختاره داخل الأداة."
+      steps={[
+        'أدخل موضوع المقال والكلمة المفتاحية والخيارات التي تريدها.',
+        'اختر نوع المقال أو مخططه والنموذج المتاح داخل نافذة المولّد.',
+        'ولّد المسودة ثم راجع الأقسام والعناوين والروابط وعدّل المحتوى.',
+        'استخدم تقرير SEO وأدوات التنسيق، ثم صدّر المقال أو أرسله إلى Blogger بعد المراجعة.',
+      ]}
+    >
+      <section className={`article-embed-page${expanded ? ' article-embed-page-expanded' : ''}`} aria-label="مولّد المقالات">
+        <div className="article-embed-toolbar">
+          <span>تعمل الأداة داخل إطار مستقل؛ لن يتغير تخطيطها الأصلي.</span>
+          <button
+            type="button"
+            className="article-embed-expand"
+            onClick={() => setExpanded((value) => !value)}
+            aria-label={expanded ? 'إنهاء ملء الشاشة' : 'ملء الشاشة'}
+            title={expanded ? 'إنهاء ملء الشاشة' : 'ملء الشاشة'}
+            aria-pressed={expanded}
+          >
+            {expanded ? (
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
+            ) : (
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>
+            )}
+          </button>
+        </div>
+        <div className="article-embed-frame-wrap">
+          <iframe
+            ref={frameRef}
+            className={`article-embed-frame${frameReady ? ' is-ready' : ''}`}
+            src={ARTICLE_GENERATOR_URL}
+            title="مولّد المقالات العربي"
+            onLoad={applyEmbedOverrides}
+            loading="eager"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allow="clipboard-read; clipboard-write; fullscreen"
+          />
+        </div>
+      </section>
+    </ToolPageGuide>
   );
 }
 

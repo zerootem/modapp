@@ -13,6 +13,7 @@ import ArticleGeneratorPage from './pages/ArticleGeneratorPage';
 import AboutPage from './pages/AboutPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsPage from './pages/TermsPage';
+import ToolTagDirectory from './components/ToolTagDirectory';
 import '@fontsource-variable/inclusive-sans';
 import '@fontsource-variable/jetbrains-mono';
 import './App.css';
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/privacy" element={<PrivacyPolicyPage />} />
                 <Route path="/terms" element={<TermsPage />} />
               </Routes>
+              <ToolTagDirectory />
             </main>
           </div>
           <Footer />

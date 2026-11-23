@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ContentQuote from '../components/ContentQuote';
 
 function TermsPage() {
   return (
@@ -10,9 +11,9 @@ function TermsPage() {
         <p className="legal-updated" dir="auto">آخر تحديث: 23 نوفمبر 2026</p>
       </div>
 
-      <p className="mw-callout" role="note" dir="auto">
+      <ContentQuote variant="soft">
         باستخدامك ModApp، فإنك توافق على هذه الشروط. إذا لم توافق عليها، فتوقف عن استخدام الموقع وأدواته.
-      </p>
+      </ContentQuote>
 
       <section>
         <h2 dir="auto">1. طبيعة الخدمة</h2>

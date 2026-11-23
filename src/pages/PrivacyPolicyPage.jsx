@@ -1,4 +1,5 @@
 import React from 'react';
+import ContentQuote from '../components/ContentQuote';
 
 function PrivacyPolicyPage() {
   return (
@@ -9,9 +10,9 @@ function PrivacyPolicyPage() {
         <p className="legal-updated" dir="auto">آخر تحديث: 23 نوفمبر 2026</p>
       </div>
 
-      <p className="mw-callout" role="note" dir="auto">
+      <ContentQuote variant="policy">
         صُمّم ModApp ليعمل كموقع ثابت، لكن بعض الأدوات تحفظ بيانات في متصفحك أو ترسل مدخلات إلى مزوّد خارجي عند طلبك استخدام ميزة تعتمد عليه. لا تُدخل معلومات شخصية أو سرية إلا بعد مراجعة وجهة البيانات وشروطها.
-      </p>
+      </ContentQuote>
 
       <section>
         <h2 dir="auto">نطاق السياسة والاستضافة</h2>

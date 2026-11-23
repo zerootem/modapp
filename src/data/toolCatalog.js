@@ -4,7 +4,7 @@ export const TOOL_AUTHOR = Object.freeze({
   avatarUrl: 'https://avatars.githubusercontent.com/u/223378334?v=4',
 });
 
-// Dates reflect the last committed update to each tool's ModApp source file.
+// Dates reflect the first committed appearance and latest committed update in ModApp's source history.
 export const toolCatalog = Object.freeze([
   {
     id: 'code-minifier',
@@ -12,6 +12,7 @@ export const toolCatalog = Object.freeze([
     title: 'ضاغط الأكواد',
     description: 'أداة لضغط وتنسيق أكواد CSS وJavaScript وHTML مع خيارات متعددة وتحسين الأداء.',
     tags: ['CSS', 'JavaScript', 'HTML'],
+    publishedAt: '2026-07-06',
     updatedAt: '2026-11-16',
   },
   {
@@ -20,6 +21,7 @@ export const toolCatalog = Object.freeze([
     title: 'تحويل الصور إلى SVG',
     description: 'حوّل صورك إلى رسوميات SVG بمستويات ألوان وتفاصيل قابلة للتخصيص.',
     tags: ['SVG', 'تحويل الصور'],
+    publishedAt: '2026-07-07',
     updatedAt: '2026-07-07',
   },
   {
@@ -28,6 +30,7 @@ export const toolCatalog = Object.freeze([
     title: 'مولد الصور المصغرة بالذكاء الاصطناعي',
     description: 'صمّم صورة المقال على لوحة Canvas، وولّد خلفية أو شخصية أو رمزاً، مع اقتراحات للألوان والخطوط والوسوم.',
     tags: ['تصميم الصور', 'ذكاء اصطناعي'],
+    publishedAt: '2026-11-16',
     updatedAt: '2026-11-19',
   },
   {
@@ -36,6 +39,7 @@ export const toolCatalog = Object.freeze([
     title: 'مولّد المقالات',
     description: 'أنشئ مقالات عربية، حرّر عناصرها، حسّن SEO، وجهّزها للنشر إلى Blogger.',
     tags: ['كتابة المحتوى', 'SEO', 'Blogger'],
+    publishedAt: '2026-11-21',
     updatedAt: '2026-11-22',
   },
 ]);

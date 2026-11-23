@@ -29,3 +29,11 @@ test('deduplicates labels for the filter chips', () => {
   assert.equal(tags.length, new Set(tags).size);
   assert.ok(tags.includes('ذكاء اصطناعي'));
 });
+
+test('every tool has valid published and updated dates in chronological order', () => {
+  for (const tool of toolCatalog) {
+    assert.match(tool.publishedAt, /^\d{4}-\d{2}-\d{2}$/);
+    assert.match(tool.updatedAt, /^\d{4}-\d{2}-\d{2}$/);
+    assert.ok(tool.publishedAt <= tool.updatedAt, `${tool.id} publication date follows its update`);
+  }
+});

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Mail } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 function Footer() {
@@ -13,7 +14,16 @@ function Footer() {
           <a href="https://www.modweeb.com" target="_blank" rel="noopener noreferrer">مود ويب!</a>
         </span>
       </div>
-      <div className="theme-switcher" role="group" aria-label="اختيار مظهر التطبيق">
+      <div className="footer-utilities">
+        <nav className="footer-social" aria-label="روابط التواصل">
+          <a href="https://github.com/zerootem" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+            <svg className="social-github" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.32-3.76-1.32-.5-1.29-1.24-1.63-1.24-1.63-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.16 1.71 1.16 1 .1.78 2.21 4.58 1.56.1-.72.39-1.22.7-1.5-2.47-.28-5.06-1.24-5.06-5.52 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.42.11-2.96 0 0 .95-.3 3.05 1.15a10.6 10.6 0 0 1 5.56 0c2.1-1.45 3.05-1.15 3.05-1.15.61 1.54.23 2.68.11 2.96.72.78 1.16 1.78 1.16 3 0 4.29-2.6 5.23-5.08 5.5.4.35.75 1.02.75 2.06v3.05c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/></svg>
+          </a>
+          <a href="mailto:modweeb3@gmail.com" aria-label="البريد الإلكتروني" title="modweeb3@gmail.com">
+            <Mail aria-hidden="true" />
+          </a>
+        </nav>
+        <div className="theme-switcher" role="group" aria-label="اختيار مظهر التطبيق">
         <button
           type="button"
           className={`theme-switch-btn ${theme === 'system' ? 'active' : ''}`}
@@ -41,6 +51,7 @@ function Footer() {
         >
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.98 13A9 9 0 0 1 11 3.02 9 9 0 1 0 20.98 13Z"/></svg>
         </button>
+        </div>
       </div>
     </footer>
   );
