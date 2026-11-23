@@ -9,10 +9,13 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "lint": "oxlint",
-    "test": "node --test src/minifyJavaScript.test.js src/thumbnail-ai.test.js",
+    "test": "node --test src/minifyJavaScript.test.js src/thumbnail-ai.test.js src/data/toolCatalog.test.js",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource-variable/inclusive-sans": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "lucide-react": "^1.78.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.1",

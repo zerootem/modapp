@@ -4,13 +4,18 @@ import { ThemeProvider } from './context/ThemeContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Breadcrumb from './components/Breadcrumb';
+import RouteLoadingIndicator from './components/RouteLoadingIndicator';
 import ToolsPage from './pages/ToolsPage';
 import ToolDetail from './pages/ToolDetail';
 import ImageToSvgPage from './pages/ImageToSvgPage';
 import ThumbnailPage from './pages/ThumbnailPage';
 import ArticleGeneratorPage from './pages/ArticleGeneratorPage';
 import AboutPage from './pages/AboutPage';
+import '@fontsource-variable/inclusive-sans';
+import '@fontsource-variable/jetbrains-mono';
 import './App.css';
+import './styles/typography.css';
+import './styles/react-theme-adaptations.css';
 
 function App() {
   useEffect(() => {
@@ -21,6 +26,7 @@ function App() {
   return (
     <ThemeProvider>
       <HashRouter>
+        <RouteLoadingIndicator />
         <div className="modweeb-fullpage">
           <Header />
           <div className="content-wrapper">

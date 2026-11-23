@@ -27,7 +27,7 @@ function ValueIcon({ name }) {
 
 function AboutPage() {
   return (
-    <article className="about-page">
+    <article className="about-page mw-prose">
       <section className="about-hero">
         <span className="about-eyebrow">ModApp · مركز الأدوات</span>
         <h1>أدوات رقمية مفيدة، في مكان واحد.</h1>

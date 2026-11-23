@@ -1,27 +1,28 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+const TOOL_LABELS = {
+  'code-minifier': 'ضاغط الأكواد',
+  'image-to-svg': 'تحويل الصور إلى SVG',
+  'thumbnail-generator': 'مولد الصور المصغرة',
+  'article-generator': 'مولّد المقالات',
+};
+
 function Breadcrumb() {
   const location = useLocation();
   const pathSegments = location.pathname.split('/').filter(Boolean);
-  const items = [{ label: 'الرئيسية', path: 'https://www.modweeb.com', icon: 'home', external: true, iconOnly: true }];
+  const toolLabel = pathSegments[0] === 'tools' && pathSegments.length === 2
+    ? TOOL_LABELS[pathSegments[1]]
+    : null;
 
-  if (pathSegments[0] === 'tools') {
-    const isToolPage = pathSegments.length > 1;
-    items.push({ label: 'أدوات', path: '/tools', icon: 'wrench', active: !isToolPage });
+  // The secondary navigation is only useful after a tool has been opened.
+  if (!toolLabel) return null;
 
-    if (pathSegments[1] === 'code-minifier') {
-      items.push({ label: 'ضاغط الأكواد', path: '/tools/code-minifier', active: true, noIcon: true });
-    } else if (pathSegments[1] === 'image-to-svg') {
-      items.push({ label: 'تحويل الصور إلى SVG', path: '/tools/image-to-svg', active: true, noIcon: true });
-    } else if (pathSegments[1] === 'thumbnail-generator') {
-      items.push({ label: 'مولد الصور المصغرة', path: '/tools/thumbnail-generator', active: true, noIcon: true });
-    } else if (pathSegments[1] === 'article-generator') {
-      items.push({ label: 'مولّد المقالات', path: '/tools/article-generator', active: true, noIcon: true });
-    }
-  } else if (pathSegments[0] === 'about') {
-    items.push({ label: 'من نحن', path: '/about', active: true, noIcon: true });
-  }
+  const items = [
+    { label: 'الرئيسية', path: 'https://www.modweeb.com', icon: 'home', external: true, iconOnly: true },
+    { label: 'أدوات', path: '/tools', icon: 'wrench' },
+    { label: toolLabel, path: location.pathname, active: true, noIcon: true },
+  ];
 
   const getIcon = (type) => {
     switch (type) {
@@ -34,6 +35,12 @@ function Breadcrumb() {
     }
   };
 
+  const icon = (type) => (
+    <svg className="breadcrumb-icon" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {getIcon(type)}
+    </svg>
+  );
+
   return (
     <nav className="breadcrumb-nav" aria-label="مسار التنقل">
       <div className="breadcrumb-list">
@@ -42,29 +49,17 @@ function Breadcrumb() {
             {index > 0 && <span className="breadcrumb-sep" aria-hidden="true">‹</span>}
             {item.active ? (
               <span className={`breadcrumb-item active${item.iconOnly ? ' breadcrumb-home-only' : ''}`} aria-current="page" aria-label={item.iconOnly ? item.label : undefined} title={item.iconOnly ? item.label : undefined}>
-                {!item.noIcon && item.icon && (
-                  <svg className="breadcrumb-icon" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    {getIcon(item.icon)}
-                  </svg>
-                )}
+                {!item.noIcon && item.icon && icon(item.icon)}
                 {!item.iconOnly && <span>{item.label}</span>}
               </span>
             ) : item.external ? (
               <a href={item.path} target="_blank" rel="noopener noreferrer" className={`breadcrumb-item${item.iconOnly ? ' breadcrumb-home-only' : ''}`} aria-label={item.label} title={item.label}>
-                {item.icon && (
-                  <svg className="breadcrumb-icon" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    {getIcon(item.icon)}
-                  </svg>
-                )}
+                {item.icon && icon(item.icon)}
                 {!item.iconOnly && <span>{item.label}</span>}
               </a>
             ) : (
               <Link to={item.path} className="breadcrumb-item">
-                {item.icon && (
-                  <svg className="breadcrumb-icon" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    {getIcon(item.icon)}
-                  </svg>
-                )}
+                {item.icon && icon(item.icon)}
                 <span>{item.label}</span>
               </Link>
             )}
