@@ -11,6 +11,8 @@ import ImageToSvgPage from './pages/ImageToSvgPage';
 import ThumbnailPage from './pages/ThumbnailPage';
 import ArticleGeneratorPage from './pages/ArticleGeneratorPage';
 import AboutPage from './pages/AboutPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsPage from './pages/TermsPage';
 import '@fontsource-variable/inclusive-sans';
 import '@fontsource-variable/jetbrains-mono';
 import './App.css';
@@ -40,6 +42,8 @@ function App() {
                 <Route path="/tools/thumbnail-generator" element={<ThumbnailPage />} />
                 <Route path="/tools/article-generator" element={<ArticleGeneratorPage />} />
                 <Route path="/about" element={<AboutPage />} />
+                <Route path="/privacy" element={<PrivacyPolicyPage />} />
+                <Route path="/terms" element={<TermsPage />} />
               </Routes>
             </main>
           </div>

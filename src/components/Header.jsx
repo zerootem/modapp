@@ -33,7 +33,7 @@ function Header() {
               <path d="M106.8 282.6c-24.2 31.2-24.8 32-26.3 36.4a26.2 26.2 0 0 0 4.1 24.5c4.7 6.2 12 8.2 18.3 5a830 830 0 0 0 43.3-54c.6-1.1-21.2-30.7-23.2-31.4a191 191 0 0 0-16.2 19.5m298.8-118c-3 .8-8.8 4.8-12.2 8.4a446.8 446.8 0 0 0-26.1 38c-.3 1.1 4 7.6 11.4 17.3 11 14.7 11.9 15.5 13.3 13.7l14-20a4025 4025 0 0 1 16.2-23.3c8.5-12 7-28.6-2.9-33.3a26 26 0 0 0-13.7-.8" fill="rgba(233,169,32,0.9)"/>
             </svg>
           </div>
-          <span className="site-brand-name">By Modweeb</span>
+          <span className="site-brand-name" dir="auto">By Modweeb</span>
         </a>
         <div className="site-header-settings" ref={menuRef}>
           <button
@@ -53,6 +53,14 @@ function Header() {
               <Link to="/about" role="menuitem" onClick={() => setMenuOpen(false)}>
                 <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg>
                 <span>من نحن</span>
+              </Link>
+              <Link to="/privacy" role="menuitem" onClick={() => setMenuOpen(false)}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span>سياسة الخصوصية</span>
+              </Link>
+              <Link to="/terms" role="menuitem" onClick={() => setMenuOpen(false)}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>
+                <span>شروط الاستخدام</span>
               </Link>
             </div>
           )}

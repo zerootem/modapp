@@ -1,5 +1,5 @@
 import React from 'react';
-import { CalendarDays, Sparkles } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { TOOL_AUTHOR } from '../data/toolCatalog';
 
@@ -26,13 +26,9 @@ function ToolCard({ tool, variant = 'default', onSelectTag, selectedTag = null }
     <article className={`tool-card tool-card--${variant}`}>
       <CardLink {...destination} className="tool-card-main">
         <div className="tool-card-head">
-          <h3 className="tool-card-title">{title}</h3>
-          {variant === 'featured' && (
-            <span className="tool-card-featured-badge"><Sparkles aria-hidden="true" /> مميز</span>
-          )}
-          {variant === 'latest' && <span className="tool-card-latest-badge">الأحدث</span>}
+          <h3 className="tool-card-title" dir="auto">{title}</h3>
         </div>
-        <p className="tool-card-desc">{description}</p>
+        <p className="tool-card-desc" dir="auto">{description}</p>
       </CardLink>
 
       <div className="tool-card-meta">
@@ -52,10 +48,10 @@ function ToolCard({ tool, variant = 'default', onSelectTag, selectedTag = null }
             loading="lazy"
             decoding="async"
           />
-          <span>{TOOL_AUTHOR.name}</span>
+          <span dir="auto">{TOOL_AUTHOR.name}</span>
         </a>
         <span className="tool-card-meta-separator" aria-hidden="true" />
-        <span className="tool-card-date-label">آخر تحديث</span>
+        <span className="tool-card-date-label" dir="auto">آخر تحديث</span>
         <time className="tool-card-date" dateTime={updatedAt}>
           <CalendarDays aria-hidden="true" />
           {formatUpdateDate(updatedAt)}

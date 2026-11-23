@@ -27,39 +27,43 @@ function ValueIcon({ name }) {
 
 function AboutPage() {
   return (
-    <article className="about-page mw-prose">
+    <article className="about-page mw-prose" dir="rtl" lang="ar">
       <section className="about-hero">
-        <span className="about-eyebrow">ModApp · مركز الأدوات</span>
-        <h1>أدوات رقمية مفيدة، في مكان واحد.</h1>
-        <p>مركز عربي يجمع أدوات ويب تساعدك على إنشاء المحتوى، إعداد الصور، وتحويل الأكواد والملفات بسهولة.</p>
-        <Link className="about-cta" to="/tools">
-          <span>استكشف الأدوات</span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m0 0 6 6m-6-6 6-6"/></svg>
-        </Link>
+        <span className="about-eyebrow" dir="auto">ModApp · مركز الأدوات</span>
+        <h1 dir="auto">أدوات رقمية مفيدة، في مكان واحد.</h1>
+        <p dir="auto">مركز عربي يجمع أدوات ويب تساعدك على إنشاء المحتوى، إعداد الصور، وتحويل الأكواد والملفات بسهولة.</p>
+        <div className="about-actions" aria-label="روابط ذات صلة">
+          <Link className="about-cta" to="/tools" dir="auto">
+            <span>استكشف الأدوات</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m0 0 6 6m-6-6 6-6"/></svg>
+          </Link>
+          <Link className="about-secondary-cta" to="/privacy" dir="auto">سياسة الخصوصية</Link>
+          <Link className="about-secondary-cta" to="/terms" dir="auto">شروط الاستخدام</Link>
+        </div>
       </section>
 
       <section className="about-values" aria-label="مبادئ المركز">
         {values.map((value) => (
           <div className="about-value-card" key={value.title}>
             <span className="about-value-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><ValueIcon name={value.icon} /></svg></span>
-            <h2>{value.title}</h2>
-            <p>{value.text}</p>
+            <h2 dir="auto">{value.title}</h2>
+            <p dir="auto">{value.text}</p>
           </div>
         ))}
       </section>
 
       <section className="about-details">
         <div>
-          <h2>ما الذي ستجده هنا؟</h2>
-          <p>تتضمن المكتبة أدوات لمعالجة الأكواد والصور، ومولّد صور مصغرة، ومولّد مقالات عربي. نطوّر المركز تدريجياً مع التركيز على سهولة الاستخدام والتوافق مع الهاتف.</p>
+          <h2 dir="auto">ما الذي ستجده هنا؟</h2>
+          <p dir="auto">تتضمن المكتبة أدوات لمعالجة الأكواد والصور، ومولّد صور مصغرة، ومولّد مقالات عربي. نطوّر المركز تدريجياً مع التركيز على سهولة الاستخدام والتوافق مع الهاتف.</p>
         </div>
         <div>
-          <h2>كيف تعمل الأدوات؟</h2>
-          <p>تعمل واجهة المركز في المتصفح، وتُفتح الأدوات داخل صفحتها أو في إطار منفصل بحسب طبيعتها. بعض الميزات الاختيارية، مثل توليد الصور أو المحتوى، قد تتصل بمزوّد خارجي عند استخدامها؛ راجع التنبيهات داخل الأداة وشروط المزوّد.</p>
+          <h2 dir="auto">كيف تعمل الأدوات؟</h2>
+          <p dir="auto">تعمل واجهة المركز في المتصفح، وتُفتح الأدوات داخل صفحتها أو في إطار منفصل بحسب طبيعتها. بعض الميزات الاختيارية، مثل توليد الصور أو المحتوى، قد تتصل بمزوّد خارجي عند استخدامها؛ راجع التنبيهات داخل الأداة وشروط المزوّد.</p>
         </div>
       </section>
 
-      <p className="about-note">هذا المركز من تطوير <a href="https://www.modweeb.com" target="_blank" rel="noopener noreferrer">مود ويب</a>. استخدام الأدوات وخدماتها الخارجية يخضع لشروط كل أداة ومزوّد.</p>
+      <p className="about-note" dir="auto">هذا المركز من تطوير <a href="https://www.modweeb.com" target="_blank" rel="noopener noreferrer">مود ويب</a>. استخدام الأدوات وخدماتها الخارجية يخضع لشروط كل أداة ومزوّد.</p>
     </article>
   );
 }
