@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import ContentQuote from '../components/ContentQuote';
 
 const values = [
@@ -33,14 +32,6 @@ function AboutPage() {
         <span className="about-eyebrow" dir="auto">ModApp · مركز الأدوات</span>
         <h1 dir="auto">أدوات رقمية مفيدة، في مكان واحد.</h1>
         <p dir="auto">مركز عربي يجمع أدوات ويب تساعدك على إنشاء المحتوى، إعداد الصور، وتحويل الأكواد والملفات بسهولة.</p>
-        <div className="about-actions" aria-label="روابط ذات صلة">
-          <Link className="about-cta" to="/tools" dir="auto">
-            <span>استكشف الأدوات</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m0 0 6 6m-6-6 6-6"/></svg>
-          </Link>
-          <Link className="about-secondary-cta" to="/privacy" dir="auto">سياسة الخصوصية</Link>
-          <Link className="about-secondary-cta" to="/terms" dir="auto">شروط الاستخدام</Link>
-        </div>
       </section>
 
       <ContentQuote variant="editorial" citation="مدونة أدوات مود ويب">

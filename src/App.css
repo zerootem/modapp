@@ -413,19 +413,12 @@ body.mw-thumbnail-expanded .tool-embed-frame {
 /* ================= [16] صفحة من نحن ================= */
 .about-page { width: min(100%, 900px); margin: 0 auto; padding: .25rem 0 1.5rem; }
 .about-hero {
-  padding: clamp(1.25rem, 4vw, 2.5rem); border: 1px solid var(--mw-contentL);
-  border-radius: 1rem; background: linear-gradient(135deg, var(--mw-contentB), var(--mw-contentBa));
+  padding: clamp(.85rem, 2.5vw, 1.35rem); border: 1px solid var(--mw-contentL);
+  border-radius: .75rem; background: var(--mw-contentB);
 }
-.about-eyebrow { display: inline-block; color: var(--mw-linkC); font-size: .78rem; font-weight: 700; }
-.about-hero h1 { margin: .55rem 0 .65rem; color: var(--mw-headC); font-size: clamp(1.45rem, 4vw, 2.1rem); line-height: 1.35; }
-.about-hero p, .about-details p, .about-value-card p { margin: 0; color: var(--mw-notifC); font-size: .9rem; line-height: 1.8; }
-.about-cta {
-  display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.1rem; padding: .55rem .85rem;
-  border: 1px solid var(--mw-linkC); border-radius: .55rem; background: var(--mw-linkC);
-  color: var(--mw-white); font-size: .82rem; font-weight: 650; text-decoration: none;
-}
-.about-cta:hover { opacity: .9; }
-.about-cta svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.about-eyebrow { display: inline-block; color: var(--mw-linkC); font-size: .72rem; font-weight: 700; }
+.about-hero h1 { margin: .25rem 0 .4rem; color: var(--mw-headC); font-size: clamp(1.25rem, 3vw, 1.75rem); line-height: 1.35; }
+.about-hero p, .about-details p, .about-value-card p { margin: 0; color: var(--mw-notifC); font-size: .84rem; line-height: 1.7; }
 .about-values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-top: .8rem; }
 .about-value-card { padding: 1rem; border: 1px solid var(--mw-contentL); border-radius: .75rem; background: var(--mw-contentB); }
 .about-value-icon { display: grid; place-items: center; width: 34px; height: 34px; margin-bottom: .55rem; border-radius: .6rem; background: var(--mw-contentBa); color: var(--mw-linkC); }
@@ -508,18 +501,28 @@ body.mw-article-expanded .article-embed-frame { width: 100vw !important; height:
   padding-block: .15rem 1rem;
   text-align: start;
 }
-.tool-page-heading { margin-block-end: .55rem; }
+.tool-page-heading {
+  margin-block-end: .4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
 .tool-page-eyebrow { margin: 0 0 .2rem !important; color: var(--mw-linkC) !important; font-size: .74rem; font-weight: 650; }
-.tool-page-heading h1 { margin: 0 0 .35rem !important; color: var(--mw-headC); font-size: clamp(1.4rem, 4vw, 1.9rem) !important; }
-.tool-page-intro { max-width: 76ch; margin: 0 !important; color: var(--mw-notifC) !important; font-size: .9rem; line-height: 1.7; }
+.tool-page-heading h1 { margin: 0 0 .25rem !important; color: var(--mw-headC); font-size: clamp(1.35rem, 3.5vw, 1.8rem) !important; line-height: 1.35; }
+.tool-page-intro { max-width: 76ch; margin: 0 !important; color: var(--mw-notifC) !important; font-size: .88rem; line-height: 1.7; }
 .tool-page-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: .45rem .8rem;
-  margin-block: .65rem .75rem;
-  padding-block: .5rem;
-  border-block: 1px solid var(--mw-contentL);
+  margin-block: .45rem .7rem;
+  padding-block: .4rem .5rem;
+  border: 0;
+  border-block-end: 1px solid var(--mw-contentL);
   color: var(--mw-notifC);
   font-size: .7rem;
 }
@@ -544,16 +547,41 @@ body.mw-article-expanded .article-embed-frame { width: 100vw !important; height:
 
 /* ================= [19] تصنيفات نهاية الصفحات ================= */
 .tool-tag-directory {
-  width: min(100%, 900px);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1000px;
   margin: 0 auto;
-  padding-block: .75rem .2rem;
+  padding-block: .85rem .35rem;
   border-block-start: 1px solid var(--mw-contentL);
   text-align: start;
 }
-.tool-tag-directory-heading h2 { margin: 0; color: var(--mw-headC); font-size: .92rem; font-weight: 650; }
-.tool-tag-directory-heading p { margin: .15rem 0 .5rem; color: var(--mw-notifC); font-size: .76rem; line-height: 1.55; }
-.tool-tag-directory-list { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; }
-.tool-tag-directory .tool-filter-chip { display: inline-flex; align-items: center; justify-content: center; min-height: 27px; text-decoration: none; }
+.tool-tag-directory-heading {
+  margin: 0 0 .55rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.tool-tag-directory-heading h2 { margin: 0; color: var(--mw-headC); font-size: 1rem; font-weight: 650; line-height: 1.4; }
+.tool-tag-directory-heading p { margin: .18rem 0 0; color: var(--mw-notifC); font-size: .78rem; line-height: 1.55; }
+.tool-tag-directory-list { display: flex; width: 100%; flex-wrap: wrap; align-items: center; align-content: flex-start; gap: .45rem; }
+.tool-tag-directory .tool-filter-chip {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 31px;
+  max-width: 100%;
+  padding: .32rem .65rem;
+  border-radius: .42rem;
+  font-size: .76rem;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+}
 .tool-tag-directory--interactive { width: 100%; padding: 0; border: 0; }
 .tools-page-bottom { padding-block-start: .05rem; border-block-start: 0; }
 .tools-page-bottom > .tool-tag-directory { width: 100%; margin: 0; padding-block: .8rem; }
@@ -587,12 +615,19 @@ body.mw-article-expanded .article-embed-frame { width: 100vw !important; height:
 
 @media (max-width: 640px) {
   .tool-page-guide { padding-block: 0 .65rem; }
-  .tool-page-intro { font-size: .83rem; }
+  .tool-page-intro { font-size: .82rem; }
+  .tool-page-heading h1 { font-size: clamp(1.25rem, 6vw, 1.55rem) !important; }
+  .tool-page-meta { margin-block-start: .35rem; }
   .tool-page-meta { gap: .35rem .6rem; font-size: .65rem; }
   .tool-page-author img { width: 24px; height: 24px; }
   .tool-usage-guide { padding: .58rem .65rem; }
   .tool-usage-guide .mw-steps > li { font-size: .77rem; }
+  .tool-tag-directory { padding-block: .7rem .25rem; }
+  .tool-tag-directory-heading { margin-block-end: .45rem; }
+  .tool-tag-directory-heading h2 { font-size: .92rem; }
   .tool-tag-directory-heading p { font-size: .72rem; }
+  .tool-tag-directory-list { gap: .35rem; }
+  .tool-tag-directory .tool-filter-chip { min-height: 29px; padding: .3rem .55rem; font-size: .72rem; }
   .footer-utilities { gap: .28rem; }
   .footer-social { gap: .18rem; }
   .footer-social a { width: 26px; height: 26px; }

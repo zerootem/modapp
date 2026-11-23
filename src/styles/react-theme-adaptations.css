@@ -222,33 +222,12 @@
 
 /* About page: semantic typography, compact cards and logically ordered links. */
 .about-page { width: min(100%, 760px); padding-block: .15rem 1rem; }
-.about-hero { padding: clamp(.9rem, 2.5vw, 1.35rem); border-radius: .75rem; }
-.about-hero h1 { margin-block: .35rem .45rem; font-size: clamp(1.35rem, 3.4vw, 1.8rem); }
-.about-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: .4rem;
-  margin-block-start: .75rem;
+.about-page .about-hero h1 {
+  margin: .25rem 0 .4rem !important;
+  font-size: clamp(1.25rem, 3vw, 1.75rem) !important;
+  line-height: 1.35;
 }
-.about-cta { margin: 0; padding: .43rem .68rem; border-radius: .45rem; font-size: .77rem; }
-.about-cta svg { width: 15px; height: 15px; }
-.about-cta:dir(ltr) svg { transform: scaleX(-1); }
-.about-secondary-cta {
-  display: inline-flex;
-  align-items: center;
-  min-height: 32px;
-  padding: .35rem .6rem;
-  border: 1px solid var(--mw-contentL);
-  border-radius: .45rem;
-  background: var(--mw-contentB);
-  color: var(--mw-bodyC) !important;
-  font-size: .74rem;
-  font-weight: 600;
-  text-decoration: none !important;
-}
-.about-secondary-cta:hover { border-color: var(--mw-linkC); color: var(--mw-linkC) !important; }
+.about-page .about-hero > p { margin: 0 !important; font-size: .84rem; line-height: 1.7; }
 .about-values { gap: .55rem; margin-block-start: .6rem; }
 .about-value-card { padding: .7rem .75rem; border-radius: .6rem; }
 .about-value-icon { width: 29px; height: 29px; margin-block-end: .35rem; border-radius: .48rem; }
@@ -278,9 +257,6 @@
   .tools-page-intro p { font-size: .73rem; }
   .site-header-dropdown { width: 156px; }
   .about-page { padding-block-end: .6rem; }
-  .about-hero { padding: .85rem; }
-  .about-actions { gap: .35rem; }
-  .about-cta, .about-secondary-cta { min-height: 30px; padding: .3rem .5rem; font-size: .7rem; }
   .about-values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .about-value-card { padding: .62rem; }
   .about-details > div { padding: .65rem; }
@@ -291,12 +267,8 @@
 
 @media (max-width: 420px) {
   .about-values { grid-template-columns: 1fr; }
-  .about-actions { align-items: stretch; }
-  .about-actions > a { justify-content: center; }
 }
 
-/* About-page refinements confirmed by the mobile preview. */
-.about-page .about-cta { color: var(--mw-white); text-decoration: none; }
 .about-value-card {
   display: grid;
   grid-template-columns: 29px minmax(0, 1fr);
