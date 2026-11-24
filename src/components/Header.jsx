@@ -76,9 +76,8 @@ function Header() {
                     onValueChange={setAccentTheme}
                   >
                     {ACCENT_THEMES.map((theme) => (
-                      <Menu.RadioItem key={theme.id} className="site-menubar-item site-menubar-theme-item" value={theme.id}>
+                      <Menu.RadioItem key={theme.id} className="site-menubar-item site-menubar-theme-item" value={theme.id} aria-label={theme.label} title={theme.label}>
                         <span className="site-menubar-color-swatch" style={{ '--theme-swatch': theme.swatch }} aria-hidden="true" />
-                        <span>{theme.label}</span>
                         <Menu.RadioItemIndicator className="site-menubar-theme-indicator">
                           <Check aria-hidden="true" />
                         </Menu.RadioItemIndicator>
