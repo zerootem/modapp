@@ -188,7 +188,11 @@
   }
 
   function initTheme() {
-    applyAccent(read('mw.accent') || 'blue', false);
+    var savedAccent = read('mw.accent');
+    if (savedAccent) applyAccent(savedAccent, false);
+    else document.querySelectorAll('[data-accent-option]').forEach(function (btn) {
+      btn.setAttribute('aria-pressed', 'false');
+    });
     applyMode(read('mw.mode') || 'auto', false);
     if (mqDark && mqDark.addEventListener) {
       mqDark.addEventListener('change', function () {

@@ -190,6 +190,9 @@ hr { border: 0; border-top: 1px solid var(--mw-border); margin: 2rem 0; }
 .container { width: min(100% - 2 * var(--mw-pad), var(--mw-width)); margin-inline: auto; }
 .section { padding-block: clamp(28px, 5vw, 56px); }
 .section + .section { border-top: 1px solid color-mix(in srgb, var(--mw-border) 65%, transparent); }
+.header-brand.section { padding-block: 0; }
+.header-brand .widget { margin-block-end: 0; }
+.main-section, .main-section .section, .article-side .section { padding-block: 0; }
 
 /* =========================================================
    Header
@@ -365,6 +368,7 @@ html[dir="ltr"] .popover { inset-inline-start: 0; }
   overflow: hidden; border: 1px solid var(--mw-border); border-radius: var(--mw-radius);
   background: var(--mw-card); box-shadow: var(--mw-shadow-sm);
 }
+.featured.no-media { grid-template-columns: 1fr; }
 .featured-media { position: relative; min-height: 260px; background: var(--mw-card-alt); }
 .featured-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .featured-body { padding: clamp(18px, 3vw, 32px); display: flex; flex-direction: column; gap: 10px; justify-content: center; }

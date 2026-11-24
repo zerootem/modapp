@@ -113,7 +113,8 @@
         var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         d.setAttribute('data-mode', m === 'auto' ? (dark ? 'dark' : 'light') : m);
         d.setAttribute('data-mode-pref', m);
-        d.setAttribute('data-accent', s.getItem('mw.accent') || 'blue');
+        var a = s.getItem('mw.accent');
+        if (a) d.setAttribute('data-accent', a);
         var l = s.getItem('mw.lang');
         if (l) {
           d.setAttribute('lang', l);
@@ -187,7 +188,9 @@
             <b:if cond='data:links'>
               <ul>
                 <b:loop values='data:links' var='link'>
-                  <li><b:class cond='data:link.isCurrentPage' name='selected'/><a expr:href='data:link.href'><data:link.title/></a></li>
+                  <b:if cond='data:link.href != data:blog.homepageUrl'>
+                    <li><b:class cond='data:link.isCurrentPage' name='selected'/><a expr:href='data:link.href'><data:link.title/></a></li>
+                  </b:if>
                 </b:loop>
               </ul>
             </b:if>
@@ -327,20 +330,21 @@
               </b:loop>
             </b:if>
 
-            <div class='section-head'>
-              <div>
-                <h2 data-i18n='latest'>أحدث المقالات</h2>
-                <p><data:blog.title/></p>
+            <b:if cond='not data:view.isHomepage or data:posts.size &gt; 1'>
+              <div class='section-head'>
+                <div>
+                  <h2 data-i18n='latest'>أحدث المقالات</h2>
+                </div>
               </div>
-            </div>
 
-            <div class='cards'>
-              <b:loop index='i' values='data:posts' var='post'>
-                <b:if cond='!(data:view.isHomepage and data:i == 0)'>
-                  <b:include data='post' name='postCard'/>
-                </b:if>
-              </b:loop>
-            </div>
+              <div class='cards'>
+                <b:loop index='i' values='data:posts' var='post'>
+                  <b:if cond='!(data:view.isHomepage and data:i == 0)'>
+                    <b:include data='post' name='postCard'/>
+                  </b:if>
+                </b:loop>
+              </div>
+            </b:if>
 
             <div class='pagination'>
               <b:if cond='data:newerPageUrl'>
@@ -357,6 +361,7 @@
       <!-- featured -->
       <b:includable id='featuredPost' var='post'>
         <article class='featured'>
+          <b:class cond='not data:post.featuredImage' name='no-media'/>
           <b:if cond='data:post.featuredImage'>
             <a class='featured-media' expr:href='data:post.url' tabindex='-1' aria-hidden='true'>
               <b:if cond='data:post.featuredImage.isResizable'>
@@ -651,7 +656,9 @@
               <b:if cond='data:links'>
                 <ul>
                   <b:loop values='data:links' var='link'>
-                    <li><a expr:href='data:link.href'><data:link.title/></a></li>
+                    <b:if cond='data:link.href != data:blog.homepageUrl'>
+                      <li><a expr:href='data:link.href'><data:link.title/></a></li>
+                    </b:if>
                   </b:loop>
                 </ul>
               </b:if>
