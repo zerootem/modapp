@@ -15,7 +15,7 @@
   <Variable name="font.heading" description="خط العناوين" type="font" default="normal bold 16px 'IBM Plex Sans Arabic', system-ui, sans-serif" value="normal bold 16px 'IBM Plex Sans Arabic', system-ui, sans-serif"/>
   <Variable name="content.width" description="عرض المحتوى" type="length" default="1180px" min="960px" max="1440px"/>
   <Variable name="radius.base" description="انحناء البطاقات" type="length" default="14px" min="0px" max="24px"/>
-  <Variable name="header.height" description="ارتفاع الهيدر" type="length" default="64px" min="52px" max="84px"/>
+  <Variable name="header.height" description="ارتفاع الهيدر" type="length" default="60px" min="52px" max="72px"/>
 </Group>
 */
 
@@ -52,7 +52,7 @@
 
   --mw-width: 1180px;
   --mw-prose-width: 760px;
-  --mw-header-h: 64px;
+  --mw-header-h: min(60px, 64px);
   --mw-hdr-h: var(--mw-header-h);
   --mw-gap: clamp(16px, 2.4vw, 28px);
   --mw-pad: clamp(16px, 3vw, 32px);
@@ -209,7 +209,7 @@ hr { border: 0; border-top: 1px solid var(--mw-border); margin: 2rem 0; }
   background: var(--mw-glass);
   -webkit-backdrop-filter: saturate(1.4) blur(14px);
   backdrop-filter: saturate(1.4) blur(14px);
-  border-block-end: 1px solid color-mix(in srgb, var(--mw-border) 70%, transparent);
+  border-block-end: 1px solid rgb(0 0 0 / .06);
 }
 .site-header.is-scrolled { box-shadow: var(--mw-shadow-sm); }
 
@@ -221,16 +221,21 @@ hr { border: 0; border-top: 1px solid var(--mw-border); margin: 2rem 0; }
 .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .page-head .page-lead { color: var(--mw-muted); max-width: 62ch; margin: 0; font-size: .95rem; }
 
-.brand { display: inline-flex; align-items: center; gap: .6rem; min-width: 0; color: var(--mw-heading); }
+.brand { display: inline-flex; align-items: center; gap: .55rem; min-width: 0; color: var(--mw-heading); }
 .brand:hover { color: var(--mw-heading); }
-.brand-logo { width: 34px; height: 34px; flex: 0 0 34px; border-radius: 22%; background: #fff; box-shadow: 0 0 0 1px color-mix(in srgb, var(--mw-border) 70%, transparent); }
-.brand-text { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
-.brand-title { font-weight: 700; font-size: 1rem; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.brand-desc { font-size: .72rem; color: var(--mw-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brand-mark { width: 34px; height: 34px; flex: 0 0 34px; border-radius: 10px; background: #fff; box-shadow: 0 0 0 1px color-mix(in srgb, var(--mw-border) 70%, transparent); display: block; }
+.brand-word { display: inline-flex; direction: ltr; align-items: baseline; gap: .32rem; min-width: 0; line-height: 1; white-space: nowrap; }
+.brand-name { font-size: 1.1rem; font-weight: 800; letter-spacing: -.025em; color: var(--mw-heading); }
+.brand-sub { font-size: .78rem; font-weight: 600; letter-spacing: .01em; color: var(--mw-accent); }
+.brand-text { display: none; }
+.brand-logo { display: none; }
 
 .main-nav { display: flex; align-items: center; justify-content: center; flex: 1 1 auto; gap: 4px; min-width: 0; margin: 0 8px; }
 .main-nav .section, .main-nav .widget { display: contents; }
 .nav-head { display: none; }
+.drawer-sec { display: none; }
+.drawer-sec .seg { display: flex; flex-wrap: wrap; }
+.drawer-sec .seg button { flex: 1 1 auto; justify-content: center; }
 .main-nav ul { display: flex; align-items: center; gap: 2px; margin: 0; padding: 0; list-style: none; }
 .main-nav a {
   display: inline-flex; align-items: center; gap: .4rem;
@@ -253,6 +258,8 @@ hr { border: 0; border-top: 1px solid var(--mw-border); margin: 2rem 0; }
 .icon-btn:hover { color: var(--mw-accent); background: var(--mw-accent-soft); }
 .icon-btn[aria-expanded="true"] { color: var(--mw-on-accent); background: var(--mw-accent); border-color: var(--mw-accent); }
 .icon-btn .icon { width: 18px; height: 18px; }
+.icon { stroke-width: 1.75; }
+html[data-mode="dark"] .site-header::before { border-block-end-color: rgb(255 255 255 / .08); }
 .icon-btn.is-accent { color: var(--mw-on-accent); background: var(--mw-accent); border-color: var(--mw-accent); }
 .icon-btn.is-accent:hover { background: color-mix(in srgb, var(--mw-accent) 88%, #000); }
 
@@ -260,6 +267,7 @@ hr { border: 0; border-top: 1px solid var(--mw-border); margin: 2rem 0; }
 .nav-overlay { display: none; position: fixed; inset: 0; z-index: 0; padding: 0; border: 0; background: rgb(0 0 0 / .42); cursor: default; }
 
 /* mobile: side drawer */
+@media (max-width: 900px) { .hide-mobile { display: none !important; } }
 @media (max-width: 900px) {
   .menu-btn { display: inline-grid; flex: 0 0 auto; }
   .header-brand { flex: 0 1 auto; min-width: 0; }
@@ -279,6 +287,12 @@ hr { border: 0; border-top: 1px solid var(--mw-border); margin: 2rem 0; }
   html[dir="rtl"] .main-nav { transform: translateX(102%); }
   .main-nav.is-open, html[dir="rtl"] .main-nav.is-open { transform: none; visibility: visible; }
   .site-header.nav-open .nav-overlay { display: block; }
+  .drawer-sec { display: block; margin-block-start: 14px; padding-block-start: 12px; border-block-start: 1px solid var(--mw-border); }
+  .drawer-title { margin: 0 4px 10px; font-size: .78rem; font-weight: 700; color: var(--mw-muted); }
+  .drawer-sec .swatch-grid { margin-block: 10px 4px; }
+  .drawer-sec .swatch { width: 30px; height: 30px; border-radius: 50%; justify-self: start; }
+  .drawer-sec .swatch-grid { grid-template-columns: repeat(6, 30px); gap: 10px; justify-content: space-between; }
+  .drawer-sec .menu-list button { width: 100%; text-align: start; }
   .nav-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 4px 10px; margin-block-end: 6px; border-block-end: 1px solid var(--mw-border); }
   .nav-title { font-size: .8rem; font-weight: 700; letter-spacing: .02em; color: var(--mw-muted); }
   .main-nav ul { flex-direction: column; align-items: stretch; gap: 2px; }
@@ -951,7 +965,7 @@ html[dir="rtl"] .prose ol.steps > li { padding: .7rem 3.2rem .7rem .9rem; }
   .prose { font-size: 1rem; }
   .prose h2 { border-block-end: 0; padding-block-end: 0; }
   .footer-top { grid-template-columns: 1fr; }
-  .brand-logo { width: 32px; height: 32px; flex-basis: 32px; }
+  .brand-mark { width: 32px; height: 32px; flex-basis: 32px; }
 }
 @media (max-width: 420px) {
   .header-actions { gap: 2px; }
