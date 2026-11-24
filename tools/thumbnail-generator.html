@@ -722,6 +722,8 @@ body { margin:0; min-height:100vh; background:var(--bodyB,var(--lBodyB,#f9fafb))
 .mw-ai-field-prompt { grid-column:1/-1; }
 .mw-ai-actions,.mw-ai-result-actions { display:flex; flex-wrap:wrap; align-items:center; gap:.45rem; margin-top:.65rem; }
 .mw-ai-actions .mw-btn.primary { background:var(--linkC); color:#fff; border-color:var(--linkC); }
+.mw-ai-actions .mw-btn.primary:hover { filter: brightness(.94); }
+.dark .mw-ai-actions .mw-btn.primary { color:var(--darkB); }
 .mw-ai-actions .mw-btn:disabled,.mw-ai-result-actions .mw-btn:disabled { opacity:.55; cursor:wait; }
 #mwAiStatus { min-height:1.3em; margin:.4rem 0 0; color:var(--notifC); font-size:.75rem; }
 #mwAiStatus[data-state="error"] { color:#dc2626; }
