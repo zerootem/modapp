@@ -31,7 +31,31 @@ function fingerprintAssets() {
   }
 }
 
+function buildVersion() {
+  const buildId = Date.now().toString(36)
+  return {
+    name: 'modapp-build-version',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html) {
+        return html
+          .replace(/(<script[^>]+src="\/modapp\/assets\/app\.js)(")/, `$1?v=${buildId}$2`)
+          .replace(/(<link[^>]+href="\/modapp\/assets\/app\.css)(")/, `$1?v=${buildId}$2`)
+      }
+    }
+  }
+}
+
 export default defineConfig({
-  plugins: [react(), fingerprintAssets()],
+  plugins: [react(), fingerprintAssets(), buildVersion()],
   base: '/modapp/',
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/app.js',
+        chunkFileNames: 'assets/chunk-[name].js',
+        assetFileNames: (info) => (info.name && info.name.endsWith('.css') ? 'assets/app.css' : 'assets/[name]-[hash][extname]'),
+      },
+    },
+  },
 })
