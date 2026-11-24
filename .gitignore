@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Blogger theme release artifact
+!blogger-theme/dist/
+!blogger-theme/dist/*.xml
