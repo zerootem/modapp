@@ -25,11 +25,11 @@ const MODE_TOKENS = {
     scrollT:'rgba(255,255,255,.05)',scrollB:'rgba(255,255,255,.15)',scrollBh:'rgba(255,255,255,.25)',scrollBa:'rgba(255,255,255,.25)',scrollH:'8px',scrollV:'var(--scrollH)',scrollR:'2px',aInvert:'1',svgW:'22px',svgH:'22px',svgC:'currentColor'
   }
 };
-function notifyTheme(mode) {
+function notifyTheme(mode, accent) {
   const root = document.documentElement;
   const style = getComputedStyle(root);
   const tokens = Object.fromEntries(THEME_KEYS.map((key) => [key, style.getPropertyValue(`--mw-${key}`).trim()]));
-  window.dispatchEvent(new CustomEvent('mw-theme-change', { detail: { mode, tokens } }));
+  window.dispatchEvent(new CustomEvent('mw-theme-change', { detail: { mode, accent, tokens } }));
 }
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => localStorage.getItem(THEME_STORAGE_KEY) || 'system');
@@ -51,17 +51,17 @@ export function ThemeProvider({ children }) {
     if (meta) meta.setAttribute('content', themeColor);
     root.style.setProperty('--mw-breadcrumb', isDark ? '#b0b7c3' : 'var(--lBodyCa)');
     root.style.setProperty('--mw-breadcrumb-active', isDark ? 'var(--darkT)' : 'var(--lHeadC)');
-    root.style.setProperty('--mw-breadcrumb-sep', isDark ? '#8a8f98' : 'var(--lIconCa)');
+    root.style.setProperty('--mw-breadcrumb-sep', isDark ? '#9aa0aa' : 'var(--lBodyCa)');
   }, []);
   useEffect(() => {
     document.documentElement.dataset.accentTheme = accentTheme;
     localStorage.setItem(ACCENT_STORAGE_KEY, accentTheme);
     localStorage.setItem(THEME_STORAGE_KEY, theme);
     applyTheme(theme);
-    notifyTheme(theme);
+    notifyTheme(theme, accentTheme);
     if (theme !== 'system') return;
     const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const update = () => { applyTheme('system'); notifyTheme('system'); };
+    const update = () => { applyTheme('system'); notifyTheme('system', accentTheme); };
     if (media.addEventListener) { media.addEventListener('change', update); return () => media.removeEventListener('change', update); }
     media.addListener(update); return () => media.removeListener(update);
   }, [theme, accentTheme, applyTheme]);

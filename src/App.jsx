@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import Header from './components/Header';
@@ -21,20 +21,16 @@ import './styles/typography.css';
 import './styles/react-theme-adaptations.css';
 
 function App() {
-  useEffect(() => {
-    const frame = requestAnimationFrame(() => window.__modweebHidePreloader?.());
-    return () => cancelAnimationFrame(frame);
-  }, []);
-
   return (
     <ThemeProvider>
       <HashRouter>
         <RouteLoadingIndicator />
+        <a className="skip-to-content" href="#main-content">تخطَّ إلى المحتوى</a>
         <div className="modweeb-fullpage">
           <Header />
           <div className="content-wrapper">
             <Breadcrumb />
-            <main className="route-content">
+            <main className="route-content" id="main-content" tabIndex={-1}>
               <Routes>
                 <Route path="/" element={<Navigate to="/tools" replace />} />
                 <Route path="/tools" element={<ToolsPage />} />

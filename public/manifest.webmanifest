@@ -1,0 +1,26 @@
+{
+  "name": "ModApp — مركز الأدوات التوليدية",
+  "short_name": "ModApp",
+  "description": "أدوات ويب عربية لصناعة المحتوى ومعالجة الصور والأكواد في مكان واحد.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/modapp/",
+  "scope": "/modapp/",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#e11462",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

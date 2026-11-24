@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ToolPageGuide from '../components/ToolPageGuide';
+import { useTheme } from '../context/ThemeContext';
+import { getAccentTheme, resolveIsDark } from '../data/accentThemes';
 
 const ARTICLE_GENERATOR_URL = 'https://zerootem.github.io/article-generator-tool/';
+const ACCENT_STYLE_ID = 'modapp-article-embed-accent';
 const EMBED_OVERRIDE_CSS = `
   #darkModeToggle, [data-theme-menu] { display: none !important; }
   #improveTextToolbarBtn, [onclick*="openImproveTextSheet"] { display: none !important; }
@@ -9,9 +12,32 @@ const EMBED_OVERRIDE_CSS = `
 `;
 
 function ArticleGeneratorPage() {
+  const { theme, accentTheme } = useTheme();
   const frameRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
   const [frameReady, setFrameReady] = useState(false);
+
+  const syncTheme = (accentId = accentTheme, mode = theme) => {
+    const frame = frameRef.current;
+    try {
+      const frameDocument = frame?.contentDocument;
+      if (!frameDocument?.documentElement) return;
+      const accent = getAccentTheme(accentId);
+      const isDark = resolveIsDark(mode);
+      let style = frameDocument.getElementById(ACCENT_STYLE_ID);
+      if (!style) {
+        style = frameDocument.createElement('style');
+        style.id = ACCENT_STYLE_ID;
+        frameDocument.head?.appendChild(style);
+      }
+      style.textContent = `:root{--lLinkC:${accent.light};--lLinkB:${accent.soft};--lIconCs:${accent.light};--lHeaderB:${accent.light};--darkL:${accent.dark};}`;
+      frameDocument.documentElement.classList.toggle('dark', isDark);
+      frameDocument.body?.classList.toggle('dark', isDark);
+      frameDocument.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+    } catch {
+      // Keep the embed usable if a future deployment changes its same-origin policy.
+    }
+  };
 
   const applyEmbedOverrides = () => {
     const frame = frameRef.current;
@@ -37,8 +63,17 @@ function ArticleGeneratorPage() {
     } catch {
       // Keep the embed usable if a future deployment changes its same-origin policy.
     }
+    syncTheme();
+    [400, 1200, 2600].forEach((delay) => setTimeout(() => syncTheme(), delay));
     setFrameReady(true);
   };
+
+  useEffect(() => {
+    const onThemeChange = (event) => syncTheme(event.detail?.accent || accentTheme, event.detail?.mode || theme);
+    window.addEventListener('mw-theme-change', onThemeChange);
+    syncTheme();
+    return () => window.removeEventListener('mw-theme-change', onThemeChange);
+  }, [accentTheme, theme]);
 
   useEffect(() => {
     document.documentElement.classList.toggle('mw-article-expanded', expanded);
