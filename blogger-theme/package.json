@@ -1,0 +1,12 @@
+{
+  "name": "modweeb-blogger-theme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ModWeeb Theme — a modern, Arabic-first Blogger theme built for the ModWeeb article generator.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "preview": "node build.mjs && npx --yes http-server preview -p 4300 -c-1"
+  },
+  "license": "MIT"
+}
