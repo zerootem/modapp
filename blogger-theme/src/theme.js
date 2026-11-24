@@ -9,6 +9,9 @@
   /* ---------------- i18n ---------------- */
   var I18N = {
     ar: {
+      featuredTool: 'أداة مميزة',
+      latestUpdate: 'آخر تحديث',
+      exploreTools: 'استكشف الأدوات',
       search: 'بحث', menu: 'القائمة', theme: 'المظهر', colors: 'لون السمة',
       auto: 'تلقائي', light: 'فاتح', soft: 'ناعم', dark: 'داكن',
       language: 'اللغة', share: 'شارك المقال', copyLink: 'نسخ الرابط', copied: 'تم النسخ',
@@ -24,6 +27,9 @@
       searchPlaceholder: 'ابحث في المدونة…', searchGo: 'بحث', close: 'إغلاق'
     },
     en: {
+      featuredTool: 'Featured tool',
+      latestUpdate: 'Last updated',
+      exploreTools: 'Explore tools',
       search: 'Search', menu: 'Menu', theme: 'Appearance', colors: 'Accent color',
       auto: 'Auto', light: 'Light', soft: 'Soft', dark: 'Dark',
       language: 'Language', share: 'Share this post', copyLink: 'Copy link', copied: 'Copied',
@@ -39,6 +45,9 @@
       searchPlaceholder: 'Search this blog…', searchGo: 'Search', close: 'Close'
     },
     fr: {
+      featuredTool: 'Outil à la une',
+      latestUpdate: 'Dernière mise à jour',
+      exploreTools: 'Explorer les outils',
       search: 'Rechercher', menu: 'Menu', theme: 'Apparence', colors: 'Couleur',
       auto: 'Auto', light: 'Clair', soft: 'Doux', dark: 'Sombre',
       language: 'Langue', share: 'Partager', copyLink: 'Copier le lien', copied: 'Copié',
@@ -54,6 +63,9 @@
       searchPlaceholder: 'Rechercher…', searchGo: 'Rechercher', close: 'Fermer'
     },
     es: {
+      featuredTool: 'Herramienta destacada',
+      latestUpdate: 'Última actualización',
+      exploreTools: 'Explorar herramientas',
       search: 'Buscar', menu: 'Menú', theme: 'Apariencia', colors: 'Color',
       auto: 'Auto', light: 'Claro', soft: 'Suave', dark: 'Oscuro',
       language: 'Idioma', share: 'Compartir', copyLink: 'Copiar enlace', copied: 'Copiado',
@@ -69,6 +81,9 @@
       searchPlaceholder: 'Buscar…', searchGo: 'Buscar', close: 'Cerrar'
     },
     tr: {
+      featuredTool: 'Öne çıkan araç',
+      latestUpdate: 'Son güncelleme',
+      exploreTools: 'Araçları keşfet',
       search: 'Ara', menu: 'Menü', theme: 'Görünüm', colors: 'Renk',
       auto: 'Otomatik', light: 'Açık', soft: 'Yumuşak', dark: 'Koyu',
       language: 'Dil', share: 'Paylaş', copyLink: 'Bağlantıyı kopyala', copied: 'Kopyalandı',
@@ -84,6 +99,9 @@
       searchPlaceholder: 'Ara…', searchGo: 'Ara', close: 'Kapat'
     },
     ur: {
+      featuredTool: 'نمایاں ٹول',
+      latestUpdate: 'آخری اپ ڈیٹ',
+      exploreTools: 'ٹولز دیکھیں',
       search: 'تلاش', menu: 'مینو', theme: 'ظاہری شکل', colors: 'رنگ',
       auto: 'خودکار', light: 'روشن', soft: 'نرم', dark: 'تاریک',
       language: 'زبان', share: 'شیئر کریں', copyLink: 'لنک کاپی کریں', copied: 'کاپی ہو گیا',
