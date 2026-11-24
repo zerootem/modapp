@@ -8,6 +8,7 @@
   --mw-linkB: var(--linkB);
   --mw-linkC: var(--linkC);
   --mw-white: #ffffff;
+  --mw-onAccent: var(--mw-white);
   --mw-notifB: var(--notifB);
   --mw-notifC: var(--notifC);
   --mw-contentBa: var(--contentBa);
@@ -192,7 +193,7 @@ header > div {
 .minifier-header-actions { display: flex; gap: 0.4rem; align-items: center; }
 .minifier-btn { font-family: inherit; padding: 0.2rem 0.5rem; border: 1px solid var(--mw-contentL); color: var(--mw-bodyC); border-radius: 0.375rem; cursor: pointer; font-size: 0.65rem; font-weight: 500; transition: 0.1s; display: inline-flex; align-items: center; gap: 0.3rem; white-space: nowrap; background: var(--mw-contentB); }
 .minifier-btn:hover { background: var(--mw-contentBa); border-color: var(--mw-linkC); color: var(--mw-linkC); }
-.minifier-btn.primary { background: var(--mw-linkC) !important; border-color: var(--mw-linkC) !important; color: var(--mw-white) !important; }
+.minifier-btn.primary { background: var(--mw-linkC) !important; border-color: var(--mw-linkC) !important; color: var(--mw-onAccent) !important; }
 .minifier-btn.primary:hover { opacity: 0.9; }
 .minifier-btn.icon-only { width: 27px !important; height: 27px !important; border-radius: 50% !important; padding: 0 !important; justify-content: center !important; gap: 0 !important; font-size: 0 !important; background: var(--mw-contentBa) !important; color: var(--mw-notifC) !important; border: 1px solid var(--mw-contentL) !important; }
 .minifier-btn.icon-only svg { width: 18px; height: 18px; }
@@ -234,7 +235,7 @@ header > div {
   background: var(--mw-contentBa);
 }
 .svg-btn:hover { background: var(--mw-contentBa); border-color: var(--mw-linkC); color: var(--mw-linkC); }
-.svg-btn.primary { background: var(--mw-linkC) !important; border-color: var(--mw-linkC) !important; color: var(--mw-white) !important; }
+.svg-btn.primary { background: var(--mw-linkC) !important; border-color: var(--mw-linkC) !important; color: var(--mw-onAccent) !important; }
 .svg-btn.primary:hover { opacity: 0.9; }
 .svg-btn.icon-only {
   width: 30px !important; height: 30px !important; border-radius: 50% !important;
@@ -242,7 +243,7 @@ header > div {
   font-size: 0 !important; background: var(--mw-contentBa) !important;
   color: var(--mw-bodyC) !important;
 }
-.svg-btn.icon-only:hover { background: var(--mw-linkC) !important; color: var(--mw-white) !important; }
+.svg-btn.icon-only:hover { background: var(--mw-linkC) !important; color: var(--mw-onAccent) !important; }
 .svg-main { padding: 0.75rem; display: flex; flex-direction: column; gap: 0.75rem; }
 .svg-actions-bar { display: flex; gap: 0.3rem; align-items: center; flex-wrap: wrap; background: var(--mw-contentBa); padding: 4px 6px; border-radius: 0.3rem; border: 1px solid var(--mw-contentL); }
 .preview-strip { display: flex; gap: 1rem; padding: 0.75rem; background: var(--mw-contentB); border: 1px solid var(--mw-contentL); border-radius: 0.3rem; align-items: center; flex-wrap: wrap; }
@@ -469,7 +470,7 @@ body.mw-thumbnail-expanded .tool-embed-frame {
   width: 30px; height: 30px; padding: 0; border: 1px solid var(--mw-contentL);
   border-radius: 50%; background: var(--mw-contentBa); color: var(--mw-bodyC); cursor: pointer;
 }
-.article-embed-expand:hover { border-color: var(--mw-linkC); background: var(--mw-linkC); color: var(--mw-white); }
+.article-embed-expand:hover { border-color: var(--mw-linkC); background: var(--mw-linkC); color: var(--mw-onAccent); }
 .article-embed-expand svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .article-embed-frame-wrap { flex: 1 1 0; min-width: 0; min-height: 0; overflow: hidden; background: var(--mw-bodyB); }
 .article-embed-frame { display: block; width: 100%; height: 100%; min-height: 0; border: 0; background: var(--mw-bodyB); visibility: hidden; }
@@ -698,8 +699,8 @@ body.mw-thumbnail-expanded .tool-tag-directory { display: none !important; }
   z-index: 10050;
   padding: .45rem .8rem;
   border-radius: .5rem;
-  background: var(--mw-linkC);
-  color: #fff;
+  background: var(--mw-headC);
+  color: var(--mw-bodyB);
   font-size: .82rem;
   font-weight: 600;
   text-decoration: none;
@@ -709,5 +710,5 @@ body.mw-thumbnail-expanded .tool-tag-directory { display: none !important; }
 
 .skip-to-content:focus-visible {
   transform: translateY(0);
-  outline-color: var(--mw-headC);
+  outline-color: var(--mw-linkC);
 }

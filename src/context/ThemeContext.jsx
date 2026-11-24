@@ -7,10 +7,11 @@ const ACCENT_STORAGE_KEY = 'mw-accent-v1';
 const THEME_KEYS = [
   'iconC','iconCa','iconCs','headC','bodyC','bodyCa','bodyB','linkC','linkB','headerC','headerB','headerHc',
   'notifB','notifC','contentB','contentBs','contentBa','contentL','contentLa','fotB','fotC','transB','statusC',
-  'selectC','selectB','scrollT','scrollB','scrollBh','scrollBa','scrollH','scrollV','scrollR','aInvert','svgW','svgH','svgC'
+  'selectC','selectB','scrollT','scrollB','scrollBh','scrollBa','scrollH','scrollV','scrollR','aInvert','svgW','svgH','svgC','onAccent'
 ];
 const MODE_TOKENS = {
   light: {
+    onAccent:'#ffffff',
     iconC:'var(--lIconC)',iconCa:'var(--lIconCa)',iconCs:'var(--lIconCs)',headC:'var(--lHeadC)',bodyC:'var(--lBodyC)',bodyCa:'var(--lBodyCa)',bodyB:'var(--lBodyB)',
     linkC:'var(--lLinkC)',linkB:'var(--lLinkB)',headerC:'var(--lHeaderC)',headerB:'var(--lHeaderB)',headerHc:'var(--headerH)',
     notifB:'var(--lNotifB)',notifC:'var(--lNotifC)',contentB:'var(--lContentB)',contentBs:'#f1f1f0',contentBa:'#f6f6f6',contentL:'var(--lContentL)',contentLa:'#b5b5b4',
@@ -18,6 +19,7 @@ const MODE_TOKENS = {
     scrollT:'rgba(0,0,0,.05)',scrollB:'rgba(0,0,0,.15)',scrollBh:'rgba(0,0,0,.25)',scrollBa:'rgba(0,0,0,.25)',scrollH:'8px',scrollV:'var(--scrollH)',scrollR:'2px',aInvert:'0',svgW:'22px',svgH:'22px',svgC:'currentColor'
   },
   dark: {
+    onAccent:'#111827',
     iconC:'var(--darkT)',iconCa:'#94a3b8',iconCs:'var(--darkL)',headC:'var(--darkT)',bodyC:'var(--darkT)',bodyCa:'var(--darkT)',bodyB:'var(--darkB)',
     linkC:'var(--darkL)',linkB:'var(--darkL)',headerC:'var(--darkT)',headerB:'var(--darkB)',headerHc:'var(--headerH)',
     notifB:'var(--darkBa)',notifC:'rgba(255,255,255,.9)',contentB:'#252526',contentBs:'#303031',contentBa:'#252526',contentL:'#444444',contentLa:'#696969',

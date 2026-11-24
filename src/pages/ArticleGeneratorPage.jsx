@@ -30,7 +30,7 @@ function ArticleGeneratorPage() {
         style.id = ACCENT_STYLE_ID;
         frameDocument.head?.appendChild(style);
       }
-      style.textContent = `:root{--lLinkC:${accent.light};--lLinkB:${accent.soft};--lIconCs:${accent.light};--lHeaderB:${accent.light};--darkL:${accent.dark};}`;
+      style.textContent = `:root{--lLinkC:${accent.light};--lLinkB:${accent.soft};--lIconCs:${accent.light};--lHeaderB:${accent.light};--darkL:${accent.dark};}.dark{--white:#111827;}`;
       frameDocument.documentElement.classList.toggle('dark', isDark);
       frameDocument.body?.classList.toggle('dark', isDark);
       frameDocument.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
