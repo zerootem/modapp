@@ -494,7 +494,7 @@ body.mw-article-expanded .article-embed-frame-wrap,
 body.mw-article-expanded .article-embed-frame { width: 100vw !important; height: calc(100dvh - 40px) !important; }
 
 @media (max-width: 640px) {
-  .site-header-inner { min-height: 42px; padding: .45rem .75rem; }
+  .site-header-inner { padding: .45rem .75rem; }
   .site-brand-name { font-size: .92rem; white-space: nowrap; }
   .site-brand .logo-box { flex-basis: 32px; width: 32px; height: 32px; }
   .site-menubar { gap: 0; padding: .04rem; }
