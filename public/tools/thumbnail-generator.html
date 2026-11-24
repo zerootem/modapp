@@ -41,12 +41,12 @@ html.mw-embedded .mw-status{font-size:.72rem}
   --headerC:var(--lHeaderC);--headerB:var(--lHeaderB);--headerHc:var(--headerH);--notifB:var(--lNotifB);--notifC:var(--lNotifC);
   --contentB:var(--lContentB);--contentBs:#f1f1f0;--contentBa:#f6f6f6;--contentL:var(--lContentL);--contentLa:#b5b5b4;
   --fotB:var(--lBodyB);--fotC:var(--lBodyC);--transB:rgba(0,0,0,.05);--aInvert:0;--statusC:var(--lStatusC);--selectC:#ffffff;--selectB:var(--lLinkB);
-  --iconC:var(--lIconC);--iconCa:var(--lIconCa);--iconCs:var(--lIconCs);--svgW:22px;--svgH:22px;--svgC:currentColor;
+  --onAccent:#ffffff;--iconC:var(--lIconC);--iconCa:var(--lIconCa);--iconCs:var(--lIconCs);--svgW:22px;--svgH:22px;--svgC:currentColor;
   --scrollH:8px;--scrollV:var(--scrollH);--scrollR:2px;--border-radius:.5rem;--btn-radius:.375rem;--icon-btn-size:28px;
   --shadow-sm:0 1px 3px rgba(0,0,0,.04);--shadow-md:0 4px 12px rgba(0,0,0,.06);--transition:var(--trans-2, .2s ease);
 }
 html.dark,body.dark,:root.drK,html.drK{
-  --bodyB:var(--darkB);--bodyC:var(--darkT);--bodyCa:var(--darkT);--headC:var(--darkT);--linkC:var(--darkL);--linkB:var(--darkL);--linkL:var(--darkBa);
+  --bodyB:var(--darkB);--onAccent:#111827;--bodyC:var(--darkT);--bodyCa:var(--darkT);--headC:var(--darkT);--linkC:var(--darkL);--linkB:var(--darkL);--linkL:var(--darkBa);
   --headerB:var(--darkB);--headerC:var(--darkT);--notifB:var(--darkBa);--notifC:rgba(255,255,255,.9);--fotB:var(--darkB);--fotC:var(--darkT);
   --contentB:#252526;--contentBs:#303031;--contentBa:#252526;--contentL:#444444;--contentLa:#696969;--transB:rgba(255,255,255,.05);--aInvert:1;
   --iconC:var(--darkT);--iconCa:#94a3b8;--iconCs:var(--darkL);--statusC:var(--lStatusC);--selectC:#ffffff;--selectB:var(--darkL);
@@ -272,7 +272,7 @@ html.dark,body.dark,:root.drK,html.drK{
 .mw-section.dragging { opacity: 0.5; box-shadow: var(--shadow-md); }
 .mw-section.drop-target {
   border-color: var(--linkC);
-  box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--linkC) 22%, transparent);
 }
 .mw-section.collapsed .mw-section-body { display: none; }
 .mw-section-header {
@@ -392,7 +392,7 @@ html.dark,body.dark,:root.drK,html.drK{
 .mw-field .mw-select:focus {
   outline: none;
   border-color: var(--linkC);
-  box-shadow: 0 0 0 2px rgba(59,130,246,0.1);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--linkC) 14%, transparent);
 }
 .mw-field .mw-input[type="file"] {
   padding: 1px;
@@ -481,7 +481,7 @@ html.dark,body.dark,:root.drK,html.drK{
 .mw-tag-input-row .mw-input:focus {
   outline: none;
   border-color: var(--linkC);
-  box-shadow: 0 0 0 2px rgba(59,130,246,0.1);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--linkC) 14%, transparent);
 }
 .mw-add-tag-btn {
   width: 28px;
@@ -755,9 +755,20 @@ body { margin:0; min-height:100vh; background:var(--bodyB,var(--lBodyB,#f9fafb))
 }
 .mw-thumb-generator .mw-header-actions button.mw-btn.icon-only.primary,
 .mw-thumb-generator .mw-header-actions button.mw-btn.icon-only.primary:hover {
-  background:var(--linkC)!important; border-color:var(--linkC)!important; color:#fff!important;
+  background:var(--linkC)!important; border-color:var(--linkC)!important; color:var(--onAccent)!important;
 }
 .mw-thumb-generator .mw-header-actions button:focus-visible { outline:2px solid var(--linkC); outline-offset:2px; }
+
+/* ألوان النص فوق لون السمة — متزامنة مع القالب في الوضعين */
+.mw-thumb-generator .mw-btn.primary,
+.mw-thumb-generator .mw-btn.primary:hover,
+.mw-ai-actions .mw-btn.primary,
+.mw-ai-actions .mw-btn.primary:hover,
+.mw-ai-result-actions .mw-btn.primary,
+.mw-ai-result-actions .mw-btn.primary:hover,
+.mw-thumb-generator .mw-header-actions button.mw-btn.icon-only.primary,
+.mw-thumb-generator .mw-header-actions button.mw-btn.icon-only.primary:hover { color: var(--onAccent) !important; }
+
 
 </style>
 
@@ -2338,7 +2349,13 @@ console.log('مولد الصور المصغرة V3 جاهز (نسخة modweeb)')
   applyCurrentTheme(themeMode);
   window.addEventListener('message', function(event){
     var data=event.data||{};
-    if(data.type==='mw-theme') applyCurrentTheme(data.theme, data.tokens);
+    if(data.type==='mw-theme'){ applyCurrentTheme(data.theme, data.tokens); try{ document.documentElement.dataset.mwTheme=(data.theme||'')+'|'+(data.accent||''); }catch(e){} }
+    if(data.type==='mw-accent' && data.accent){
+      var ac=data.accent, st=document.documentElement.style;
+      st.setProperty('--lLinkC', ac.light); st.setProperty('--lLinkB', ac.soft);
+      st.setProperty('--lIconCs', ac.light); st.setProperty('--lHeaderB', ac.light);
+      st.setProperty('--darkL', ac.dark);
+    }
     if(data.type==='mw-embed') document.documentElement.classList.toggle('mw-embedded', !!data.embed);
   });
   if(/[?&]embed=1/.test(location.search)) document.documentElement.classList.add('mw-embedded');

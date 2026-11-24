@@ -10,7 +10,7 @@
   border-bottom: 1px solid var(--mw-contentL);
   color: var(--mw-bodyC);
 }
-.modweeb-fullpage > header > div { padding-block: .35rem; }
+.modweeb-fullpage > header > div { padding-block: .5rem; }
 
 .tools-page {
   display: flex;

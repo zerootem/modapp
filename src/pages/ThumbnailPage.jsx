@@ -1,30 +1,44 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { getAccentTheme } from '../data/accentThemes';
 import ToolPageGuide from '../components/ToolPageGuide';
 
-const THEME_KEYS = ['iconC','iconCa','iconCs','headC','bodyC','bodyCa','bodyB','linkC','linkB','headerC','headerB','headerHc','notifB','notifC','contentB','contentBs','contentBa','contentL','contentLa','fotB','fotC','transB','statusC','selectC','selectB','scrollT','scrollB','scrollBh','scrollBa','scrollH','scrollV','scrollR','aInvert','svgW','svgH','svgC'];
+const THEME_KEYS = ['iconC','iconCa','iconCs','headC','bodyC','bodyCa','bodyB','linkC','linkB','headerC','headerB','headerHc','notifB','notifC','contentB','contentBs','contentBa','contentL','contentLa','fotB','fotC','transB','statusC','selectC','selectB','scrollT','scrollB','scrollBh','scrollBa','scrollH','scrollV','scrollR','aInvert','svgW','svgH','svgC','onAccent'];
 
 function ThumbnailPage() {
-  const { theme } = useTheme();
+  const { theme, accentTheme } = useTheme();
   const frameRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const frame = frameRef.current;
     if (!frame) return undefined;
-    const sync = (mode = theme) => {
+    const sync = (mode = theme, accent = accentTheme) => {
       const rootStyle = getComputedStyle(document.documentElement);
       const tokens = Object.fromEntries(THEME_KEYS.map((key) => [key, rootStyle.getPropertyValue(`--mw-${key}`).trim()]));
-      frame.contentWindow?.postMessage({ type: 'mw-theme', theme: mode, tokens }, window.location.origin);
+      frame.contentWindow?.postMessage({ type: 'mw-theme', theme: mode, accent, tokens }, window.location.origin);
+      frame.contentWindow?.postMessage({ type: 'mw-accent', accent: getAccentTheme(accent) }, window.location.origin);
       frame.contentWindow?.postMessage({ type: 'mw-embed', embed: true }, window.location.origin);
       frame.contentWindow?.postMessage({ type: 'mw-thumbnail-fullscreen-state', expanded }, window.location.origin);
     };
-    const onThemeChange = (event) => sync(event.detail?.mode || theme);
+    const onThemeChange = (event) => sync(event.detail?.mode || theme, event.detail?.accent || accentTheme);
     window.addEventListener('mw-theme-change', onThemeChange);
     sync();
-    const timer = setTimeout(sync, 400);
-    return () => { clearTimeout(timer); window.removeEventListener('mw-theme-change', onThemeChange); };
-  }, [theme, expanded]);
+    const timers = [300, 900, 2000].map((delay) => setTimeout(() => sync(), delay));
+    const check = setInterval(() => {
+      try {
+        const applied = frame.contentDocument?.documentElement?.dataset?.mwTheme;
+        if (applied !== `${theme}|${accentTheme}`) sync();
+      } catch {
+        sync();
+      }
+    }, 2500);
+    return () => {
+      timers.forEach(clearTimeout);
+      clearInterval(check);
+      window.removeEventListener('mw-theme-change', onThemeChange);
+    };
+  }, [theme, accentTheme, expanded]);
 
   useEffect(() => {
     const frame = frameRef.current;
@@ -58,7 +72,8 @@ function ThumbnailPage() {
     const rootStyle = getComputedStyle(document.documentElement);
     const tokens = Object.fromEntries(THEME_KEYS.map((key) => [key, rootStyle.getPropertyValue(`--mw-${key}`).trim()]));
     const child = frameRef.current?.contentWindow;
-    child?.postMessage({ type: 'mw-theme', theme, tokens }, window.location.origin);
+    child?.postMessage({ type: 'mw-theme', theme, accent: accentTheme, tokens }, window.location.origin);
+    child?.postMessage({ type: 'mw-accent', accent: getAccentTheme(accentTheme) }, window.location.origin);
     child?.postMessage({ type: 'mw-embed', embed: true }, window.location.origin);
     child?.postMessage({ type: 'mw-thumbnail-fullscreen-state', expanded }, window.location.origin);
   };
