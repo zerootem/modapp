@@ -61,11 +61,15 @@
     <meta expr:content='data:blog.title.escaped' property='og:title'/>
     <meta expr:content='data:blog.title.escaped' property='og:site_name'/>
     <meta expr:content='data:blog.url.canonical' property='og:url'/>
-    <meta expr:content='data:blog.metaDescription.escaped' property='og:description'/>
+    <b:if cond='data:blog.metaDescription'>
+      <meta expr:content='data:blog.metaDescription.escaped' property='og:description'/>
+    </b:if>
     <meta expr:content='data:blog.blogspotFaviconUrl' property='og:image'/>
     <meta content='summary' name='twitter:card'/>
     <meta expr:content='data:blog.title.escaped' name='twitter:title'/>
-    <meta expr:content='data:blog.metaDescription.escaped' name='twitter:description'/>
+    <b:if cond='data:blog.metaDescription'>
+      <meta expr:content='data:blog.metaDescription.escaped' name='twitter:description'/>
+    </b:if>
   </b:if>
 
   <!-- structured data -->
@@ -95,7 +99,7 @@
         "dateModified": "<b:eval expr='data:post.date format &quot;yyyy-MM-dd&quot;'/>",
         "author": { "@type": "Person", "name": "<data:post.author.name.jsonEscaped/>" },
         "publisher": { "@type": "Organization", "name": "<data:blog.title.jsonEscaped/>", "logo": { "@type": "ImageObject", "url": "<data:blog.blogspotFaviconUrl.jsonEscaped/>" } },
-        "description": "<data:post.snippets.short.jsonEscaped/>"
+        "description": "<b:if cond='data:post.snippets.short'><data:post.snippets.short.jsonEscaped/></b:if>"
       }
     </script>
   </b:if>
@@ -514,18 +518,7 @@
       <b:includable id='comments' var='post'>
         <section class='comments-wrap' id='comments'>
           <h2>التعليقات <span class='comment-count'>(<data:post.numberOfComments/>)</span></h2>
-          <b:if cond='data:post.commentPagingRequired'>
-            <div class='comment-paging'>
-              <b:if cond='data:post.hasOlderLinks'>
-                <a expr:href='data:post.oldLinkClass'><data:messages.oldest/></a>
-                <a expr:href='data:post.olderLinkClass'><data:messages.older/></a>
-              </b:if>
-              <b:if cond='data:post.hasNewerLinks'>
-                <a expr:href='data:post.newLinkClass'><data:messages.newer/></a>
-                <a expr:href='data:post.newestLinkClass'><data:messages.newest/></a>
-              </b:if>
-            </div>
-          </b:if>
+              
           <b:if cond='data:post.comments'>
             <ul class='comment-thread'>
               <b:loop values='data:post.comments' var='comment'>
@@ -560,7 +553,7 @@
           <a name='comment-form'/>
           <h3 data-i18n='comments'>التعليقات</h3>
           <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src' style='display:none'>comment form</a>
-          <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' frameborder='0' height='410' id='comment-editor' name='comment-editor' src='' width='100%'></iframe>
+          <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:src='data:post.commentFormIframeSrc' frameborder='0' height='410' id='comment-editor' name='comment-editor' width='100%'></iframe>
           <script src='https://www.blogger.com/static/v1/jsbin/1769625011-comment_from_post_iframe.js' type='text/javascript'></script>
           <script type='text/javascript'>BLOG_CMT_createIframe('<data:post.appRpcRelayPath/>');</script>
         </div>
