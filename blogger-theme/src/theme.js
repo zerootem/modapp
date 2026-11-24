@@ -231,7 +231,9 @@
       var open = target.classList.contains('is-open');
       closeAll(target);
       target.classList.toggle('is-open', !open);
-      btn.setAttribute('aria-expanded', String(!open));
+      document.querySelectorAll('[aria-controls="' + targetId + '"]').forEach(function (b) {
+        b.setAttribute('aria-expanded', String(!open));
+      });
       if (targetId === 'main-nav') {
         syncNavState(!open);
         if (!open) target.scrollTop = 0;

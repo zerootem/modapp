@@ -342,8 +342,10 @@ hr { border: 0; border-top: 1px solid var(--mw-border); margin: 2rem 0; }
 .header-inner {
   position: relative; z-index: 1;
   min-height: var(--mw-hdr-h);
-  display: flex; align-items: center; gap: clamp(8px, 1.6vw, 18px);
+  display: flex; align-items: center; gap: clamp(6px, 1.2vw, 16px);
 }
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.page-head .page-lead { color: var(--mw-muted); max-width: 62ch; margin: 0; font-size: .95rem; }
 
 .brand { display: inline-flex; align-items: center; gap: .6rem; min-width: 0; color: var(--mw-heading); }
 .brand:hover { color: var(--mw-heading); }
@@ -500,6 +502,7 @@ html[dir="ltr"] .popover { inset-inline-start: 0; }
    Home: hero / featured / grids
    ========================================================= */
 .page-head { padding-block: clamp(22px, 4vw, 40px) 6px; }
+.page-head.is-bare { padding-block: 0; height: 0; overflow: hidden; }
 .page-head h1 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); margin-bottom: .25rem; }
 .page-head p { color: var(--mw-muted); max-width: 62ch; margin: 0; font-size: .95rem; }
 
@@ -1074,7 +1077,7 @@ html[dir="rtl"] .prose ol.steps > li { padding: .7rem 3.2rem .7rem .9rem; }
   .prose { font-size: 1rem; }
   .prose h2 { border-block-end: 0; padding-block-end: 0; }
   .footer-top { grid-template-columns: 1fr; }
-  .brand-logo { width: 30px; height: 30px; flex-basis: 30px; }
+  .brand-logo { width: 32px; height: 32px; flex-basis: 32px; }
 }
 @media (max-width: 420px) {
   .header-actions { gap: 2px; }
@@ -1281,10 +1284,11 @@ body#layout .container { width: auto; }
       <!-- listing -->
       <b:includable id='listPage'>
         <div class='page-head'>
+          <b:class cond='data:view.isHomepage and not data:blog.description' name='is-bare'/>
           <b:if cond='data:view.isHomepage'>
-            <h1><data:blog.title/></h1>
+            <h1 class='sr-only'><data:blog.title/></h1>
             <b:if cond='data:blog.description'>
-              <p><data:blog.description/></p>
+              <p class='page-lead'><data:blog.description/></p>
             </b:if>
           <b:elseif cond='data:view.isLabelSearch'/>
             <p class='badge soft'># <data:view.search.label/></p>
@@ -1909,7 +1913,9 @@ body#layout .container { width: auto; }
       var open = target.classList.contains('is-open');
       closeAll(target);
       target.classList.toggle('is-open', !open);
-      btn.setAttribute('aria-expanded', String(!open));
+      document.querySelectorAll('[aria-controls="' + targetId + '"]').forEach(function (b) {
+        b.setAttribute('aria-expanded', String(!open));
+      });
       if (targetId === 'main-nav') {
         syncNavState(!open);
         if (!open) target.scrollTop = 0;

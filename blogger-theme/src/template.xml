@@ -304,10 +304,11 @@
       <!-- listing -->
       <b:includable id='listPage'>
         <div class='page-head'>
+          <b:class cond='data:view.isHomepage and not data:blog.description' name='is-bare'/>
           <b:if cond='data:view.isHomepage'>
-            <h1><data:blog.title/></h1>
+            <h1 class='sr-only'><data:blog.title/></h1>
             <b:if cond='data:blog.description'>
-              <p><data:blog.description/></p>
+              <p class='page-lead'><data:blog.description/></p>
             </b:if>
           <b:elseif cond='data:view.isLabelSearch'/>
             <p class='badge soft'># <data:view.search.label/></p>
