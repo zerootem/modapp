@@ -217,8 +217,6 @@
   letter-spacing: normal;
 }
 .tools-empty { text-align: start; }
-.site-header-dropdown { width: 158px; }
-.site-header-dropdown a span { text-align: start; }
 
 /* About page: semantic typography, compact cards and logically ordered links. */
 .about-page { width: min(100%, 760px); padding-block: .15rem 1rem; }
@@ -255,7 +253,6 @@
   .tools-page-bottom { gap: .7rem; padding-block-start: .7rem; }
   .tools-page-intro h2 { font-size: .9rem; }
   .tools-page-intro p { font-size: .73rem; }
-  .site-header-dropdown { width: 156px; }
   .about-page { padding-block-end: .6rem; }
   .about-values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .about-value-card { padding: .62rem; }

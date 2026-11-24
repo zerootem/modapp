@@ -1,0 +1,39 @@
+:root[data-accent-theme='violet'] {
+  --lLinkC: #6d28d9;
+  --lLinkB: #f5f3ff;
+  --lIconCs: #6d28d9;
+  --lHeaderB: #6d28d9;
+  --darkL: #c084fc;
+}
+
+:root[data-accent-theme='teal'] {
+  --lLinkC: #0f766e;
+  --lLinkB: #f0fdfa;
+  --lIconCs: #0f766e;
+  --lHeaderB: #0f766e;
+  --darkL: #2dd4bf;
+}
+
+:root[data-accent-theme='emerald'] {
+  --lLinkC: #15803d;
+  --lLinkB: #f0fdf4;
+  --lIconCs: #15803d;
+  --lHeaderB: #15803d;
+  --darkL: #4ade80;
+}
+
+:root[data-accent-theme='rose'] {
+  --lLinkC: #be123c;
+  --lLinkB: #fff1f2;
+  --lIconCs: #be123c;
+  --lHeaderB: #be123c;
+  --darkL: #fb7185;
+}
+
+:root[data-accent-theme='amber'] {
+  --lLinkC: #b45309;
+  --lLinkB: #fffbeb;
+  --lIconCs: #b45309;
+  --lHeaderB: #b45309;
+  --darkL: #fbbf24;
+}

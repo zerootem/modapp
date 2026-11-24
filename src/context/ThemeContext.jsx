@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { ACCENT_THEMES } from '../data/accentThemes';
 
 const ThemeContext = createContext();
 const THEME_STORAGE_KEY = 'mw-theme-v2';
+const ACCENT_STORAGE_KEY = 'mw-accent-v1';
 const THEME_KEYS = [
   'iconC','iconCa','iconCs','headC','bodyC','bodyCa','bodyB','linkC','linkB','headerC','headerB','headerHc',
   'notifB','notifC','contentB','contentBs','contentBa','contentL','contentLa','fotB','fotC','transB','statusC',
@@ -31,6 +33,13 @@ function notifyTheme(mode) {
 }
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => localStorage.getItem(THEME_STORAGE_KEY) || 'system');
+  const [accentTheme, setAccentThemeState] = useState(() => {
+    const stored = localStorage.getItem(ACCENT_STORAGE_KEY);
+    return ACCENT_THEMES.some((option) => option.id === stored) ? stored : 'blue';
+  });
+  const setAccentTheme = useCallback((nextAccent) => {
+    if (ACCENT_THEMES.some((option) => option.id === nextAccent)) setAccentThemeState(nextAccent);
+  }, []);
   const applyTheme = useCallback((mode) => {
     const isDark = mode === 'dark' || (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     const root = document.documentElement;
@@ -45,6 +54,8 @@ export function ThemeProvider({ children }) {
     root.style.setProperty('--mw-breadcrumb-sep', isDark ? '#8a8f98' : 'var(--lIconCa)');
   }, []);
   useEffect(() => {
+    document.documentElement.dataset.accentTheme = accentTheme;
+    localStorage.setItem(ACCENT_STORAGE_KEY, accentTheme);
     localStorage.setItem(THEME_STORAGE_KEY, theme);
     applyTheme(theme);
     notifyTheme(theme);
@@ -53,7 +64,7 @@ export function ThemeProvider({ children }) {
     const update = () => { applyTheme('system'); notifyTheme('system'); };
     if (media.addEventListener) { media.addEventListener('change', update); return () => media.removeEventListener('change', update); }
     media.addListener(update); return () => media.removeListener(update);
-  }, [theme, applyTheme]);
-  return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>;
+  }, [theme, accentTheme, applyTheme]);
+  return <ThemeContext.Provider value={{ theme, setTheme, accentTheme, setAccentTheme }}>{children}</ThemeContext.Provider>;
 }
 export function useTheme() { return useContext(ThemeContext); }

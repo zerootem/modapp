@@ -16,6 +16,7 @@ import TermsPage from './pages/TermsPage';
 import ToolTagDirectory from './components/ToolTagDirectory';
 import '@fontsource-variable/jetbrains-mono';
 import './App.css';
+import './styles/accent-themes.css';
 import './styles/typography.css';
 import './styles/react-theme-adaptations.css';
 
