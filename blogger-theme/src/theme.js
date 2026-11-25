@@ -9,6 +9,8 @@
   /* ---------------- i18n ---------------- */
   var I18N = {
     ar: {
+social: 'تابعنا',
+            footerDesc: 'قالب بلوجر عربي احترافي مع أدوات توليد المحتوى، مصمم للسرعة والوضوح وتجربة قراءة مريحة على كل الأجهزة.',
       featuredTool: 'أداة مميزة',
       latestUpdate: 'آخر تحديث',
       exploreTools: 'استكشف الأدوات',
@@ -27,7 +29,9 @@
       searchPlaceholder: 'ابحث في المدونة…', searchGo: 'بحث', close: 'إغلاق'
     },
     en: {
-      featuredTool: 'Featured tool',
+social: 'Follow us',
+footerDesc: 'A professional Arabic-first Blogger theme with content tools, built for speed, clarity and comfortable reading on every device.',
+            featuredTool: 'Featured tool',
       latestUpdate: 'Last updated',
       exploreTools: 'Explore tools',
       search: 'Search', menu: 'Menu', theme: 'Appearance', colors: 'Accent color',
@@ -45,7 +49,9 @@
       searchPlaceholder: 'Search this blog…', searchGo: 'Search', close: 'Close'
     },
     fr: {
-      featuredTool: 'Outil à la une',
+social: 'Suivez-nous',
+footerDesc: 'Un thème Blogger professionnel axé arabe avec des outils de contenu, pensé pour la vitesse et le confort de lecture.',
+            featuredTool: 'Outil à la une',
       latestUpdate: 'Dernière mise à jour',
       exploreTools: 'Explorer les outils',
       search: 'Rechercher', menu: 'Menu', theme: 'Apparence', colors: 'Couleur',
@@ -63,7 +69,9 @@
       searchPlaceholder: 'Rechercher…', searchGo: 'Rechercher', close: 'Fermer'
     },
     es: {
-      featuredTool: 'Herramienta destacada',
+social: 'Síguenos',
+footerDesc: 'Un tema profesional de Blogger con herramientas de contenido, diseñado para la velocidad y una lectura cómoda.',
+            featuredTool: 'Herramienta destacada',
       latestUpdate: 'Última actualización',
       exploreTools: 'Explorar herramientas',
       search: 'Buscar', menu: 'Menú', theme: 'Apariencia', colors: 'Color',
@@ -81,7 +89,9 @@
       searchPlaceholder: 'Buscar…', searchGo: 'Buscar', close: 'Cerrar'
     },
     tr: {
-      featuredTool: 'Öne çıkan araç',
+social: 'Bizi takip edin',
+footerDesc: 'İçerik araçlarıyla hızlı ve konforlu okuma için tasarlanmış profesyonel bir Blogger teması.',
+            featuredTool: 'Öne çıkan araç',
       latestUpdate: 'Son güncelleme',
       exploreTools: 'Araçları keşfet',
       search: 'Ara', menu: 'Menü', theme: 'Görünüm', colors: 'Renk',
@@ -99,7 +109,9 @@
       searchPlaceholder: 'Ara…', searchGo: 'Ara', close: 'Kapat'
     },
     ur: {
-      featuredTool: 'نمایاں ٹول',
+social: 'ہمیں فالو کریں',
+footerDesc: 'مواد سازی کے آلات کے ساتھ ایک پیشہ ور بلاگر تھیم، تیز اور آرام دہ پڑھائی کے لیے۔',
+            featuredTool: 'نمایاں ٹول',
       latestUpdate: 'آخری اپ ڈیٹ',
       exploreTools: 'ٹولز دیکھیں',
       search: 'تلاش', menu: 'مینو', theme: 'ظاہری شکل', colors: 'رنگ',
@@ -266,7 +278,7 @@
   function initControls() {
     document.querySelectorAll('[data-toggle]').forEach(bindToggle);
     document.addEventListener('click', function (e) {
-      if (!e.target.closest('.popover, .site-search, .main-nav, [data-toggle]')) closeAll();
+      if (e.target.closest('[data-close-search]') || e.target.classList.contains('site-search') || !e.target.closest('.popover, .site-search, .main-nav, [data-toggle]')) closeAll();
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeAll();

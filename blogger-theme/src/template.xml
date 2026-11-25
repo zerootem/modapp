@@ -141,18 +141,29 @@
 <header class='site-header'>
   <div class='header-inner'>
     <a class='brand' expr:href='data:blog.homepageUrl' expr:title='data:blog.title'>
-      <span aria-hidden='true' class='brand-name'>By Modweeb</span>
-      <span class='logo-box' aria-hidden='true'>
-        <svg viewBox='0 0 514 514' xmlns='http://www.w3.org/2000/svg'>
-    <rect fill='#ffffff' height='514' rx='116' width='514'/>
-    <g transform='translate(257 257) scale(0.86) translate(-257 -226)'>
-      <path d='M195 167.9c-3.4 1.7-8 7.3-28 33.2l-8.8 11.5 14 18.2 14 18.2 3.8-3.4c6.6-6 14.2-7 21.3-2.8 2.5 1.5 19 22.2 68 85.9 6.5 8.4 13 16 14.5 17.1 6.5 4.5 15.5 5.5 20.2 2.2 2.7-1.9 43-53 43-54.5a301 301 0 0 0-24.2-30.3c-.5.2-5.5 6.4-11.1 13.7-9.5 12.4-13 16.2-14 15L273 247c-58.8-76.2-59.3-76.8-63.1-79a15.7 15.7 0 0 0-15-.1' fill='rgba(225,20,98,.9)'/>
-      <path d='M104 180.4c-2 1.3-4.8 4.6-6.3 7.4-5.7 10.6-4.6 20.3 3.7 31C182 322.5 204.4 351 206.1 352c7 3.7 12.7 2.8 18-2.8a948 948 0 0 0 29.2-37c.6-.8-3-6-11.3-16.8L230 280l-4.5 3.2c-8.6 6.1-19.4 4.8-27-3.4-1.7-1.8-19.4-24.3-39.3-50a1327.4 1327.4 0 0 0-39.2-49.2c-4.1-3.5-11-3.6-16-.2' fill='rgba(111,202,220,.9)'/>
-      <path d='M312 173.6c-2 1.2-35.7 43.5-42.7 53.4-1 1.5.4 3.8 10.3 16.6l12.4 15.7a87 87 0 0 0 13-15c6.7-8.7 12.8-15.8 13.5-15.8 1.3 0 39 47.6 44.2 56a950 950 0 0 0 35.7 45.4c3 2.4 10.8 2.6 15.2.3 10-5.1 16.2-17.1 13.4-25.6-.6-1.9-9.5-14.3-19.8-27.5L362.5 220a1046 1046 0 0 1-29-38.4c-4.1-6.6-8.5-9.5-14.4-9.5-2.5 0-5.7.8-7.1 1.6' fill='rgba(61,184,143,.9)'/>
-      <path d='M106.8 282.6c-24.2 31.2-24.8 32-26.3 36.4a26.2 26.2 0 0 0 4.1 24.5c4.7 6.2 12 8.2 18.3 5a830 830 0 0 0 43.3-54c.6-1.1-21.2-30.7-23.2-31.4a191 191 0 0 0-16.2 19.5m298.8-118c-3 .8-8.8 4.8-12.2 8.4a446.8 446.8 0 0 0-26.1 38c-.3 1.1 4 7.6 11.4 17.3 11 14.7 11.9 15.5 13.3 13.7l14-20a4025 4025 0 0 1 16.2-23.3c8.5-12 7-28.6-2.9-33.3a26 26 0 0 0-13.7-.8' fill='rgba(233,169,32,.9)'/>
-    </g>
-        </svg>
-      </span>
+      <b:section class='header-logo' id='logo' maxwidgets='1' showaddelement='false'>
+        <b:widget id='Header1' locked='true' title='Logo' type='Header' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='displayUrl'/>
+            <b:widget-setting name='displayHeight'>0</b:widget-setting>
+            <b:widget-setting name='sectionWidth'>-1</b:widget-setting>
+            <b:widget-setting name='useImage'>false</b:widget-setting>
+            <b:widget-setting name='shrinkToFit'>false</b:widget-setting>
+            <b:widget-setting name='imagePlacement'>REPLACE</b:widget-setting>
+            <b:widget-setting name='displayWidth'>0</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main' var='this'>
+            <b:if cond='data:sourceUrl'>
+              <img class='brand-img' expr:alt='data:blog.title' expr:src='resizeImage(data:sourceUrl, 96, &quot;1:1&quot;)' height='30' width='30'/>
+            </b:if>
+          </b:includable>
+          <b:includable id='behindImageStyle'/>
+          <b:includable id='description'/>
+          <b:includable id='image'/>
+          <b:includable id='title'/>
+        </b:widget>
+      </b:section>
+      <span class='brand-name'>By Modweeb</span>
       <span class='sr-only'><data:blog.title/></span>
     </a>
 
@@ -165,7 +176,6 @@
         </button>
         <div class='popover menubar-popup' id='pages-pop' role='dialog'>
           <ul class='menu-list'>
-            <li><a expr:href='data:blog.homepageUrl'><svg aria-hidden='true' class='mi' viewBox='0 0 24 24'><path d='M3 10.5 12 3l9 7.5'/><path d='M5 9.5V21h14V9.5'/></svg><span data-i18n='home'>الرئيسية</span></a></li>
             <b:section class='header-nav' id='nav' maxwidgets='1' showaddelement='false'>
               <b:widget id='PageList1' locked='false' title='Pages' type='PageList' version='2' visible='true'>
                 <b:includable id='main'>
@@ -179,15 +189,6 @@
                 </b:includable>
               </b:widget>
             </b:section>
-          </ul>
-          <p class='popover-title' data-i18n='language'>اللغة</p>
-          <ul class='lang-grid'>
-            <li><button aria-pressed='false' data-lang-option='ar' type='button'>العربية</button></li>
-            <li><button aria-pressed='false' data-lang-option='en' type='button'>English</button></li>
-            <li><button aria-pressed='false' data-lang-option='fr' type='button'>Français</button></li>
-            <li><button aria-pressed='false' data-lang-option='es' type='button'>Español</button></li>
-            <li><button aria-pressed='false' data-lang-option='tr' type='button'>Türkçe</button></li>
-            <li><button aria-pressed='false' data-lang-option='ur' type='button'>اردو</button></li>
           </ul>
         </div>
       </div>
@@ -216,17 +217,41 @@
         </div>
       </div>
 
+      <div class='popover-anchor'>
+        <button aria-controls='lang-pop' aria-expanded='false' class='menubar-trigger' data-i18n-aria='language' data-toggle='lang' type='button'>
+          <svg aria-hidden='true' class='mi' viewBox='0 0 24 24'><circle cx='12' cy='12' r='9'/><path d='M3 12h18'/><path d='M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18'/><path d='M5.6 7.5h12.8M5.6 16.5h12.8'/></svg>
+          <span data-i18n='language'>اللغة</span>
+          <svg aria-hidden='true' class='chev' viewBox='0 0 24 24'><path d='m6 9 6 6 6-6'/></svg>
+        </button>
+        <div class='popover menubar-popup lang-pop' id='lang-pop' role='dialog'>
+          <ul class='lang-list'>
+            <li><button aria-pressed='false' data-lang-option='ar' type='button'><span class='lang-name'>العربية</span><span class='lang-code'>ar</span></button></li>
+            <li><button aria-pressed='false' data-lang-option='en' type='button'><span class='lang-name'>English</span><span class='lang-code'>en</span></button></li>
+            <li><button aria-pressed='false' data-lang-option='fr' type='button'><span class='lang-name'>Français</span><span class='lang-code'>fr</span></button></li>
+            <li><button aria-pressed='false' data-lang-option='es' type='button'><span class='lang-name'>Español</span><span class='lang-code'>es</span></button></li>
+            <li><button aria-pressed='false' data-lang-option='tr' type='button'><span class='lang-name'>Türkçe</span><span class='lang-code'>tr</span></button></li>
+            <li><button aria-pressed='false' data-lang-option='ur' type='button'><span class='lang-name'>اردو</span><span class='lang-code'>ur</span></button></li>
+          </ul>
+        </div>
+      </div>
       <button aria-controls='site-search' aria-expanded='false' class='menubar-trigger' data-i18n-aria='search' data-toggle='search' type='button'>
         <svg aria-hidden='true' class='mi' viewBox='0 0 24 24'><circle cx='11' cy='11' r='7'/><path d='m20 20-3.5-3.5'/></svg>
       </button>
     </div>
   </div>
 
-  <div class='site-search' id='site-search'>
-    <form class='search-form' expr:action='data:blog.searchUrl' method='get' role='search'>
-      <input aria-label='Search' data-i18n-placeholder='searchPlaceholder' name='q' placeholder='ابحث في المدونة…' type='search'/>
-      <button type='submit'><svg aria-hidden='true' class='mi' viewBox='0 0 24 24'><circle cx='11' cy='11' r='7'/><path d='m20 20-3.5-3.5'/></svg><span data-i18n='searchGo'>بحث</span></button>
-    </form>
+  <div class='site-search' id='site-search' role='dialog' aria-label='Search'>
+    <div class='search-card'>
+      <div class='search-head'>
+        <svg aria-hidden='true' class='mi' viewBox='0 0 24 24'><circle cx='11' cy='11' r='7'/><path d='m20 20-3.5-3.5'/></svg>
+        <span data-i18n='search'>بحث</span>
+        <button aria-label='Close' class='search-close' data-close-search='true' type='button'><svg aria-hidden='true' class='mi' viewBox='0 0 24 24'><path d='M6 6l12 12M18 6 6 18'/></svg></button>
+      </div>
+      <form class='search-form' expr:action='data:blog.searchUrl' method='get' role='search'>
+        <input aria-label='Search' data-i18n-placeholder='searchPlaceholder' name='q' placeholder='ابحث في المدونة…' type='search'/>
+        <button type='submit'><svg aria-hidden='true' class='mi' viewBox='0 0 24 24'><circle cx='11' cy='11' r='7'/><path d='m20 20-3.5-3.5'/></svg><span data-i18n='searchGo'>بحث</span></button>
+      </form>
+    </div>
   </div>
 </header>
 
@@ -536,17 +561,56 @@
 
 <!-- ===================== Footer ===================== -->
 <footer class='site-footer'>
-  <span class='footer-copyright' dir='auto'><span aria-hidden='true'>©</span> <span data-year='true'>2026</span> ‧ كل الحقوق محفوظة لـ <a href='https://www.modweeb.com' rel='noopener' target='_blank'>مود ويب</a> ‧</span>
-  <div class='footer-utilities'>
-    <div class='theme-switcher' role='group' data-i18n-aria='theme'>
-      <button aria-pressed='false' class='theme-switch-btn' data-mode-option='auto' data-i18n-aria='auto' type='button'><svg aria-hidden='true' viewBox='0 0 24 24'><rect height='14' rx='2' width='20' x='2' y='3'/><path d='M8 21h8M12 17v4'/></svg></button>
-      <button aria-pressed='false' class='theme-switch-btn' data-mode-option='light' data-i18n-aria='light' type='button'><svg aria-hidden='true' viewBox='0 0 24 24'><circle cx='12' cy='12' r='4'/><path d='M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4'/></svg></button>
-      <button aria-pressed='false' class='theme-switch-btn' data-mode-option='dark' data-i18n-aria='dark' type='button'><svg aria-hidden='true' viewBox='0 0 24 24'><path d='M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z'/></svg></button>
+  <div class='footer-main'>
+    <div class='footer-col footer-brand'>
+      <a class='footer-logo' expr:href='data:blog.homepageUrl'>
+        <span aria-hidden='true' class='footer-mark'>
+          <svg viewBox='0 0 514 514' xmlns='http://www.w3.org/2000/svg'>
+    <rect fill='#ffffff' height='514' rx='116' width='514'/>
+    <g transform='translate(257 257) scale(0.86) translate(-257 -226)'>
+      <path d='M195 167.9c-3.4 1.7-8 7.3-28 33.2l-8.8 11.5 14 18.2 14 18.2 3.8-3.4c6.6-6 14.2-7 21.3-2.8 2.5 1.5 19 22.2 68 85.9 6.5 8.4 13 16 14.5 17.1 6.5 4.5 15.5 5.5 20.2 2.2 2.7-1.9 43-53 43-54.5a301 301 0 0 0-24.2-30.3c-.5.2-5.5 6.4-11.1 13.7-9.5 12.4-13 16.2-14 15L273 247c-58.8-76.2-59.3-76.8-63.1-79a15.7 15.7 0 0 0-15-.1' fill='rgba(225,20,98,.9)'/>
+      <path d='M104 180.4c-2 1.3-4.8 4.6-6.3 7.4-5.7 10.6-4.6 20.3 3.7 31C182 322.5 204.4 351 206.1 352c7 3.7 12.7 2.8 18-2.8a948 948 0 0 0 29.2-37c.6-.8-3-6-11.3-16.8L230 280l-4.5 3.2c-8.6 6.1-19.4 4.8-27-3.4-1.7-1.8-19.4-24.3-39.3-50a1327.4 1327.4 0 0 0-39.2-49.2c-4.1-3.5-11-3.6-16-.2' fill='rgba(111,202,220,.9)'/>
+      <path d='M312 173.6c-2 1.2-35.7 43.5-42.7 53.4-1 1.5.4 3.8 10.3 16.6l12.4 15.7a87 87 0 0 0 13-15c6.7-8.7 12.8-15.8 13.5-15.8 1.3 0 39 47.6 44.2 56a950 950 0 0 0 35.7 45.4c3 2.4 10.8 2.6 15.2.3 10-5.1 16.2-17.1 13.4-25.6-.6-1.9-9.5-14.3-19.8-27.5L362.5 220a1046 1046 0 0 1-29-38.4c-4.1-6.6-8.5-9.5-14.4-9.5-2.5 0-5.7.8-7.1 1.6' fill='rgba(61,184,143,.9)'/>
+      <path d='M106.8 282.6c-24.2 31.2-24.8 32-26.3 36.4a26.2 26.2 0 0 0 4.1 24.5c4.7 6.2 12 8.2 18.3 5a830 830 0 0 0 43.3-54c.6-1.1-21.2-30.7-23.2-31.4a191 191 0 0 0-16.2 19.5m298.8-118c-3 .8-8.8 4.8-12.2 8.4a446.8 446.8 0 0 0-26.1 38c-.3 1.1 4 7.6 11.4 17.3 11 14.7 11.9 15.5 13.3 13.7l14-20a4025 4025 0 0 1 16.2-23.3c8.5-12 7-28.6-2.9-33.3a26 26 0 0 0-13.7-.8' fill='rgba(233,169,32,.9)'/>
+    </g>
+        </svg>
+        </span>
+        <span class='footer-name'>By Modweeb</span>
+      </a>
+      <p class='footer-desc' data-i18n='footerDesc'>قالب بلوجر عربي احترافي مع أدوات توليد المحتوى، مصمم للسرعة والوضوح وتجربة قراءة مريحة على كل الأجهزة.</p>
     </div>
-    <nav class='footer-social' data-i18n-aria='social'>
-      <a aria-label='Email' href='mailto:modweeb3@gmail.com'><svg aria-hidden='true' viewBox='0 0 24 24'><rect height='14' rx='2' width='18' x='3' y='5'/><path d='m3 7 9 6 9-6'/></svg></a>
-      <a aria-label='GitHub' href='https://github.com/zerootem' rel='noopener' target='_blank'><svg aria-hidden='true' class='social-github' viewBox='0 0 24 24'><path d='M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.32-3.76-1.32-.5-1.29-1.24-1.63-1.24-1.63-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.16 1.71 1.16 1 .1.78 2.21 4.58 1.56.1-.72.39-1.22.7-1.5-2.47-.28-5.06-1.24-5.06-5.52 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.42.11-2.96 0 0 .95-.3 3.05 1.15a10.6 10.6 0 0 1 5.56 0c2.1-1.45 3.05-1.15 3.05-1.15.61 1.54.23 2.68.11 2.96.72.78 1.16 1.78 1.16 3 0 4.29-2.6 5.23-5.08 5.5.4.35.75 1.02.75 2.06v3.05c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z'/></svg></a>
+    <nav class='footer-col'>
+      <h2 class='footer-title' data-i18n='pages'>الصفحات</h2>
+      <ul class='footer-links'>
+        <b:section class='footer-nav' id='footernav' maxwidgets='1' showaddelement='false'>
+          <b:widget id='PageList2' locked='false' title='Footer Pages' type='PageList' version='2' visible='true'>
+            <b:includable id='main'>
+              <b:if cond='data:links'>
+                <b:loop values='data:links' var='link'>
+                  <li><a expr:href='data:link.href'><svg aria-hidden='true' class='mi' viewBox='0 0 24 24'><path d='m9 6 6 6-6 6'/></svg><span><data:link.title/></span></a></li>
+                </b:loop>
+              </b:if>
+            </b:includable>
+          </b:widget>
+        </b:section>
+      </ul>
     </nav>
+    <div class='footer-col'>
+      <h2 class='footer-title' data-i18n='social'>تابعنا</h2>
+      <nav class='footer-social' data-i18n-aria='social'>
+        <a aria-label='Email' href='mailto:modweeb3@gmail.com'><svg aria-hidden='true' viewBox='0 0 24 24'><rect height='14' rx='2' width='18' x='3' y='5'/><path d='m3 7 9 6 9-6'/></svg></a>
+        <a aria-label='GitHub' href='https://github.com/zerootem' rel='noopener' target='_blank'><svg aria-hidden='true' class='social-github' viewBox='0 0 24 24'><path d='M12 .9a11.1 11.1 0 0 0-3.5 21.6c.6.1.8-.2.8-.6v-2.2c-3.1.7-3.8-1.3-3.8-1.3-.5-1.3-1.2-1.7-1.2-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.2-5.1-5.5 0-1.2.4-2.2 1.2-3-.1-.3-.5-1.4.1-2.9 0 0 .9-.3 3 1.2a10.4 10.4 0 0 1 5.5 0c2.1-1.5 3-1.2 3-1.2.6 1.5.2 2.6.1 2.9.7.8 1.2 1.8 1.2 3 0 4.3-2.6 5.2-5.1 5.5.4.3.7 1 .7 2v3c0 .4.2.7.8.6A11.1 11.1 0 0 0 12 .9Z'/></svg></a>
+      </nav>
+      <div class='theme-switcher' data-i18n-aria='theme' role='group'>
+        <button aria-pressed='false' class='theme-switch-btn' data-mode-option='auto' data-i18n-aria='auto' type='button'><svg aria-hidden='true' viewBox='0 0 24 24'><rect height='14' rx='2' width='20' x='2' y='5'/><path d='M12 5v14'/></svg></button>
+        <button aria-pressed='false' class='theme-switch-btn' data-mode-option='light' data-i18n-aria='light' type='button'><svg aria-hidden='true' viewBox='0 0 24 24'><circle cx='12' cy='12' r='4'/><path d='M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4'/></svg></button>
+        <button aria-pressed='false' class='theme-switch-btn' data-mode-option='dark' data-i18n-aria='dark' type='button'><svg aria-hidden='true' viewBox='0 0 24 24'><path d='M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z'/></svg></button>
+      </div>
+    </div>
+  </div>
+  <div class='footer-bottom'>
+    <span class='footer-copyright' dir='auto'><span aria-hidden='true'>©</span> <span data-year='true'>2026</span> ‧ كل الحقوق محفوظة لـ <a href='https://www.modweeb.com' rel='noopener' target='_blank'>مود ويب</a> ‧</span>
+    <span class='footer-credit'>صُنع بـ <span class='heart' aria-hidden='true'>❤</span> بواسطة <a href='https://www.modweeb.com' rel='noopener' target='_blank'>ModWeeb</a></span>
   </div>
 </footer>
 
