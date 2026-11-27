@@ -88,19 +88,37 @@ html.dark,body.dark,:root.drK,html.drK{
    شريط الإشعارات
    ============================================================ */
 .mw-status {
-  font-size: 9px;
-  color: var(--notifC);
-  padding: 2px 12px;
-  background: var(--notifB);
+  box-sizing: border-box;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1px;
+  line-height: 1.5;
+  color: var(--linkC);
+  background: color-mix(in srgb, var(--linkC) 10%, var(--contentB));
   text-align: center;
-  display: none;
   position: sticky;
   z-index: 1000;
   width: 100%;
   top: 0;
-  border-bottom: 1px solid var(--contentL);
+  overflow: hidden;
+  max-height: 0;
+  padding: 0 14px;
+  border-bottom: 1px solid transparent;
+  opacity: 0;
+  transform: translateY(-6px);
+  clip-path: inset(0 0 100% 0);
+  transition: opacity .3s ease, transform .32s cubic-bezier(.34,1.4,.64,1), clip-path .32s ease, max-height .3s ease, padding .3s ease, border-color .3s ease;
+  pointer-events: none;
 }
-.mw-status.error { color: #ef4444; }
+.mw-status.show {
+  opacity: 1;
+  transform: translateY(0);
+  clip-path: inset(0 0 0 0);
+  max-height: 40px;
+  padding: 5px 14px;
+  border-bottom-color: var(--contentL);
+}
+.mw-status.error { color: #ef4444; background: rgba(239,68,68,.08); border-bottom-color: rgba(239,68,68,.28); }
 
 /* ============================================================
    الهيدر
@@ -1217,9 +1235,10 @@ let notifTimeout = null;
 function showNotification(msg, isError = false) {
   clearTimeout(notifTimeout);
   statusEl.textContent = msg;
-  statusEl.style.display = 'block';
   statusEl.className = 'mw-status' + (isError ? ' error' : '');
-  notifTimeout = setTimeout(() => { statusEl.style.display = 'none'; }, 2200);
+  void statusEl.offsetWidth;
+  statusEl.classList.add('show');
+  notifTimeout = setTimeout(() => { statusEl.classList.remove('show'); }, 2400);
 }
 
 function hexToRgba(hex, alpha = 1) {
