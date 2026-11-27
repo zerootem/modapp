@@ -191,7 +191,7 @@ function ImageToSvg() {
 
   return (
     <div className="svg-tool" ref={toolRef}>
-      <div className="svg-status" style={{ display: statusMsg ? 'block' : 'none', color: statusError ? '#ef4444' : 'var(--mw-notifC)' }}>
+      <div className={`svg-status${statusMsg ? ' show' : ''}${statusError ? ' error' : ''}`} role="status" aria-live="polite">
         {statusMsg}
       </div>
 
@@ -265,14 +265,7 @@ function ImageToSvg() {
               <option value="1">عالية</option>
             </select>
           </div>
-          <button onClick={togglePreview} className="svg-btn icon-only" title="إخفاء/عرض المعاينة">
-            <svg className="line" viewBox="0 0 24 24">
-              <path d="M14.53 9.47L9.47 14.53c-.65-.65-1.05-1.54-1.05-2.53 0-1.98 1.6-3.58 3.58-3.58.99 0 1.88.4 2.53 1.05z"/>
-              <path d="M17.82 5.77C16.07 4.45 14.07 3.73 12 3.73 8.47 3.73 5.18 5.81 2.89 9.41c-.9 1.41-.9 3.78 0 5.19.79 1.24 1.71 2.31 2.71 3.17"/>
-              <path d="M8.42 19.53c1.14.48 2.35.74 3.58.74 3.53 0 6.82-2.08 9.11-5.18.9-1.41.9-3.78 0-5.19-.33-.52-.69-1.01-1.06-1.47"/>
-              <path d="M15.51 12.7c-.26 1.41-1.41 2.56-2.82 2.82M9.47 14.53L2 22M22 2l-7.47 7.47"/>
-            </svg>
-          </button>
+
           <button onClick={resetAll} className="svg-btn icon-only" title="مسح">
             <svg className="line" viewBox="0 0 24 24">
               <path d="M21 5.98c-3.33-.33-6.68-.5-10.02-.5-1.98 0-3.96.1-5.94.3L3 5.98"/>

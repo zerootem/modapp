@@ -563,8 +563,8 @@ body.mw-article-expanded .article-embed-frame { width: 100vw !important; height:
 }
 .tool-usage-guide h2 { margin: 0 !important; font-size: .95rem !important; }
 .tool-usage-guide .mw-steps { margin: .45rem 0 0; }
-.tool-usage-guide .mw-steps > li { margin-block: .38rem; gap: .5rem; font-size: .82rem; line-height: 1.55; }
-.tool-usage-guide .mw-steps > li::before { flex-basis: 1.45rem; width: 1.45rem; height: 1.45rem; }
+.tool-usage-guide .mw-steps > li { margin-block: .38rem; padding-inline-start: 2.1rem; font-size: .82rem; line-height: 1.55; }
+.tool-usage-guide .mw-steps > li::before { width: 1.45rem; height: 1.45rem; }
 .tool-page-workspace { margin-block-start: .8rem; }
 .tool-page-workspace > :first-child { margin-block-start: 0; }
 

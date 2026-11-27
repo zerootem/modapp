@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CodeMinifier from '../components/CodeMinifier';
 import ToolPageGuide from '../components/ToolPageGuide';
+import ToolShell from '../components/ToolShell';
 
 function ToolDetail() {
+  const [preview, setPreview] = useState(false);
   return (
     <ToolPageGuide
       toolId="code-minifier"
@@ -15,7 +17,16 @@ function ToolDetail() {
         'راجع الإحصاءات والنتيجة، ثم انسخ الكود أو نزّله عند الحاجة.',
       ]}
     >
-      <CodeMinifier />
+      <ToolShell
+        title="ضاغط الأكواد"
+        subtitle="JavaScript · CSS · HTML"
+        previewLabel="نتيجة الضغط"
+        preview={preview}
+        onPreviewChange={setPreview}
+        icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6M14 4l-4 16" /></svg>}
+      >
+        <CodeMinifier previewVisible={preview} />
+      </ToolShell>
     </ToolPageGuide>
   );
 }

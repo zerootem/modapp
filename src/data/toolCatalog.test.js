@@ -9,16 +9,16 @@ import {
 } from './toolCatalog.js';
 
 test('selects the most recently updated tool from its recorded source date', () => {
-  assert.equal(getNewestTool()?.id, 'article-generator');
+  assert.equal(getNewestTool()?.id, 'faq-generator');
 });
 
 test('returns the explicitly featured tool without changing the catalog', () => {
   assert.equal(getFeaturedTool()?.id, 'thumbnail-generator');
-  assert.equal(toolCatalog.length, 4);
+  assert.equal(toolCatalog.length, 6);
 });
 
 test('filters by an exact, case-sensitive label and returns all tools for no filter', () => {
-  assert.deepEqual(filterToolsByTag('SEO').map((tool) => tool.id), ['article-generator']);
+  assert.deepEqual(filterToolsByTag('SEO').map((tool) => tool.id), ['article-generator', 'faq-generator', 'robots-generator']);
   assert.deepEqual(filterToolsByTag('JavaScript').map((tool) => tool.id), ['code-minifier']);
   assert.equal(filterToolsByTag(null).length, toolCatalog.length);
   assert.deepEqual(filterToolsByTag('غير موجود'), []);

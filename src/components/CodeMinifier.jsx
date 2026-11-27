@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { minifyJavaScript } from '../minifyJavaScript.js';
 
-function CodeMinifier() {
+function CodeMinifier({ previewVisible = false }) {
   const [currentType, setCurrentType] = useState('css');
   const [inputCode, setInputCode] = useState('');
   const [originalCode, setOriginalCode] = useState('');
@@ -331,14 +331,12 @@ function CodeMinifier() {
 
   return (
     <div className="minifier-tool">
-      <div id="minifierStatus" className="minifier-status" style={{ display: statusMsg ? 'block' : 'none', color: statusError ? '#ef4444' : 'var(--notifC,#888)' }}>
+      <div id="minifierStatus" className={`minifier-status${statusMsg ? ' show' : ''}${statusError ? ' error' : ''}`} role="status" aria-live="polite">
         {statusMsg}
       </div>
 
       <div className="minifier-header">
-        <div className="minifier-header-title">
-          <span>ضاغط الأكواد</span>
-        </div>
+
         <div className="minifier-header-actions">
           <button onClick={proUndo} className="minifier-btn icon-only" title="استرجاع">
             <svg className="tool-icon" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>

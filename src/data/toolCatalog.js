@@ -42,6 +42,24 @@ export const toolCatalog = Object.freeze([
     publishedAt: '2026-11-21',
     updatedAt: '2026-11-22',
   },
+  {
+    id: 'faq-generator',
+    to: '/tools/faq-generator',
+    title: 'مولّد الأسئلة الشائعة',
+    description: 'أنشئ قسم أسئلة شائعة منسّقاً مع Schema FAQPage بخمسة أنماط عرض، وجاهزاً للنسخ إلى مدونتك.',
+    tags: ['SEO', 'Schema', 'كتابة المحتوى'],
+    publishedAt: '2026-11-28',
+    updatedAt: '2026-11-28',
+  },
+  {
+    id: 'robots-generator',
+    to: '/tools/robots-generator',
+    title: 'مولّد ملف robots.txt',
+    description: 'ولّد ملف robots.txt متوافقاً مع بلوجر وووردبريس وشوبيفاي وغيرها، مع قواعد الزحف والبوتات وخريطة الموقع.',
+    tags: ['SEO', 'Blogger', 'WordPress'],
+    publishedAt: '2026-11-28',
+    updatedAt: '2026-11-28',
+  },
 ]);
 
 export const FEATURED_TOOL_ID = 'thumbnail-generator';

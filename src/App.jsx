@@ -10,6 +10,8 @@ import ToolDetail from './pages/ToolDetail';
 import ImageToSvgPage from './pages/ImageToSvgPage';
 import ThumbnailPage from './pages/ThumbnailPage';
 import ArticleGeneratorPage from './pages/ArticleGeneratorPage';
+import FaqGeneratorPage from './pages/FaqGeneratorPage';
+import RobotsGeneratorPage from './pages/RobotsGeneratorPage';
 import AboutPage from './pages/AboutPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsPage from './pages/TermsPage';
@@ -18,6 +20,7 @@ import './App.css';
 import './styles/accent-themes.css';
 import './styles/typography.css';
 import './styles/react-theme-adaptations.css';
+import './styles/tool-shell.css';
 
 function App() {
   return (
@@ -37,6 +40,8 @@ function App() {
                 <Route path="/tools/image-to-svg" element={<ImageToSvgPage />} />
                 <Route path="/tools/thumbnail-generator" element={<ThumbnailPage />} />
                 <Route path="/tools/article-generator" element={<ArticleGeneratorPage />} />
+                <Route path="/tools/faq-generator" element={<FaqGeneratorPage />} />
+                <Route path="/tools/robots-generator" element={<RobotsGeneratorPage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/privacy" element={<PrivacyPolicyPage />} />
                 <Route path="/terms" element={<TermsPage />} />
